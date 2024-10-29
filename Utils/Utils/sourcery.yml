@@ -1,0 +1,9 @@
+sources:
+  - .
+templates:
+  - ${TEMPLATES_DIR}
+output: ${DERIVED_SOURCES_DIR}
+args:
+  Library:
+    - Foundation
+    - SwiftUI
