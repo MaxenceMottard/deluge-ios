@@ -20,3 +20,18 @@ struct ScalableButtonStyle: ButtonStyle {
             }
     }
 }
+
+extension ButtonStyle where Self == ScalableButtonStyle {
+    static var scalable: ScalableButtonStyle {
+        ScalableButtonStyle()
+    }
+}
+
+
+#Preview {
+    Button(action: {}) {
+        Color.red
+            .frame(width: 200, height: 200)
+    }
+    .buttonStyle(.scalable)
+}

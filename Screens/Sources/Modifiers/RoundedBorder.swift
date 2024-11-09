@@ -24,7 +24,7 @@ struct RoundedBorder: ViewModifier {
 }
 
 extension View {
-    func roundedBorder(_ color: Color, width: CGFloat, radius: CGFloat) -> some View {
+    nonisolated func roundedBorder(_ color: Color, width: CGFloat, radius: CGFloat) -> some View {
         self.modifier(RoundedBorder(color: color, lineWidth: width, cornerRadius: radius))
     }
 }

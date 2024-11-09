@@ -8,6 +8,7 @@
 
 import Networking
 
+// sourcery: AutoMockable
 public protocol CheckConfigurationWebWorking: Sendable {
     func run(instanceUrl url: String, apiKey: String) async throws
 }

@@ -25,7 +25,10 @@ let package = Package(
                 .product(name: "Utils", package: "Utils"),
                 .product(name: "Swinject", package: "Swinject"),
             ],
-            path: "Sources"
+            path: "Sources",
+            plugins: [
+                .plugin(name: "SourceryPlugin", package: "Utils"),
+            ]
         ),
     ]
 )

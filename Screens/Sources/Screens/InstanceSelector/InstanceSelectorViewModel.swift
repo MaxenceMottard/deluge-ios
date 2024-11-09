@@ -37,7 +37,7 @@ class InstanceSelectorViewModel {
     }
 
     func addInstance() {
-        dependencies.router.present(route: Route.Login(), modal: .sheet)
+        dependencies.router.present(route: Route.NewInstance(), modal: .sheet)
     }
 
     func remove(instance: Instance) {

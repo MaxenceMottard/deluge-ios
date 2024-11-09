@@ -7,6 +7,7 @@
 
 import Foundation
 
+// sourcery: AutoMockable
 public protocol InstanceWorking: AnyObject {
     typealias Instances = Set<Instance>
 
@@ -15,5 +16,4 @@ public protocol InstanceWorking: AnyObject {
 
     func remove(instance: Instance)
     func select(instance: Instance)
-//    func observe<Value>(apply: @escaping () -> Value, execute: @escaping (Value) -> Void)
 }

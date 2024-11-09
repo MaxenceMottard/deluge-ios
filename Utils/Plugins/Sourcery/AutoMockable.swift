@@ -226,7 +226,7 @@ extension SourceryBuildToolPlugin {
             {% if type|annotated:"Unavailable" %}
             @available({{ type.annotations.Unavailable }}, unavailable)
             {% endif %}
-            {% call accessLevel type.accessLevel %}class {{ type.name }}Mock: {{ type.name }} {
+            {% call accessLevel type.accessLevel %}class {{ type.name }}Mock: @unchecked Sendable, {{ type.name }} {
 
                 {% if type.accessLevel == "public" %}public init() {}{% endif %}
 

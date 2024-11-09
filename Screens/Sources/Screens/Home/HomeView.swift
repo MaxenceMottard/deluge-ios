@@ -24,8 +24,7 @@ struct HomeView: View {
             ScrollView {
                 if let selectedInstance = viewModel.selectedInstance {
                     VStack {
-                        Text(selectedInstance.url)
-                            .frame(maxWidth: .infinity, alignment: .leading)
+                        LabeledContent("Instance", value: selectedInstance.name)
 
                         LazyVGrid(columns: columns) {
                             ForEach(viewModel.series) { serie in
@@ -73,8 +72,8 @@ struct HomeView: View {
                             .foregroundStyle(.white)
                             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
                             .padding(8)
-                            .background(.white.opacity(0.2))
-                            .roundedBorder(.white.opacity(0.4), width: 1, radius: 8)
+                            .background(.white.opacity(0.1))
+                            .roundedBorder(.white.opacity(0.3), width: 1, radius: 8)
                     }
                 }
                 .cornerRadius(8)

@@ -22,7 +22,7 @@ public class InstanceWorker: InstanceWorking {
         didSet { update(instances: instances) }
     }
     public var selectedInstance: Instance? {
-        didSet { update(instances: instances) }
+        didSet { update(selectedInstance: selectedInstance) }
     }
 
     public init(keychainWorker: KeychainWorking) {
@@ -47,18 +47,6 @@ public class InstanceWorker: InstanceWorking {
         selectedInstance = newSelectedInstance
         keychainWorker.save(for: Constants.selectedInstanceKey, value: newSelectedInstance)
     }
-
-//    public func observe<Value>(apply: @escaping () -> Value, execute: @escaping (Value) -> Void) {
-//        let value = withObservationTracking {
-//            apply()
-//        } onChange: {
-//            Task { [weak self] in
-//                self?.observe(apply: apply, execute: execute)
-//            }
-//        }
-//
-//        execute(value)
-//    }
 
     // MARK: Private methods
 

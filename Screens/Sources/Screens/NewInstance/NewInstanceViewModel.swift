@@ -1,5 +1,5 @@
 //
-//  LoginViewModel.swift
+//  NewInstanceViewModel.swift
 //  Deluge
 //
 //  Created by Maxence Mottard on 28/10/2024.
@@ -12,7 +12,7 @@ import Utils
 
 @Observable
 @MainActor
-class LoginViewModel {
+class NewInstanceViewModel {
     struct Dependencies {
         let checkConfigurationWebWorker: CheckConfigurationWebWorking
         let instanceWorker: InstanceWorking
@@ -23,8 +23,14 @@ class LoginViewModel {
 
     // MARK: State
 
-    var serverUrl: String = ""
+    var name: String = ""
+    var url: String = ""
     var apiKey: String = ""
+    var type: Instance.InstanceType = .sonarr
+
+    var isFormValid: Bool {
+        !name.isEmpty && !url.isEmpty && !apiKey.isEmpty
+    }
 
     // MARK: Init
 
@@ -36,8 +42,10 @@ class LoginViewModel {
 
     func login() async {
         do {
-            try await dependencies.checkConfigurationWebWorker.run(instanceUrl: serverUrl, apiKey: apiKey)
-            let newInstance = Instance(url: serverUrl, apiKey: apiKey)
+            guard isFormValid else { return }
+
+            try await dependencies.checkConfigurationWebWorker.run(instanceUrl: url, apiKey: apiKey)
+            let newInstance = Instance(type: type, name: name, url: url, apiKey: apiKey)
             dependencies.instanceWorker.instances.insert(newInstance)
             dependencies.instanceWorker.selectedInstance = newInstance
             dependencies.router.dismiss()

@@ -58,7 +58,7 @@ let package = Package(
             dependencies: [],
             path: "Networking/Sources",
             plugins: [
-                .plugin(name: "SourceryPlugin")
+                .plugin(name: "SourceryPlugin"),
             ]
         ),
         .testTarget(
@@ -70,7 +70,7 @@ let package = Package(
             name: "Routing",
             path: "Routing",
             plugins: [
-                .plugin(name: "SourceryPlugin")
+                .plugin(name: "SourceryPlugin"),
             ]
         ),
         .target(
@@ -81,7 +81,7 @@ let package = Package(
             ],
             path: "Utils/Sources",
             plugins: [
-                .plugin(name: "SourceryPlugin")
+                .plugin(name: "SourceryPlugin"),
             ]
         ),
     ]
