@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Routing
 
 struct LoginView: View {
     @State var viewModel: LoginViewModel
@@ -13,8 +14,9 @@ struct LoginView: View {
     var body: some View {
         VStack {
             TextField("Server Url", text: $viewModel.serverUrl)
-            TextField("Username", text: $viewModel.username)
-            SecureField("Password", text: $viewModel.password)
+                .textContentType(.URL)
+            TextField("Api Key", text: $viewModel.apiKey)
+                .textContentType(.username)
 
             Button("Login") {
                 Task { await viewModel.login() }
@@ -22,3 +24,12 @@ struct LoginView: View {
         }
     }
 }
+
+//#Preview {
+//    LoginView(
+//        viewModel: LoginViewModel(
+//            dependencies: Dependency.loginViewModelDependencies(router: Router())
+//        )
+//    )
+//}
+

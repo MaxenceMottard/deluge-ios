@@ -14,7 +14,7 @@ public struct InitialView: View {
 
     public var body: some View {
         let router = Router()
-        let initialRoute = Route.Login()
+        let initialRoute = Route.Home()
         let initialViewcontroller = initialRoute.viewController(router: router)
         router.setRoot(viewController: initialViewcontroller)
         let navigationController = router.navigationController

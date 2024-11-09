@@ -15,13 +15,15 @@ let package = Package(
         ),
     ],
     dependencies: [
-        .package(path: "./Utils")
+        .package(path: "./Utils"),
+        .package(url: "https://github.com/Swinject/Swinject", exact: "2.9.1"),
     ],
     targets: [
         .target(
             name: "Workers",
             dependencies: [
                 .product(name: "Utils", package: "Utils"),
+                .product(name: "Swinject", package: "Swinject"),
             ],
             path: "Sources"
         ),

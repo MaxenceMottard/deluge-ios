@@ -8,8 +8,14 @@
 import SwiftUI
 
 extension View {
-    public var viewController: UIViewController {
-        return HostingController(rootView: self)
+    public func viewController(
+        title: String,
+        largeTitleDisplayMode: UINavigationItem.LargeTitleDisplayMode
+    ) -> UIViewController {
+        let controller = HostingController(rootView: self)
+        controller.navigationItem.largeTitleDisplayMode = largeTitleDisplayMode
+        controller.title = title
+        return controller
     }
 }
 

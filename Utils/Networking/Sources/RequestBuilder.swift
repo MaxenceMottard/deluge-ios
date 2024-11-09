@@ -60,6 +60,10 @@ public class RequestBuilder<Response: Sendable> {
         return self
     }
 
+    public func set<I: Interceptor>(interceptor: I) throws -> RequestBuilder<Response> {
+        return try interceptor.intercept(request: self)
+    }
+
     public func set<R: Sendable>(responseType: R.Type) -> RequestBuilder<R> {
         let newBuilder = RequestBuilder<R>()
         newBuilder.url = self.url
