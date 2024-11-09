@@ -16,6 +16,7 @@ class HomeViewModel {
     struct Dependencies {
         let instanceWorker: InstanceWorking
         let getSeriesWebWorker: GetSeriesWebWorking
+        let imageCacheWorker: ImageCacheWorking
         let router: Routing
     }
 
@@ -42,7 +43,12 @@ class HomeViewModel {
 
         do {
             series = try await dependencies.getSeriesWebWorker.run()
-            print("[DEBUG] Series: \(series)")
+            series.forEach { serie in
+                Task {
+                    await dependencies.imageCacheWorker.cache(string: serie.banner)
+                    await dependencies.imageCacheWorker.cache(string: serie.poster)
+                }
+            }
         } catch {
             print("[DEBUG] \(error)")
         }

@@ -21,10 +21,7 @@ let package = Package(
         .plugin(name: "SourceryPlugin", targets: ["SourceryPlugin"]),
     ],
     dependencies: [
-//        .package(
-//          url: "https://github.com/kean/Nuke",
-//          from: "12.7.1"
-//        ),
+        .package(url: "https://github.com/kean/Nuke", from: "12.7.1"),
         .package(url: "https://github.com/Swinject/Swinject", exact: "2.9.1"),
     ],
     targets: [
@@ -80,6 +77,7 @@ let package = Package(
             name: "Utils",
             dependencies: [
                 .product(name: "Swinject", package: "Swinject"),
+                .product(name: "Nuke", package: "Nuke"),
             ],
             path: "Utils/Sources",
             plugins: [

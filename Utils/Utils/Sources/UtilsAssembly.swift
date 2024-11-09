@@ -15,6 +15,10 @@ public struct UtilsAssembly: Assembly {
             KeychainWorker()
         }
 
+        container.register(ImageCacheWorking.self) { _ in
+            ImageCacheWorker()
+        }
+
         container.register(InstanceWorking.self) { _ in
             InstanceWorker(keychainWorker: container.resolve(KeychainWorking.self)!)
         }

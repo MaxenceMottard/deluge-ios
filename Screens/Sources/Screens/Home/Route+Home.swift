@@ -21,6 +21,7 @@ struct HomeRoute: Route {
             dependencies: HomeViewModel.Dependencies(
                 instanceWorker: Dependency.resolve(InstanceWorking.self)!,
                 getSeriesWebWorker: Dependency.resolve(GetSeriesWebWorking.self)!,
+                imageCacheWorker: Dependency.resolve(ImageCacheWorking.self)!,
                 router: router
             ),
             instanceSelectorViewModel: InstanceSelectorViewModel(
@@ -33,8 +34,15 @@ struct HomeRoute: Route {
 
         let view = HomeView(viewModel: viewModel).environmentObject(router)
         let viewController = view.viewController(
-            title: "",
-            largeTitleDisplayMode: .never
+            title: "Home",
+            largeTitleDisplayMode: .always
+        )
+
+        viewController.navigationItem.rightBarButtonItem = UIBarButtonItem(
+            title: "Instance",
+            primaryAction: UIAction { _ in
+                router.present(route: Route.InstanceSelector(), modal: .sheet)
+            }
         )
 
         return viewController

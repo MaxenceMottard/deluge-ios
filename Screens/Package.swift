@@ -20,6 +20,7 @@ let package = Package(
         .package(path: "./Utils"),
         .package(path: "./Workers"),
         .package(url: "https://github.com/Swinject/Swinject", exact: "2.9.1"),
+        .package(url: "https://github.com/kean/Nuke", from: "12.7.1"),
     ],
     targets: [        .target(
             name: "Screens",
@@ -27,6 +28,7 @@ let package = Package(
                 "Workers",
                 "Utils",
                 .product(name: "Swinject", package: "Swinject"),
+                .product(name: "NukeUI", package: "Nuke"),
             ],
             path: "Sources",
             plugins: []
