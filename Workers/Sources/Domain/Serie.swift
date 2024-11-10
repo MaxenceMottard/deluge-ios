@@ -11,6 +11,7 @@ public struct Serie: Identifiable, Sendable {
     public let id: Int
     public let title: String
     public let description: String
+    public let year: Int
     public let status: Status
     public let poster: String?
     public let banner: String?
@@ -21,6 +22,24 @@ public struct Serie: Identifiable, Sendable {
         case upcoming
         case deleted
     }
+
+    public init(
+        id: Int,
+        title: String,
+        description: String,
+        year: Int,
+        status: Status,
+        poster: String?,
+        banner: String?
+    ) {
+        self.id = id
+        self.title = title
+        self.description = description
+        self.year = year
+        self.status = status
+        self.poster = poster
+        self.banner = banner
+    }
 }
 
 extension GetSeriesWebWorkingResponse {
@@ -29,6 +48,7 @@ extension GetSeriesWebWorkingResponse {
             id: id,
             title: title,
             description: overview,
+            year: year,
             status: status.toDomain(),
             poster: images.first(where: { $0.coverType == .poster })?.remoteUrl,
             banner: images.first(where: { $0.coverType == .banner })?.remoteUrl

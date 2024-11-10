@@ -9,6 +9,7 @@ import SwiftUI
 import Routing
 import NukeUI
 import Workers
+import Utils
 
 struct HomeView: View {
     @State var viewModel: HomeViewModel
@@ -57,39 +58,79 @@ struct HomeView: View {
         let serie: Serie
 
         var body: some View {
-            ViewWithRatio(ratio: 0.68) {
-                LazyImage(url: URL(string: serie.poster)) { state in
-                    if let image = state.image {
-                        image
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                    } else if state.isLoading {
-                        Color.clear
-                    } else {
-                        Text(serie.title)
-                            .font(.body)
-                            .multilineTextAlignment(.leading)
-                            .foregroundStyle(.white)
-                            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-                            .padding(8)
-                            .background(.white.opacity(0.1))
-                            .roundedBorder(.white.opacity(0.3), width: 1, radius: 8)
+            VStack {
+                ViewWithRatio(ratio: 0.68) {
+                    LazyImage(url: URL(string: serie.poster)) { state in
+                        if let image = state.image {
+                            image
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                        } else if state.isLoading {
+                            Color.clear
+                        } else {
+                            ContainerView {
+                                Text(serie.title)
+                                    .font(.body)
+                                    .multilineTextAlignment(.leading)
+                                    .foregroundStyle(.white)
+                                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+                                    .padding(8)
+                            }
+                        }
                     }
+                    .cornerRadius(8)
                 }
-                .cornerRadius(8)
+                .readSize($size)
+
+                Text(serie.title)
+                    .lineLimit(1)
+                    .font(.caption)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+
+                Text(String(serie.year))
+                    .font(.caption2)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .foregroundStyle(.gray)
+                    .hidden(serie.year == 0)
             }
-            .readSize($size)
         }
     }
 }
 
-//#Preview {
-//    HomeView(
-//        viewModel: HomeViewModel(
-//            dependencies: Dependency.HomeViewModelDependencies(router: Router()),
-//            instanceSelectorViewModel: InstanceSelectorViewModel(
-//                dependencies: Dependency.InstanceSelectorViewModelDependencies(router: Router())
-//            )
-//        )
-//    )
-//}
+#Preview {
+    let instanceWorker: InstanceWorking = {
+        let worker = InstanceWorkingMock()
+        worker.selectedInstance = Instance(
+            type: .sonarr,
+            name: "Test",
+            url: "https://test",
+            apiKey: "test"
+        )
+
+        return worker
+    }()
+
+    let getSeriesWorker: GetSeriesWebWorking = {
+        let worker = GetSeriesWebWorkingMock()
+        worker.runReturnValue = .preview
+
+        return worker
+    }()
+
+    HomeView(
+        viewModel: HomeViewModel(
+            dependencies: HomeViewModel.Dependencies(
+                instanceWorker: instanceWorker,
+                getSeriesWebWorker: getSeriesWorker,
+                imageCacheWorker: ImageCacheWorkingMock(),
+                router: Router()
+            ),
+            instanceSelectorViewModel: InstanceSelectorViewModel(
+                dependencies: InstanceSelectorViewModel.Dependencies(
+                    instanceWorker: instanceWorker,
+                    router: Router()
+                )
+            )
+        )
+    )
+}

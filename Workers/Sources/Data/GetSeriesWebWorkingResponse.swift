@@ -18,6 +18,7 @@ struct GetSeriesWebWorkingResponse: Decodable, Sendable {
     let network: String
     let airTime: String?
     let images: [Image]
+    let year: Int
 
     enum Status: String, Decodable {
         case continuing

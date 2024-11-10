@@ -7,6 +7,7 @@
 
 import Networking
 
+// sourcery: AutoMockable
 public protocol GetSeriesWebWorking: Sendable {
     func run() async throws -> [Serie]
 }
