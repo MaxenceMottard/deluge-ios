@@ -44,7 +44,7 @@ class NewInstanceViewModel {
         do {
             guard isFormValid else { return }
 
-            try await dependencies.checkConfigurationWebWorker.run(instanceUrl: url, apiKey: apiKey)
+            _ = try await dependencies.checkConfigurationWebWorker.run(instanceUrl: url, apiKey: apiKey)
             let newInstance = Instance(type: type, name: name, url: url, apiKey: apiKey)
             dependencies.instanceWorker.instances.insert(newInstance)
             dependencies.instanceWorker.selectedInstance = newInstance

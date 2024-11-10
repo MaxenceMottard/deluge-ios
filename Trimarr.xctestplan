@@ -1,0 +1,36 @@
+{
+  "configurations" : [
+    {
+      "id" : "C4AD89EC-4A89-4C4E-839E-E87FC46D353A",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : false,
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:Trimarr.xcodeproj",
+      "identifier" : "D0E333B82CE1162D00386F70",
+      "name" : "Trimarr"
+    }
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:Utils",
+        "identifier" : "NetworkingTests",
+        "name" : "NetworkingTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:Screens",
+        "identifier" : "ScreensTests",
+        "name" : "ScreensTests"
+      }
+    }
+  ],
+  "version" : 1
+}
