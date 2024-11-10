@@ -124,12 +124,6 @@ struct HomeView: View {
                 getSeriesWebWorker: getSeriesWorker,
                 imageCacheWorker: ImageCacheWorkingMock(),
                 router: Router()
-            ),
-            instanceSelectorViewModel: InstanceSelectorViewModel(
-                dependencies: InstanceSelectorViewModel.Dependencies(
-                    instanceWorker: instanceWorker,
-                    router: Router()
-                )
             )
         )
     )

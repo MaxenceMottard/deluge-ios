@@ -7,6 +7,11 @@
 
 import Foundation
 
+public struct RemoteImage: Sendable {
+    let path: String
+    let url: String
+}
+
 extension GetSeriesWebWorkingResponse.Image {
     func toDomain() -> RemoteImage {
         RemoteImage(
@@ -14,9 +19,4 @@ extension GetSeriesWebWorkingResponse.Image {
             url: remoteUrl
         )
     }
-}
-
-public struct RemoteImage: Sendable {
-    let path: String
-    let url: String
 }

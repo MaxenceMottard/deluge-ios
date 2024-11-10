@@ -23,12 +23,6 @@ struct HomeRoute: Route {
                 getSeriesWebWorker: Dependency.resolve(GetSeriesWebWorking.self)!,
                 imageCacheWorker: Dependency.resolve(ImageCacheWorking.self)!,
                 router: router
-            ),
-            instanceSelectorViewModel: InstanceSelectorViewModel(
-                dependencies: InstanceSelectorViewModel.Dependencies(
-                    instanceWorker: Dependency.resolve(InstanceWorking.self)!,
-                    router: router
-                )
             )
         )
 

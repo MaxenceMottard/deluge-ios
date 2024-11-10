@@ -93,7 +93,7 @@ struct NewInstanceView: View {
     NewInstanceView(
         viewModel: NewInstanceViewModel(
             dependencies: NewInstanceViewModel.Dependencies(
-                checkConfigurationWebWorker: CheckConfigurationWebWorkingMock(),
+                checkConfigurationWebWorker: SystemStatusWebWorkingMock(),
                 instanceWorker: InstanceWorkingMock(),
                 router: Router()
             )

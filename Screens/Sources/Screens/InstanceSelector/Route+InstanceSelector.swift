@@ -20,13 +20,14 @@ struct InstanceSelectorRoute: Route {
         let viewModel = InstanceSelectorViewModel(
             dependencies: InstanceSelectorViewModel.Dependencies(
                 instanceWorker: Dependency.resolve(InstanceWorking.self)!,
+                systemStatusWebWorker: Dependency.resolve(SystemStatusWebWorking.self)!,
                 router: router
             )
         )
 
         let view = InstanceSelectorView(viewModel: viewModel).environmentObject(router)
         let viewController = view.viewController(
-            title: "Select an instance",
+            title: "Instances",
             largeTitleDisplayMode: .always
         )
 

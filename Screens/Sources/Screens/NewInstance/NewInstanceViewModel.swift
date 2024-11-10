@@ -14,7 +14,7 @@ import Utils
 @MainActor
 class NewInstanceViewModel {
     struct Dependencies {
-        let checkConfigurationWebWorker: CheckConfigurationWebWorking
+        let checkConfigurationWebWorker: SystemStatusWebWorking
         let instanceWorker: InstanceWorking
         let router: Routing
     }

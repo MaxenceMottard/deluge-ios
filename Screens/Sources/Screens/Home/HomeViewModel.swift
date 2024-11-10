@@ -21,7 +21,6 @@ class HomeViewModel {
     }
 
     private let dependencies: Dependencies
-    let instanceSelectorViewModel: InstanceSelectorViewModel
 
     var selectedInstance: Instance? {
         dependencies.instanceWorker.selectedInstance
@@ -33,9 +32,8 @@ class HomeViewModel {
 
     // MARK: Init
 
-    init(dependencies: Dependencies, instanceSelectorViewModel: InstanceSelectorViewModel) {
+    init(dependencies: Dependencies) {
         self.dependencies = dependencies
-        self.instanceSelectorViewModel = instanceSelectorViewModel
     }
 
     func fetchSeries() async {
@@ -50,7 +48,7 @@ class HomeViewModel {
                 }
             }
         } catch {
-            print("[DEBUG] \(error)")
+            series = []
         }
     }
 
