@@ -33,8 +33,8 @@ struct HomeRoute: Route {
             largeTitleDisplayMode: .always
         )
 
-        viewController.navigationItem.rightBarButtonItem = UIBarButtonItem(
-            title: "Instance",
+        viewController.navigationItem.leftBarButtonItem = UIBarButtonItem(
+            image: UIImage(systemName: "server.rack"),
             primaryAction: UIAction { _ in
                 router.present(route: Route.InstanceSelector(), modal: .sheet)
             }
