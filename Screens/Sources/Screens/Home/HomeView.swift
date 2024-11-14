@@ -117,7 +117,7 @@ struct HomeView: View {
         return worker
     }()
 
-    let getFilmsWorker: GetMoviesWebWorking = {
+    let getMoviesWorker: GetMoviesWebWorking = {
         let worker = GetMoviesWebWorkingMock()
         worker.runReturnValue = .preview
 
@@ -128,7 +128,7 @@ struct HomeView: View {
         viewModel: HomeViewModel(
             dependencies: HomeViewModel.Dependencies(
                 instanceWorker: instanceWorker,
-                getFilmsWebWorker: getFilmsWorker,
+                getMoviesWorker: getMoviesWorker,
                 getSeriesWebWorker: getSeriesWorker,
                 imageCacheWorker: ImageCacheWorkingMock(),
                 router: Router()

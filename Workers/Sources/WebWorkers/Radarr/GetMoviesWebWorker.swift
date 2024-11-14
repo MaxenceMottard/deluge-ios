@@ -20,7 +20,7 @@ struct GetMoviesWebWorker: GetMoviesWebWorking {
             .set(contentType: .json)
             .set(responseType: Void.self)
             .set(interceptor: InstanceInteceptor())
-            .set(responseType: [GetFilmsWebWorkingResponse].self)
+            .set(responseType: [GetMoviesWebWorkingResponse].self)
             .run()
             .toDomain()
     }

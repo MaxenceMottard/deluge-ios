@@ -15,7 +15,7 @@ import Workers
 class HomeViewModel {
     struct Dependencies {
         let instanceWorker: InstanceWorking
-        let getFilmsWebWorker: GetMoviesWebWorking
+        let getMoviesWorker: GetMoviesWebWorking
         let getSeriesWebWorker: GetSeriesWebWorking
         let imageCacheWorker: ImageCacheWorking
         let router: Routing
@@ -45,7 +45,7 @@ class HomeViewModel {
             case .sonarr:
                 dependencies.getSeriesWebWorker.run
             case .radarr:
-                dependencies.getFilmsWebWorker.run
+                dependencies.getMoviesWorker.run
             }
 
             medias = try await worker()

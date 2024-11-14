@@ -1,5 +1,5 @@
 //
-//  GetFilmsWebWorkingResponse.swift
+//  GetMoviesWebWorkingResponse.swift
 //  Workers
 //
 //  Created by Maxence Mottard on 09/11/2024.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct GetFilmsWebWorkingResponse: Decodable, Sendable {
+struct GetMoviesWebWorkingResponse: Decodable, Sendable {
     let id: Int
     let title: String
     let originalTitle: String
