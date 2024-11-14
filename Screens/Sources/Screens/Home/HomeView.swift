@@ -28,12 +28,12 @@ struct HomeView: View {
                         LabeledContent("Instance", value: selectedInstance.name)
 
                         LazyVGrid(columns: columns) {
-                            ForEach(viewModel.series) { serie in
+                            ForEach(viewModel.medias, id: \.id) { media in
                                 Button(action: {}) {
-                                    Item(serie: serie)
+                                    Item(media: media)
                                 }
                                 .buttonStyle(ScalableButtonStyle())
-                                .id(serie.id)
+                                .id(media.id)
                             }
                         }
                     }
@@ -45,22 +45,22 @@ struct HomeView: View {
             }
         }
         .task {
-            await viewModel.fetchSeries()
+            await viewModel.fetchMedias()
         }
         .onChange(of: viewModel.selectedInstance) {
-            Task { await viewModel.fetchSeries() }
+            Task { await viewModel.fetchMedias() }
         }
     }
 
     struct Item: View {
         @State private var size: CGSize = .zero
 
-        let serie: Serie
+        let media: any Media
 
         var body: some View {
             VStack {
                 ViewWithRatio(ratio: 0.68) {
-                    LazyImage(url: URL(string: serie.poster)) { state in
+                    LazyImage(url: URL(string: media.poster)) { state in
                         if let image = state.image {
                             image
                                 .resizable()
@@ -69,7 +69,7 @@ struct HomeView: View {
                             Color.clear
                         } else {
                             ContainerView {
-                                Text(serie.title)
+                                Text(media.title)
                                     .font(.body)
                                     .multilineTextAlignment(.leading)
                                     .foregroundStyle(.white)
@@ -82,16 +82,16 @@ struct HomeView: View {
                 }
                 .readSize($size)
 
-                Text(serie.title)
+                Text(media.title)
                     .lineLimit(1)
                     .font(.caption)
                     .frame(maxWidth: .infinity, alignment: .leading)
 
-                Text(String(serie.year))
+                Text(String(media.year))
                     .font(.caption2)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .foregroundStyle(.gray)
-                    .hidden(serie.year == 0)
+                    .hidden(media.year == 0)
             }
         }
     }
@@ -117,10 +117,18 @@ struct HomeView: View {
         return worker
     }()
 
+    let getFilmsWorker: GetMoviesWebWorking = {
+        let worker = GetMoviesWebWorkingMock()
+        worker.runReturnValue = .preview
+
+        return worker
+    }()
+
     HomeView(
         viewModel: HomeViewModel(
             dependencies: HomeViewModel.Dependencies(
                 instanceWorker: instanceWorker,
+                getFilmsWebWorker: getFilmsWorker,
                 getSeriesWebWorker: getSeriesWorker,
                 imageCacheWorker: ImageCacheWorkingMock(),
                 router: Router()

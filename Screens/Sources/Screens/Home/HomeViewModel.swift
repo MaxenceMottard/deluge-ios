@@ -15,6 +15,7 @@ import Workers
 class HomeViewModel {
     struct Dependencies {
         let instanceWorker: InstanceWorking
+        let getFilmsWebWorker: GetMoviesWebWorking
         let getSeriesWebWorker: GetSeriesWebWorking
         let imageCacheWorker: ImageCacheWorking
         let router: Routing
@@ -22,13 +23,13 @@ class HomeViewModel {
 
     private let dependencies: Dependencies
 
+    // MARK: State
+
     var selectedInstance: Instance? {
         dependencies.instanceWorker.selectedInstance
     }
 
-    var series: [Serie] = []
-
-    // MARK: State
+    var medias: [any Media] = []
 
     // MARK: Init
 
@@ -36,19 +37,26 @@ class HomeViewModel {
         self.dependencies = dependencies
     }
 
-    func fetchSeries() async {
-        guard selectedInstance != nil else { return }
+    func fetchMedias() async {
+        guard let selectedInstance else { return }
 
         do {
-            series = try await dependencies.getSeriesWebWorker.run()
-            series.forEach { serie in
+            let worker: () async throws -> [any Media] = switch selectedInstance.type {
+            case .sonarr:
+                dependencies.getSeriesWebWorker.run
+            case .radarr:
+                dependencies.getFilmsWebWorker.run
+            }
+
+            medias = try await worker()
+            medias.forEach { media in
                 Task {
-                    await dependencies.imageCacheWorker.cache(string: serie.banner)
-                    await dependencies.imageCacheWorker.cache(string: serie.poster)
+                    await dependencies.imageCacheWorker.cache(string: media.banner)
+                    await dependencies.imageCacheWorker.cache(string: media.poster)
                 }
             }
         } catch {
-            series = []
+            medias = []
         }
     }
 
