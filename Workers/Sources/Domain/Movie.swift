@@ -1,5 +1,5 @@
 //
-//  Serie.swift
+//  Movie.swift
 //  Workers
 //
 //  Created by Maxence Mottard on 09/11/2024.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct Serie: Media {
+public struct Movie: Media {
     public let id: Int
     public let title: String
     public let description: String
@@ -17,9 +17,10 @@ public struct Serie: Media {
     public let banner: String?
 
     public enum Status: Sendable {
-        case continuing
-        case ended
-        case upcoming
+        case tba
+        case announced
+        case inCinemas
+        case released
         case deleted
     }
 
@@ -42,9 +43,9 @@ public struct Serie: Media {
     }
 }
 
-extension GetSeriesWebWorkingResponse {
-    func toDomain() -> Serie {
-        Serie(
+extension GetMoviesWebWorkingResponse {
+    func toDomain() -> Movie {
+        Movie(
             id: id,
             title: title,
             description: overview,
@@ -56,17 +57,18 @@ extension GetSeriesWebWorkingResponse {
     }
 }
 
-extension GetSeriesWebWorkingResponse.Status {
-    func toDomain() -> Serie.Status {
+extension GetMoviesWebWorkingResponse.Status {
+    func toDomain() -> Movie.Status {
         switch self {
-        case .continuing: return .continuing
-        case .ended: return .ended
-        case .upcoming: return .upcoming
+        case .tba: return .tba
+        case .announced: return .announced
+        case .inCinemas: return .inCinemas
+        case .released: return .released
         case .deleted: return .deleted
         }
     }
 }
 
-extension Array where Element == GetSeriesWebWorkingResponse {
-    func toDomain() -> [Serie] { map { $0.toDomain() } }
+extension Array where Element == GetMoviesWebWorkingResponse {
+    func toDomain() -> [Movie] { map { $0.toDomain() } }
 }

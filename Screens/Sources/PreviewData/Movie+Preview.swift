@@ -1,5 +1,5 @@
 //
-//  Serie+Preview.swift
+//  Movie+Preview.swift
 //  Screens
 //
 //  Created by Maxence Mottard on 10/11/2024.
@@ -8,16 +8,16 @@
 import Foundation
 import Workers
 
-extension Serie {
+extension Movie {
     static func preview(
         title: String = "First serie name",
         description: String = "But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth",
         year: Int = 2021,
-        status: Serie.Status = .upcoming,
+        status: Movie.Status = .released,
         poster: String = "https://media.themoviedb.org/t/p/w300_and_h450_bestv2/abf8tHznhSvl9BAElD2cQeRr7do.jpg",
         banner: String = ""
-    ) -> Serie {
-        return Serie(
+    ) -> Movie {
+        return Movie(
             id: UUID().hashValue,
             title: title,
             description: description,
@@ -29,8 +29,8 @@ extension Serie {
     }
 }
 
-extension [Serie] {
-    static var preview: [Serie] {
+extension [Movie] {
+    static var preview: [Movie] {
         [
             .preview(
                 title: "Arcane",

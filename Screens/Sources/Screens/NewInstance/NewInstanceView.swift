@@ -29,7 +29,6 @@ struct NewInstanceView: View {
                             Text(String(describing: $0).capitalized)
                         }
                     }
-                    .disabled(true)
                 }
 
                 Section(
