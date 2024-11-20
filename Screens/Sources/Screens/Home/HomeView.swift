@@ -33,7 +33,6 @@ struct HomeView: View {
                                     media: media,
                                     onTap: { viewModel.present(media: media) }
                                 )
-                                .id(media.id)
                             }
                         }
                     }
