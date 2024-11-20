@@ -25,10 +25,9 @@ struct NewInstanceRoute: Route {
             )
         )
         let view = NewInstanceView(viewModel: viewModel).environmentObject(router)
-        let viewController = view.viewController(
-            title: "New instance",
-            largeTitleDisplayMode: .always
-        )
+        let viewController = UIHostingController(rootView: view)
+        viewController.title = "New instance"
+        viewController.navigationItem.largeTitleDisplayMode = .always
 
         return viewController
     }

@@ -28,11 +28,9 @@ struct HomeRoute: Route {
         )
 
         let view = HomeView(viewModel: viewModel).environmentObject(router)
-        let viewController = view.viewController(
-            title: "Home",
-            largeTitleDisplayMode: .always
-        )
-
+        let viewController = UIHostingController(rootView: view)
+        viewController.title = "Home"
+        viewController.navigationItem.largeTitleDisplayMode = .always
         viewController.navigationItem.rightBarButtonItem = UIBarButtonItem(
             title: "Instance",
             primaryAction: UIAction { _ in

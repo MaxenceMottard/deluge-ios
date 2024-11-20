@@ -13,26 +13,6 @@ public struct InitialView: View {
     public init() {}
 
     public var body: some View {
-        let router = Router()
-        let initialRoute = Route.Home()
-        let initialViewcontroller = initialRoute.viewController(router: router)
-        router.setRoot(viewController: initialViewcontroller)
-        let navigationController = router.navigationController
-
-        return AnyUIViewControllerRepresentable(viewController: navigationController)
+        Router.View(dismiss: nil, initialRoute: Route.Home())
     }
-}
-
-public struct AnyUIViewControllerRepresentable: UIViewControllerRepresentable {
-    private let viewController: UIViewController
-
-    public  init(viewController: UIViewController) {
-        self.viewController = viewController
-    }
-
-    public func makeUIViewController(context: Context) -> some UIViewController {
-        return viewController
-    }
-
-    public func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {}
 }

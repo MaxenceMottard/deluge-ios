@@ -26,11 +26,9 @@ struct InstanceSelectorRoute: Route {
         )
 
         let view = InstanceSelectorView(viewModel: viewModel).environmentObject(router)
-        let viewController = view.viewController(
-            title: "Instances",
-            largeTitleDisplayMode: .always
-        )
-
+        let viewController = UIHostingController(rootView: view)
+        viewController.title = "Instances"
+        viewController.navigationItem.largeTitleDisplayMode = .always
         viewController.navigationItem.rightBarButtonItem = UIBarButtonItem(
             image: UIImage(systemName: "xcross"),
             primaryAction: UIAction { _ in
