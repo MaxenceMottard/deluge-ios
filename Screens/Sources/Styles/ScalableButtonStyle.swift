@@ -8,30 +8,46 @@
 import SwiftUI
 
 struct ScalableButtonStyle: ButtonStyle {
-    @State private var isPressedAnimated = false
+    private enum Constants {
+        static let defaultScale: CGFloat = 1
+        static let pressedScale: CGFloat = 1.05
+        static let defaultOpacity: CGFloat = 1
+        static let pressedOpacity: CGFloat = 0.7
+        static let animationDuration: CGFloat = 0.1
+    }
+
+    @Binding var scaleValue: CGFloat
 
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
-            .opacity(configuration.isPressed ? 0.7 : 1)
-            .scaleEffect(isPressedAnimated ? 1.08 : 1)
-            .animation(.easeOut(duration: 0.1), value: isPressedAnimated)
+            .opacity(configuration.isPressed ? Constants.pressedOpacity : Constants.defaultOpacity)
+            .animation(.easeOut(duration: Constants.animationDuration), value: scaleValue)
             .onChange(of: configuration.isPressed) { _, newValue in
-                isPressedAnimated = newValue
+                scaleValue = newValue ? Constants.pressedScale : Constants.defaultScale
+            }
+            .onAppear {
+                scaleValue = configuration.isPressed ? Constants.pressedScale : Constants.defaultScale
             }
     }
 }
 
 extension ButtonStyle where Self == ScalableButtonStyle {
-    static var scalable: ScalableButtonStyle {
-        ScalableButtonStyle()
+    static func scalable(scale: Binding<CGFloat>) -> ScalableButtonStyle {
+        ScalableButtonStyle(scaleValue: scale)
     }
 }
 
 
 #Preview {
+    @Previewable @State var scale: CGFloat = 1
+
     Button(action: {}) {
         Color.red
             .frame(width: 200, height: 200)
+            .overlay {
+                Color.green.padding()
+                    .scaleEffect(scale)
+            }
     }
-    .buttonStyle(.scalable)
+    .buttonStyle(.scalable(scale: $scale))
 }

@@ -37,6 +37,10 @@ class HomeViewModel {
         self.dependencies = dependencies
     }
 
+    func present(media: any Media) {
+        dependencies.router.navigate(to: Route.MediaDetails(media: media))
+    }
+
     func fetchMedias() async {
         guard let selectedInstance else { return }
 
@@ -59,5 +63,4 @@ class HomeViewModel {
             medias = []
         }
     }
-
 }
