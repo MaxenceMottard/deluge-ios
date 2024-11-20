@@ -10,11 +10,11 @@ import Workers
 
 extension Movie {
     static func preview(
-        title: String = "First serie name",
+        title: String = "First film name",
         description: String = "But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth",
         year: Int = 2021,
         status: Movie.Status = .released,
-        poster: String = "https://media.themoviedb.org/t/p/w300_and_h450_bestv2/abf8tHznhSvl9BAElD2cQeRr7do.jpg",
+        poster: String = "https://image.tmdb.org/t/p/original/1pdfLvkbY9ohJlCjQH2CZjjYVvJ.jpg",
         banner: String = ""
     ) -> Movie {
         return Movie(
@@ -33,9 +33,9 @@ extension [Movie] {
     static var preview: [Movie] {
         [
             .preview(
-                title: "Arcane",
-                year: 2021,
-                poster: "https://media.themoviedb.org/t/p/w300_and_h450_bestv2/abf8tHznhSvl9BAElD2cQeRr7do.jpg"
+                title: "Dune",
+                year: 2023,
+                poster: "https://image.tmdb.org/t/p/original/1pdfLvkbY9ohJlCjQH2CZjjYVvJ.jpg"
             ),
             .preview(
                 title: "One Piece",

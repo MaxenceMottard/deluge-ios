@@ -32,7 +32,7 @@ struct HomeRoute: Route {
         viewController.title = "Home"
         viewController.navigationItem.largeTitleDisplayMode = .always
         viewController.navigationItem.rightBarButtonItem = UIBarButtonItem(
-            title: "Instance",
+            image: UIImage(systemName: "server.rack"),
             primaryAction: UIAction { _ in
                 router.present(route: Route.InstanceSelector(), modal: .sheet)
             }
