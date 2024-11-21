@@ -13,6 +13,7 @@ public struct WebWorkersAssembly: Assembly {
     public func assemble(container: Swinject.Container) {
         container.register(SystemStatusWebWorking.self) { _ in SystemStatusWebWorker() }
         container.register(GetSeriesWebWorking.self) { _ in GetSeriesWebWorker() }
+        container.register(GetSerieEpisodeWebWorking.self) { _ in GetSerieEpisodeWebWorker() }
         container.register(GetMoviesWebWorking.self) { _ in GetMoviesWebWorker() }
     }
 }

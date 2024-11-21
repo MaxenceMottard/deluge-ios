@@ -19,7 +19,6 @@ struct GetSeriesWebWorkerResponse: Decodable {
     let airTime: String?
     let images: [Image]
     let year: Int
-    let seasons: [Season]
 
     enum Status: String, Decodable {
         case continuing
@@ -46,20 +45,6 @@ struct GetSeriesWebWorkerResponse: Decodable {
             case screenshot
             case headshot
             case clearlogo
-        }
-    }
-
-    struct Season: Decodable {
-        let seasonNumber: Int
-        let monitored: Bool
-        let statistics: Statistics
-
-        struct Statistics: Decodable {
-            let episodeFileCount: Int
-            let episodeCount: Int
-            let totalEpisodeCount: Int
-            let sizeOnDisk: Int
-            let percentOfEpisodes: Double
         }
     }
 }

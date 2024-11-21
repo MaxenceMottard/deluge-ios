@@ -1,5 +1,5 @@
 //
-//  SwiftUIView.swift
+//  MediaDetailsView+Header.swift
 //  Screens
 //
 //  Created by Maxence Mottard on 20/11/2024.

@@ -15,9 +15,14 @@ struct MediaDetailsView: View {
 
     var body: some View {
         ScrollView {
+            Header(media: viewModel.media)
+
             VStack {
-                Header(media: viewModel.media)
+                if let serie = viewModel.media as? Workers.Serie {
+                    MediaDetailsSerieView(viewModel: viewModel.getSerieViewModel(serie))
+                }
             }
+            .padding()
         }
         .ignoresSafeArea(.container, edges: .top)
     }

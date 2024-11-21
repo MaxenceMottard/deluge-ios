@@ -24,9 +24,14 @@ class MediaDetailsViewModel: MediaDetailsViewModeling {
 
     private let dependencies: Dependencies
     let media: any Media
+    let getSerieViewModel: (Serie) -> MediaDetailsSerieViewModel
 
-    init(media: any Media, dependencies: Dependencies) {
+    init(
+        media: any Media, dependencies: Dependencies,
+        getSerieViewModel: @escaping (Serie) -> MediaDetailsSerieViewModel
+    ) {
         self.media = media
         self.dependencies = dependencies
+        self.getSerieViewModel = getSerieViewModel
     }
 }
