@@ -25,44 +25,44 @@ struct SerieEpisodeExtensions {
 
     @Test func downloadedEpisodes() {
         let episodes: [SerieEpisode] = [
-            .preview(hasFile: false),
-            .preview(hasFile: true),
-            .preview(hasFile: true),
-            .preview(hasFile: false),
-            .preview(hasFile: true),
+            .preview(isDownloaded: false),
+            .preview(isDownloaded: true),
+            .preview(isDownloaded: true),
+            .preview(isDownloaded: false),
+            .preview(isDownloaded: true),
         ]
         #expect(episodes.downloadedEpisodes == 3)
     }
 
     @Test func monitedEpisodes() {
         let episodes: [SerieEpisode] = [
-            .preview(hasFile: true, monitored: false),
-            .preview(hasFile: true, monitored: false),
-            .preview(hasFile: true, monitored: false),
-            .preview(hasFile: false, monitored: true),
-            .preview(hasFile: false, monitored: true),
+            .preview(isDownloaded: true, isMonitored: false),
+            .preview(isDownloaded: true, isMonitored: false),
+            .preview(isDownloaded: true, isMonitored: false),
+            .preview(isDownloaded: false, isMonitored: true),
+            .preview(isDownloaded: false, isMonitored: true),
         ]
         #expect(episodes.monitoredEpisodes == 5)
     }
 
     @Test func monitedEpisodesWithNonDiffusedEpisodes() {
         let episodes: [SerieEpisode] = [
-            .preview(hasFile: true, monitored: false, diffusionDate: .today),
-            .preview(hasFile: true, monitored: false, diffusionDate: .today),
-            .preview(hasFile: false, monitored: true, diffusionDate: .today),
-            .preview(hasFile: false, monitored: true, diffusionDate: .today.add(days: 1)),
-            .preview(hasFile: false, monitored: true, diffusionDate: .today.add(days: 1)),
+            .preview(isDownloaded: true, isMonitored: false, diffusionDate: .today),
+            .preview(isDownloaded: true, isMonitored: false, diffusionDate: .today),
+            .preview(isDownloaded: false, isMonitored: true, diffusionDate: .today),
+            .preview(isDownloaded: false, isMonitored: true, diffusionDate: .today.add(days: 1)),
+            .preview(isDownloaded: false, isMonitored: true, diffusionDate: .today.add(days: 1)),
         ]
         #expect(episodes.monitoredEpisodes == 3)
     }
 
     @Test func monitedEpisodesWithNonDiffusedEpisodes2() {
         let episodes: [SerieEpisode] = [
-            .preview(hasFile: true, monitored: true, diffusionDate: .today),
-            .preview(hasFile: true, monitored: true, diffusionDate: .today),
-            .preview(hasFile: false, monitored: true, diffusionDate: .today),
-            .preview(hasFile: false, monitored: true, diffusionDate: .today.add(days: 1)),
-            .preview(hasFile: false, monitored: true, diffusionDate: .today.add(days: 1)),
+            .preview(isDownloaded: true, isMonitored: true, diffusionDate: .today),
+            .preview(isDownloaded: true, isMonitored: true, diffusionDate: .today),
+            .preview(isDownloaded: false, isMonitored: true, diffusionDate: .today),
+            .preview(isDownloaded: false, isMonitored: true, diffusionDate: .today.add(days: 1)),
+            .preview(isDownloaded: false, isMonitored: true, diffusionDate: .today.add(days: 1)),
         ]
         #expect(episodes.monitoredEpisodes == 3)
     }
