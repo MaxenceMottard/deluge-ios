@@ -15,7 +15,39 @@ extension Serie {
         year: Int = 2021,
         status: Serie.Status = .upcoming,
         poster: String = "https://media.themoviedb.org/t/p/w300_and_h450_bestv2/abf8tHznhSvl9BAElD2cQeRr7do.jpg",
-        banner: String = ""
+        banner: String = "",
+        seasons: [Serie.Season] = [
+            Serie.Season(
+                seasonNumber: 1,
+                statistics: Serie.Season.Statistics(
+                    episodeFileCount: 3,
+                    episodeCount: 3,
+                    totalEpisodeCount: 10,
+                    sizeOnDisk: 10031312462,
+                    percentOfEpisodes: 30
+                )
+            ),
+            Serie.Season(
+                seasonNumber: 2,
+                statistics: Serie.Season.Statistics(
+                    episodeFileCount: 10,
+                    episodeCount: 10,
+                    totalEpisodeCount: 10,
+                    sizeOnDisk: 10031312462,
+                    percentOfEpisodes: 100
+                )
+            ),
+            Serie.Season(
+                seasonNumber: 3,
+                statistics: Serie.Season.Statistics(
+                    episodeFileCount: 4,
+                    episodeCount: 4,
+                    totalEpisodeCount: 8,
+                    sizeOnDisk: 10031312462,
+                    percentOfEpisodes: 50
+                )
+            ),
+        ]
     ) -> Serie {
         return Serie(
             id: UUID().hashValue,
@@ -24,7 +56,8 @@ extension Serie {
             year: year,
             status: status,
             poster: poster,
-            banner: banner
+            banner: banner,
+            seasons: seasons
         )
     }
 }

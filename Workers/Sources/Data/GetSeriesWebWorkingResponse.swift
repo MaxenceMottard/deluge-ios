@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct GetSeriesWebWorkingResponse: Decodable, Sendable {
+struct GetSeriesWebWorkingResponse: Decodable {
     let id: Int
     let title: String
     let alternateTitles: [AlternateTitles]
@@ -19,6 +19,7 @@ struct GetSeriesWebWorkingResponse: Decodable, Sendable {
     let airTime: String?
     let images: [Image]
     let year: Int
+    let seasons: [Season]
 
     enum Status: String, Decodable {
         case continuing
@@ -27,12 +28,12 @@ struct GetSeriesWebWorkingResponse: Decodable, Sendable {
         case deleted
     }
 
-    struct AlternateTitles: Decodable, Sendable {
+    struct AlternateTitles: Decodable {
         let title: String
         let seasonNumber: Int?
     }
 
-    struct Image: Decodable, Sendable {
+    struct Image: Decodable {
         let coverType: Cover
         let url: String
         let remoteUrl: String
@@ -45,6 +46,20 @@ struct GetSeriesWebWorkingResponse: Decodable, Sendable {
             case screenshot
             case headshot
             case clearlogo
+        }
+    }
+
+    struct Season: Decodable {
+        let seasonNumber: Int
+        let monitored: Bool
+        let statistics: Statistics
+
+        struct Statistics: Decodable {
+            let episodeFileCount: Int
+            let episodeCount: Int
+            let totalEpisodeCount: Int
+            let sizeOnDisk: Int
+            let percentOfEpisodes: Double
         }
     }
 }
