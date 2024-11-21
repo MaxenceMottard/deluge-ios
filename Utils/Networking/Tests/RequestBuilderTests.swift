@@ -98,7 +98,7 @@ struct RequestBuilderTests {
                     "Authorization": "Bearer 123",
                     "Content-Type": "application/json"]
                 )
-                let expectedBody = try JSONEncoder().encode(["id": 1])
+                let expectedBody = try JSONEncoder().encode(["id": 2])
                 #expect(urlRequest.httpBody == expectedBody)
             }
 
