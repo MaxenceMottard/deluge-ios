@@ -10,9 +10,21 @@ import Foundation
 import Routing
 import Utils
 
+@MainActor
+// sourcery: AutoMockable
+protocol NewInstanceViewModeling {
+    var name: String { get set }
+    var url: String { get set }
+    var apiKey: String { get set }
+    var type: Instance.InstanceType { get set }
+    var isFormValid: Bool { get }
+
+    func login() async
+}
+
 @Observable
 @MainActor
-class NewInstanceViewModel {
+class NewInstanceViewModel: NewInstanceViewModeling {
     struct Dependencies {
         let checkConfigurationWebWorker: SystemStatusWebWorking
         let instanceWorker: InstanceWorking
