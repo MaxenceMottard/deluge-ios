@@ -1,4 +1,4 @@
-name: Actions | UnitTests
+name: Actions | Pull Requests - UnitTests
 on:
   pull_request:
 
@@ -7,7 +7,7 @@ on:
 
 jobs:
   tests:
-    name: UnitTests
+    name: Tests
     runs-on: macos-latest
 
     steps:
