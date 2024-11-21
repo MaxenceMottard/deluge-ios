@@ -10,9 +10,19 @@ import Routing
 import Utils
 import Workers
 
+@MainActor
+// sourcery: AutoMockable
+protocol HomeViewModeling {
+    var selectedInstance: Instance? { get }
+    var medias: [any Media] { get }
+
+    func present(media: any Media)
+    func fetchMedias() async
+}
+
 @Observable
 @MainActor
-class HomeViewModel {
+class HomeViewModel: HomeViewModeling {
     struct Dependencies {
         let instanceWorker: InstanceWorking
         let getMoviesWorker: GetMoviesWebWorking

@@ -9,9 +9,15 @@ import Workers
 import Routing
 import Foundation
 
+@MainActor
+// sourcery: AutoMockable
+protocol MediaDetailsViewModeling {
+    var media: any Media { get }
+}
+
 @Observable
 @MainActor
-class MediaDetailsViewModel {
+class MediaDetailsViewModel: MediaDetailsViewModeling {
     struct Dependencies {
         let router: Routing
     }

@@ -12,7 +12,7 @@ import Workers
 import Utils
 
 struct HomeView: View {
-    @State var viewModel: HomeViewModel
+    @State var viewModel: any HomeViewModeling
 
     private let columns = [
         GridItem(.flexible()),
@@ -53,41 +53,18 @@ struct HomeView: View {
 }
 
 #Preview {
-    let instanceWorker: InstanceWorking = {
-        let worker = InstanceWorkingMock()
-        worker.selectedInstance = Instance(
+    let viewModel: any HomeViewModeling = {
+        let viewModel = HomeViewModelingMock()
+        viewModel.medias = [Serie].preview
+        viewModel.selectedInstance = Instance(
             type: .sonarr,
             name: "Test",
             url: "https://test",
             apiKey: "test"
         )
-
-        return worker
+        
+        return viewModel
     }()
-
-    let getSeriesWorker: GetSeriesWebWorking = {
-        let worker = GetSeriesWebWorkingMock()
-        worker.runReturnValue = .preview
-
-        return worker
-    }()
-
-    let getMoviesWorker: GetMoviesWebWorking = {
-        let worker = GetMoviesWebWorkingMock()
-        worker.runReturnValue = .preview
-
-        return worker
-    }()
-
-    HomeView(
-        viewModel: HomeViewModel(
-            dependencies: HomeViewModel.Dependencies(
-                instanceWorker: instanceWorker,
-                getMoviesWorker: getMoviesWorker,
-                getSeriesWebWorker: getSeriesWorker,
-                imageCacheWorker: ImageCacheWorkingMock(),
-                router: Router()
-            )
-        )
-    )
+    
+    HomeView(viewModel: viewModel)
 }

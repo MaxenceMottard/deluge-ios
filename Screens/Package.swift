@@ -31,7 +31,9 @@ let package = Package(
                 .product(name: "NukeUI", package: "Nuke"),
             ],
             path: "Sources",
-            plugins: []
+            plugins: [
+                .plugin(name: "SourceryPlugin", package: "Utils"),
+            ]
         ),
         .testTarget(
             name: "ScreensTests",

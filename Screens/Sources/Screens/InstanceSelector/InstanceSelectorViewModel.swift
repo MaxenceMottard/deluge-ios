@@ -10,9 +10,36 @@ import Utils
 import Routing
 import Workers
 
+struct InstanceStatus {
+    let instanceId: Int
+    let status: Status
+
+    enum Status {
+        case fail
+        case succeed(SystemStatus)
+    }
+
+    var system: SystemStatus? {
+        guard case let .succeed(system) = status else { return nil }
+        return system
+    }
+}
+
+@MainActor
+// sourcery: AutoMockable
+protocol InstanceSelectorViewModeling {
+    var instances: [Instance] { get }
+    var selectedInstance: Instance? { get set }
+
+    func addInstance()
+    func remove(instance: Instance)
+    func status(for instance: Instance) -> InstanceStatus?
+    func fetchInstanceSatus() async
+}
+
 @Observable
 @MainActor
-class InstanceSelectorViewModel {
+class InstanceSelectorViewModel: InstanceSelectorViewModeling {
     struct Dependencies {
         let instanceWorker: InstanceWorking
         let systemStatusWebWorker: SystemStatusWebWorking
@@ -73,21 +100,6 @@ class InstanceSelectorViewModel {
             instanceStatus[index] = status
         } else {
             instanceStatus.append(status)
-        }
-    }
-
-    struct InstanceStatus {
-        let instanceId: Int
-        let status: Status
-
-        enum Status {
-            case fail
-            case succeed(SystemStatus)
-        }
-
-        var system: SystemStatus? {
-            guard case let .succeed(system) = status else { return nil }
-            return system
         }
     }
 }

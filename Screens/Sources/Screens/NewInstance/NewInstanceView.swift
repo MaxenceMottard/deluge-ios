@@ -17,7 +17,7 @@ struct NewInstanceView: View {
         case apiKey
     }
 
-    @State var viewModel: NewInstanceViewModel
+    @State var viewModel: any NewInstanceViewModeling
     @FocusState private var focused: Field?
 
     var body: some View {
@@ -89,13 +89,16 @@ struct NewInstanceView: View {
 }
 
 #Preview {
-    NewInstanceView(
-        viewModel: NewInstanceViewModel(
-            dependencies: NewInstanceViewModel.Dependencies(
-                checkConfigurationWebWorker: SystemStatusWebWorkingMock(),
-                instanceWorker: InstanceWorkingMock(),
-                router: Router()
-            )
-        )
-    )
+    let viewModel: any NewInstanceViewModeling = {
+        let viewModel = NewInstanceViewModelingMock()
+        viewModel.name = ""
+        viewModel.url = ""
+        viewModel.apiKey = ""
+        viewModel.type = .sonarr
+        viewModel.isFormValid = true
+
+        return viewModel
+    }()
+
+    NewInstanceView(viewModel: viewModel)
 }

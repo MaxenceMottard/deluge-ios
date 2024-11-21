@@ -12,7 +12,7 @@ import Utils
 import Workers
 
 struct InstanceSelectorView: View {
-    @State var viewModel: InstanceSelectorViewModel
+    @State var viewModel: any InstanceSelectorViewModeling
 
     var body: some View {
         VStack {
@@ -44,7 +44,7 @@ struct InstanceSelectorView: View {
 
     private struct Item: View {
         let instance: Instance
-        let status: InstanceSelectorViewModel.InstanceStatus?
+        let status: InstanceStatus?
         let onRemoveTap: () -> Void
 
         private var statusColor: Color {
@@ -108,39 +108,20 @@ struct InstanceSelectorView: View {
 }
 
 #Preview {
-    let instanceWorker: InstanceWorking = {
-        let worker = InstanceWorkingMock()
-        worker.instances = [
+    let viewModel: InstanceSelectorViewModeling = {
+        let viewModel = InstanceSelectorViewModelingMock()
+        viewModel.instances = [
             Instance(type: .sonarr, name: "Sonarr Main", url: "https://test.com", apiKey: "123"),
             Instance(type: .radarr, name: "Radarr Recovery", url: "https://test2.com", apiKey: "124"),
         ]
-        worker.selectedInstance = worker.instances.first
-
-        return worker
-    }()
-
-    let systemStatusWebWorker: SystemStatusWebWorking = {
-        let worker = SystemStatusWebWorkingMock()
-        var isFirstCall = true
-        worker.runInstanceUrlApiKeyClosure = { _, _ in
-            if isFirstCall {
-                isFirstCall = false
-                return SystemStatus(version: "1.19.0")
-            } else {
-                throw NSError(domain: "", code: 0)
-            }
-        }
-
-        return worker
-    }()
-
-    InstanceSelectorView(
-        viewModel: InstanceSelectorViewModel(
-            dependencies: InstanceSelectorViewModel.Dependencies(
-                instanceWorker: instanceWorker,
-                systemStatusWebWorker: systemStatusWebWorker,
-                router: Router()
-            )
+        viewModel.selectedInstance = viewModel.instances.first
+        viewModel.statusForReturnValue = InstanceStatus(
+            instanceId: 0,
+            status: .succeed(SystemStatus(version: "1.19.0"))
         )
-    )
+
+        return viewModel
+    }()
+
+    InstanceSelectorView(viewModel: viewModel)
 }

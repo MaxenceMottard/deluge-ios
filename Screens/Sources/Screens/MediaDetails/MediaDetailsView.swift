@@ -11,7 +11,7 @@ import NukeUI
 import Workers
 
 struct MediaDetailsView: View {
-    @State var viewModel: MediaDetailsViewModel
+    @State var viewModel: any MediaDetailsViewModeling
 
     var body: some View {
         ScrollView {
@@ -24,23 +24,23 @@ struct MediaDetailsView: View {
 }
 
 #Preview("Serie") {
-    MediaDetailsView(
-        viewModel: MediaDetailsViewModel(
-            media: Serie.preview(),
-            dependencies: MediaDetailsViewModel.Dependencies(
-                router: Router()
-            )
-        )
-    )
+    let viewModel: any MediaDetailsViewModeling = {
+        let viewModel = MediaDetailsViewModelingMock()
+        viewModel.media = Serie.preview()
+
+        return viewModel
+    }()
+
+    MediaDetailsView(viewModel: viewModel)
 }
 
 #Preview("Movie") {
-    MediaDetailsView(
-        viewModel: MediaDetailsViewModel(
-            media: Movie.preview(),
-            dependencies: MediaDetailsViewModel.Dependencies(
-                router: Router()
-            )
-        )
-    )
+    let viewModel: any MediaDetailsViewModeling = {
+        let viewModel = MediaDetailsViewModelingMock()
+        viewModel.media = Movie.preview()
+
+        return viewModel
+    }()
+
+    MediaDetailsView(viewModel: viewModel)
 }
