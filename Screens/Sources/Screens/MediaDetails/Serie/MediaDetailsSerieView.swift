@@ -25,33 +25,51 @@ struct MediaDetailsSerieView: View {
                         seasonCounter(episodes: episodes)
                     }
                 } content: {
-                    ListEpisodes(episodes: episodes)
+                    listEpisodes(episodes: episodes)
                 }
             }
         }
         .task { await viewModel.fetchEpisodes() }
     }
 
-    private struct ListEpisodes: View {
-        let episodes: [SerieEpisode]
+    private func listEpisodes(episodes: [SerieEpisode]) -> some View {
+        ForEach(episodes, id: \.id) { episode in
+            HStack(alignment: .top) {
+                if episode.monitored {
+                    unmonitorButton(episode: episode)
+                } else {
+                    monitorButton(episode: episode)
+                }
 
-        var body: some View {
-            ForEach(episodes, id: \.id) { episode in
-                HStack(alignment: .top) {
-                    Text("\(episode.episodeNumber)")
+                Text("\(episode.episodeNumber)")
 
-                    VStack(alignment: .leading, spacing: 0) {
-                        Text(episode.title)
-                            .multilineTextAlignment(.leading)
+                VStack(alignment: .leading, spacing: 0) {
+                    Text(episode.title)
+                        .multilineTextAlignment(.leading)
 
-                        if let diffusionData = episode.diffusionDate {
-                            Text(diffusionData, style: .date)
-                                .font(.caption)
-                                .foregroundStyle(.gray)
-                        }
+                    if let diffusionData = episode.diffusionDate {
+                        Text(diffusionData, style: .date)
+                            .font(.caption)
+                            .foregroundStyle(.gray)
                     }
                 }
             }
+        }
+    }
+
+    private func monitorButton(episode: SerieEpisode) -> some View {
+        Button(action: {
+            Task { await viewModel.monitor(episode: episode) }
+        }) {
+            Image(systemName: "bookmark")
+        }
+    }
+
+    private func unmonitorButton(episode: SerieEpisode) -> some View {
+        Button(action: {
+            Task { await viewModel.unmonitor(episode: episode) }
+        }) {
+            Image(systemName: "bookmark.fill")
         }
     }
 
@@ -116,7 +134,8 @@ struct ExpandableView<H: View, C: View>: View {
             viewModel: MediaDetailsSerieViewModel(
                 serie: .preview(),
                 dependencies: MediaDetailsSerieViewModel.Dependencies(
-                    getSerieEpisodeWorker: getSerieEpisodeWorker
+                    getSerieEpisodeWorker: getSerieEpisodeWorker,
+                    monitorSerieEpisodeWorking: MonitorSerieEpisodeWebWorkingMock()
                 )
             )
         )

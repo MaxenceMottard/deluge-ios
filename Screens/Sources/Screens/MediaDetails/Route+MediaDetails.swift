@@ -26,7 +26,8 @@ struct MediaDetailsRoute: Route {
                 MediaDetailsSerieViewModel(
                     serie: serie,
                     dependencies: MediaDetailsSerieViewModel.Dependencies(
-                        getSerieEpisodeWorker: Dependency.resolve(GetSerieEpisodeWebWorking.self)!
+                        getSerieEpisodeWorker: Dependency.resolve(GetSerieEpisodeWebWorking.self)!,
+                        monitorSerieEpisodeWorking: Dependency.resolve(MonitorSerieEpisodeWebWorking.self)!
                     )
                 )
             }

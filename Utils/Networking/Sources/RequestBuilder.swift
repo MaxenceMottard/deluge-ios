@@ -8,8 +8,6 @@
 import Foundation
 
 public class RequestBuilder<Response: Sendable> {
-    public typealias SendableEncodable = Encodable & Sendable
-
     let encoder: JSONEncoder = JSONEncoder()
     var decoder: any Decoder = JSONDecoder()
     var requester: any Requester = URLSession.shared
@@ -22,7 +20,7 @@ public class RequestBuilder<Response: Sendable> {
     var queryItems: [URLQueryItem] = []
     var headers: [String: String] = [:]
 
-    var body: SendableEncodable?
+    var body: Encodable?
 
     public init() {}
 
@@ -55,7 +53,7 @@ public class RequestBuilder<Response: Sendable> {
         return self
     }
 
-    public func set<B: SendableEncodable>(body: B) -> Self {
+    public func set<B: Encodable>(body: B) -> Self {
         self.body = body
         return self
     }

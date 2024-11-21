@@ -14,6 +14,7 @@ public struct WebWorkersAssembly: Assembly {
         container.register(SystemStatusWebWorking.self) { _ in SystemStatusWebWorker() }
         container.register(GetSeriesWebWorking.self) { _ in GetSeriesWebWorker() }
         container.register(GetSerieEpisodeWebWorking.self) { _ in GetSerieEpisodeWebWorker() }
+        container.register(MonitorSerieEpisodeWebWorking.self) { _ in MonitorSerieEpisodeWebWorker() }
         container.register(GetMoviesWebWorking.self) { _ in GetMoviesWebWorker() }
     }
 }

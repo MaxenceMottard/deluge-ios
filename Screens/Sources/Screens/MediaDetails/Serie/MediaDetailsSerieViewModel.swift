@@ -13,6 +13,7 @@ import Workers
 class MediaDetailsSerieViewModel {
     struct Dependencies {
         let getSerieEpisodeWorker: GetSerieEpisodeWebWorking
+        let monitorSerieEpisodeWorking: MonitorSerieEpisodeWebWorking
     }
 
     private let dependencies: Dependencies
@@ -33,8 +34,33 @@ class MediaDetailsSerieViewModel {
                 .mapValues { $0.sorted(by: { $0.episodeNumber > $1.episodeNumber }) }
                 .sorted(by: { $0.key > $1.key })
         } catch {
-            print(error)
             seasons = []
+        }
+    }
+
+    func monitor(episode: SerieEpisode) async {
+        await runMonitorWorker(episodes: [episode], monitored: true)
+    }
+
+    func monitor(episodes: [SerieEpisode]) async {
+        await runMonitorWorker(episodes: episodes, monitored: true)
+    }
+
+    func unmonitor(episode: SerieEpisode) async {
+        await runMonitorWorker(episodes: [episode], monitored: false)
+    }
+
+    func unmonitor(episodes: [SerieEpisode]) async {
+        await runMonitorWorker(episodes: episodes, monitored: false)
+    }
+
+    private func runMonitorWorker(episodes: [SerieEpisode], monitored: Bool) async {
+        do {
+            let episodeIds = episodes.map(\.id)
+            try await dependencies.monitorSerieEpisodeWorking.run(ids: episodeIds, monitored: monitored)
+            await fetchEpisodes()
+        } catch {
+            print(error)
         }
     }
 }

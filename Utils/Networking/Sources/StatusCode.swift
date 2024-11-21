@@ -10,6 +10,7 @@ import Foundation
 public enum StatusCode: Int, Sendable {
     case ok = 200
     case created = 201
+    case accepted = 202
     case noContent = 204
     case badRequest = 400
     case unauthorized = 401
@@ -26,14 +27,15 @@ public enum StatusCode: Int, Sendable {
         StatusCode.notFound,
         StatusCode.tooManyRequests,
         StatusCode.internalServerError,
-        StatusCode.serviceUnavailable
+        StatusCode.serviceUnavailable,
     ]
     .map(\.rawValue)
 
     static let successCodes = [
         StatusCode.ok,
         StatusCode.created,
-        StatusCode.noContent
+        StatusCode.accepted,
+        StatusCode.noContent,
     ]
     .map(\.rawValue)
 }
