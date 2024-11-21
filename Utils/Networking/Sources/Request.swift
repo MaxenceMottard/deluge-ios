@@ -7,6 +7,4 @@
 
 import Foundation
 
-public func Request() -> RequestBuilder<Void> {
-    RequestBuilder<Void>()
-}
+public typealias Request = RequestBuilder<Void>

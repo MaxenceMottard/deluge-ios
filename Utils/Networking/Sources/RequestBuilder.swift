@@ -24,7 +24,7 @@ public class RequestBuilder<Response: Sendable> {
 
     var body: SendableEncodable?
 
-    init() {}
+    public init() {}
 
     public func set(url: String) -> Self {
         self.url = url
