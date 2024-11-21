@@ -1,5 +1,5 @@
 //
-//  GetSeriesWebWorkingResponse.swift
+//  GetSeriesWebWorkerResponse.swift
 //  Workers
 //
 //  Created by Maxence Mottard on 09/11/2024.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct GetSeriesWebWorkingResponse: Decodable {
+struct GetSeriesWebWorkerResponse: Decodable {
     let id: Int
     let title: String
     let alternateTitles: [AlternateTitles]

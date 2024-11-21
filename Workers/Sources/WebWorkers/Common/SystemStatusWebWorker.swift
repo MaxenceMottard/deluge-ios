@@ -1,5 +1,5 @@
 //
-//  CheckConfigurationWebWorker.swift
+//  SystemStatusWebWorker.swift
 //  Workers
 //
 //  Created by Maxence Mottard on 08/11/2024.
@@ -21,7 +21,7 @@ struct SystemStatusWebWorker: SystemStatusWebWorking {
             .set(contentType: .json)
             .set(url: url)
             .set(header: "x-api-key", value: apiKey)
-            .set(responseType: SystemStatusWebWorkingResponse.self)
+            .set(responseType: SystemStatusWebWorkerResponse.self)
             .run()
             .toDomain()
     }

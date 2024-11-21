@@ -71,7 +71,7 @@ public struct Serie: Media {
     }
 }
 
-extension GetSeriesWebWorkingResponse {
+extension GetSeriesWebWorkerResponse {
     func toDomain() -> Serie {
         Serie(
             id: id,
@@ -86,7 +86,7 @@ extension GetSeriesWebWorkingResponse {
     }
 }
 
-extension GetSeriesWebWorkingResponse.Status {
+extension GetSeriesWebWorkerResponse.Status {
     func toDomain() -> Serie.Status {
         switch self {
         case .continuing: return .continuing
@@ -97,7 +97,7 @@ extension GetSeriesWebWorkingResponse.Status {
     }
 }
 
-extension GetSeriesWebWorkingResponse.Season {
+extension GetSeriesWebWorkerResponse.Season {
     func toDomain() -> Serie.Season {
         Serie.Season(
             seasonNumber: seasonNumber,
@@ -112,6 +112,6 @@ extension GetSeriesWebWorkingResponse.Season {
     }
 }
 
-extension Array where Element == GetSeriesWebWorkingResponse {
+extension Array where Element == GetSeriesWebWorkerResponse {
     func toDomain() -> [Serie] { map { $0.toDomain() } }
 }

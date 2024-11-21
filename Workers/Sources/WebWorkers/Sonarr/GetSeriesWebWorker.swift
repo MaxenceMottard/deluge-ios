@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  GetSeriesWebWorker.swift
 //  Workers
 //
 //  Created by Maxence Mottard on 08/11/2024.
@@ -18,9 +18,8 @@ struct GetSeriesWebWorker: GetSeriesWebWorking {
             .set(method: .GET)
             .set(path: "/api/v3/series")
             .set(contentType: .json)
-            .set(responseType: Void.self)
             .set(interceptor: InstanceInteceptor())
-            .set(responseType: [GetSeriesWebWorkingResponse].self)
+            .set(responseType: [GetSeriesWebWorkerResponse].self)
             .run()
             .toDomain()
     }

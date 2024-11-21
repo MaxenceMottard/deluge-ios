@@ -1,5 +1,5 @@
 //
-//  GetMoviesWebWorkingResponse.swift
+//  GetMoviesWebWorkerResponse.swift
 //  Workers
 //
 //  Created by Maxence Mottard on 09/11/2024.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct GetMoviesWebWorkingResponse: Decodable, Sendable {
+struct GetMoviesWebWorkerResponse: Decodable {
     let id: Int
     let title: String
     let originalTitle: String
@@ -27,12 +27,12 @@ struct GetMoviesWebWorkingResponse: Decodable, Sendable {
         case deleted
     }
 
-    struct AlternateTitles: Decodable, Sendable {
+    struct AlternateTitles: Decodable {
         let title: String
         let cleanTitle: String?
     }
 
-    struct Image: Decodable, Sendable {
+    struct Image: Decodable {
         let coverType: Cover
         let url: String
         let remoteUrl: String
