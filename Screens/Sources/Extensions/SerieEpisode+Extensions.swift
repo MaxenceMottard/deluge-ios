@@ -14,16 +14,16 @@ extension [SerieEpisode] {
     }
 
     var downloadedEpisodes: Int {
-        filter(\.hasFile).count
+        filter(\.isDownloaded).count
     }
 
     var monitoredEpisodes: Int {
         let today = Date()
         
         return filter { episode in
-            if episode.hasFile { return true }
+            if episode.isDownloaded { return true }
             guard let diffusionDate = episode.diffusionDate else { return false }
-            return episode.monitored && diffusionDate < today
+            return episode.isMonitored && diffusionDate < today
         }
         .count
     }
@@ -33,7 +33,7 @@ extension [SerieEpisode] {
             .missingMonitored
         } else if downloadedEpisodes == monitoredEpisodes && downloadedEpisodes > 0 {
             .completed
-        } else if downloadedEpisodes == monitoredEpisodes && map(\.monitored).contains(true) {
+        } else if downloadedEpisodes == monitoredEpisodes && map(\.isMonitored).contains(true) {
             .missingMonitored
         } else {
             .missingNonMonitored

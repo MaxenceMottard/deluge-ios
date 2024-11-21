@@ -14,8 +14,8 @@ public struct SerieEpisode: Sendable {
     public let episodeFileId: Int
     public let seasonNumber: Int
     public let episodeNumber: Int
-    public let hasFile: Bool
-    public let monitored: Bool
+    public let isDownloaded: Bool
+    public let isMonitored: Bool
     public let diffusionDate: Date?
 
     public init(
@@ -25,8 +25,8 @@ public struct SerieEpisode: Sendable {
         episodeFileId: Int,
         seasonNumber: Int,
         episodeNumber: Int,
-        hasFile: Bool,
-        monitored: Bool,
+        isDownloaded: Bool,
+        isMonitored: Bool,
         diffusionDate: Date?
     ) {
         self.id = id
@@ -35,8 +35,8 @@ public struct SerieEpisode: Sendable {
         self.episodeFileId = episodeFileId
         self.seasonNumber = seasonNumber
         self.episodeNumber = episodeNumber
-        self.hasFile = hasFile
-        self.monitored = monitored
+        self.isDownloaded = isDownloaded
+        self.isMonitored = isMonitored
         self.diffusionDate = diffusionDate
     }
 }
@@ -58,8 +58,8 @@ extension GetSerieEpisodeWebWorkerResponse {
             episodeFileId: episodeFileId,
             seasonNumber: seasonNumber,
             episodeNumber: episodeNumber,
-            hasFile: hasFile,
-            monitored: monitored,
+            isDownloaded: hasFile,
+            isMonitored: monitored,
             diffusionDate: diffusionDate
         )
     }

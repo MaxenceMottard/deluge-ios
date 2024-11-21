@@ -31,10 +31,10 @@ struct MediaDetailsSerieView: View {
     private func listEpisodes(episodes: [SerieEpisode]) -> some View {
         ForEach(episodes, id: \.id) { episode in
             HStack(alignment: .top) {
-                if episode.monitored {
-                    unmonitorButton(episode: episode)
+                if episode.isMonitored {
+                    unmonitorButton(episodes: [episode])
                 } else {
-                    monitorButton(episode: episode)
+                    monitorButton(episodes: [episode])
                 }
 
                 Text("\(episode.episodeNumber)")
@@ -53,17 +53,17 @@ struct MediaDetailsSerieView: View {
         }
     }
 
-    private func monitorButton(episode: SerieEpisode) -> some View {
+    private func monitorButton(episodes: [SerieEpisode]) -> some View {
         Button(action: {
-            Task { await viewModel.monitor(episode: episode) }
+            Task { await viewModel.monitor(episodes: episodes) }
         }) {
             Image(systemName: "bookmark")
         }
     }
 
-    private func unmonitorButton(episode: SerieEpisode) -> some View {
+    private func unmonitorButton(episodes: [SerieEpisode]) -> some View {
         Button(action: {
-            Task { await viewModel.unmonitor(episode: episode) }
+            Task { await viewModel.unmonitor(episodes: episodes) }
         }) {
             Image(systemName: "bookmark.fill")
         }
