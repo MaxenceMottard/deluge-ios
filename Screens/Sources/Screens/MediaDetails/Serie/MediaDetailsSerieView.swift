@@ -10,11 +10,7 @@ import Workers
 import NukeUI
 
 struct MediaDetailsSerieView: View {
-    let viewModel: MediaDetailsSerieViewModel
-
-    init(viewModel: MediaDetailsSerieViewModel) {
-        self.viewModel = viewModel
-    }
+    let viewModel: any MediaDetailsSerieViewModeling
 
     var body: some View {
         VStack {
@@ -122,23 +118,16 @@ struct ExpandableView<H: View, C: View>: View {
 }
 
 #Preview {
-    let getSerieEpisodeWorker: GetSerieEpisodeWebWorking = {
-        let worker = GetSerieEpisodeWebWorkingMock()
-        worker.runIdReturnValue = .preview
+    let viewModel: MediaDetailsSerieViewModeling = {
+        let viewModel = MediaDetailsSerieViewModelingMock()
+        viewModel.serie = .preview()
+        viewModel.seasons = []
 
-        return worker
+        return viewModel
     }()
 
     VStack {
-        MediaDetailsSerieView(
-            viewModel: MediaDetailsSerieViewModel(
-                serie: .preview(),
-                dependencies: MediaDetailsSerieViewModel.Dependencies(
-                    getSerieEpisodeWorker: getSerieEpisodeWorker,
-                    monitorSerieEpisodeWorking: MonitorSerieEpisodeWebWorkingMock()
-                )
-            )
-        )
+        MediaDetailsSerieView(viewModel: viewModel)
 
         Spacer()
     }

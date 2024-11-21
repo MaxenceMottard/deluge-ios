@@ -20,17 +20,17 @@ struct MediaDetailsRoute: Route {
         let viewModel = MediaDetailsViewModel(
             media: media,
             dependencies: MediaDetailsViewModel.Dependencies(
-                router: router
-            ),
-            getSerieViewModel: { serie in
-                MediaDetailsSerieViewModel(
-                    serie: serie,
-                    dependencies: MediaDetailsSerieViewModel.Dependencies(
-                        getSerieEpisodeWorker: Dependency.resolve(GetSerieEpisodeWebWorking.self)!,
-                        monitorSerieEpisodeWorking: Dependency.resolve(MonitorSerieEpisodeWebWorking.self)!
+                router: router,
+                getSerieViewModel: { serie in
+                    MediaDetailsSerieViewModel(
+                        serie: serie,
+                        dependencies: MediaDetailsSerieViewModel.Dependencies(
+                            getSerieEpisodeWorker: Dependency.resolve(GetSerieEpisodeWebWorking.self)!,
+                            monitorSerieEpisodeWorking: Dependency.resolve(MonitorSerieEpisodeWebWorking.self)!
+                        )
                     )
-                )
-            }
+                }
+            )
         )
 
         let view = MediaDetailsView(viewModel: viewModel).environmentObject(router)

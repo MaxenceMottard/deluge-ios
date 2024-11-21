@@ -19,7 +19,7 @@ struct MediaDetailsView: View {
 
             VStack {
                 if let serie = viewModel.media as? Workers.Serie {
-                    MediaDetailsSerieView(viewModel: viewModel.getSerieViewModel(serie))
+                    MediaDetailsSerieView(viewModel: viewModel.getSerieViewModel(serie: serie))
                 }
             }
             .padding()
@@ -32,6 +32,12 @@ struct MediaDetailsView: View {
     let viewModel: any MediaDetailsViewModeling = {
         let viewModel = MediaDetailsViewModelingMock()
         viewModel.media = Serie.preview()
+        viewModel.getSerieViewModelSerieSerieAnyMediaDetailsSerieViewModelingReturnValue = {
+            let serieViewModel = MediaDetailsSerieViewModelingMock()
+            serieViewModel.serie = viewModel.media as! Serie
+
+            return serieViewModel
+        }()
 
         return viewModel
     }()

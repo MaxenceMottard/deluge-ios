@@ -8,9 +8,20 @@
 import SwiftUI
 import Workers
 
+@MainActor
+// sourcery: AutoMockable
+protocol MediaDetailsSerieViewModeling {
+    var serie: Serie { get }
+    var seasons: [(key: Int, value: [SerieEpisode])] { get }
+
+    func fetchEpisodes() async
+    func monitor(episodes: [SerieEpisode]) async
+    func unmonitor(episodes: [SerieEpisode]) async
+}
+
 @Observable
 @MainActor
-class MediaDetailsSerieViewModel {
+class MediaDetailsSerieViewModel: MediaDetailsSerieViewModeling {
     struct Dependencies {
         let getSerieEpisodeWorker: GetSerieEpisodeWebWorking
         let monitorSerieEpisodeWorking: MonitorSerieEpisodeWebWorking
@@ -18,7 +29,7 @@ class MediaDetailsSerieViewModel {
 
     private let dependencies: Dependencies
 
-    let serie: Workers.Serie
+    let serie: Serie
     var seasons: [(key: Int, value: [SerieEpisode])] = []
 
     init(serie: Workers.Serie, dependencies: Dependencies) {
@@ -38,16 +49,8 @@ class MediaDetailsSerieViewModel {
         }
     }
 
-    func monitor(episode: SerieEpisode) async {
-        await runMonitorWorker(episodes: [episode], monitored: true)
-    }
-
     func monitor(episodes: [SerieEpisode]) async {
         await runMonitorWorker(episodes: episodes, monitored: true)
-    }
-
-    func unmonitor(episode: SerieEpisode) async {
-        await runMonitorWorker(episodes: [episode], monitored: false)
     }
 
     func unmonitor(episodes: [SerieEpisode]) async {
