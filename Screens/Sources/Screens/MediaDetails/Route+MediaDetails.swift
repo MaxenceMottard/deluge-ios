@@ -28,6 +28,7 @@ struct MediaDetailsRoute: Route {
                         dependencies: MediaDetailsSerieViewModel.Dependencies(
                             getSerieWorker: Dependency.resolve(GetSerieWorking.self)!,
                             getEpisodesWorker: Dependency.resolve(GetEpisodesWorking.self)!,
+                            getEpisodesFilesWorking: Dependency.resolve(GetEpisodesFilesWorking.self)!,
                             monitorEpisodesWorking: Dependency.resolve(MonitorEpisodesWorking.self)!,
                             monitorSeasonWorker: Dependency.resolve(MonitorSeasonWorking.self)!,
                             tapticEngineWorker: Dependency.resolve(TapticEngineWorking.self)!

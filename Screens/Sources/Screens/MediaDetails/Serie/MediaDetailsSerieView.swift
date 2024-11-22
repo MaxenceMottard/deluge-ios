@@ -15,51 +15,46 @@ struct MediaDetailsSerieView: View {
 
     var body: some View {
         VStack {
-            ForEach(viewModel.seasons, id: \.key) { (seasonNumber, episodes) in
-                let season = viewModel.getSeason(with: seasonNumber)
+            ForEach(viewModel.seasons) { season in
+                let episodes = viewModel.getEpisodes(of: season)
 
                 ExpandableView {
                     HStack {
                         Group {
-                            if let season {
-                                if season.isMonitored {
-                                    unmonitorButton(action: {
-                                        await viewModel.unmonitor(season: season)
-                                    })
-                                } else {
-                                    monitorButton(action: {
-                                        await viewModel.monitor(season: season)
-                                    })
-                                }
+                            if season.isMonitored {
+                                unmonitorButton(action: {
+                                    await viewModel.unmonitor(season: season)
+                                })
+                            } else {
+                                monitorButton(action: {
+                                    await viewModel.monitor(season: season)
+                                })
                             }
                         }
-                        .disabled(season == nil)
 
-                        Text(seasonNumber == 0 ? "Épisodes spéciaux" : "Season \(seasonNumber)")
+                        Text(season.seasonNumber == 0 ? "Épisodes spéciaux" : "Season \(season.seasonNumber)")
 
                         seasonCounter(season: season)
 
-                        if let season, season.sizeOnDisk > 0 {
-                            let size = season.sizeOnDisk.toGigabytes().toString(numberOfDecimals: 1)
-                            Text("\(size) GB")
-                                .foregroundStyle(.gray)
-                                .font(.callout)
-                        }
+                        let size = season.sizeOnDisk.toGigabytes().toString(numberOfDecimals: 1)
+                        Text("\(size) GB")
+                            .foregroundStyle(.gray)
+                            .font(.callout)
+                            .hidden(season.sizeOnDisk < 1)
                     }
                 } content: {
                     listEpisodes(episodes: episodes)
                 }
             }
         }
-        .task {
-            await viewModel.fetchSerie()
-            await viewModel.fetchEpisodes()
-        }
+        .task { await viewModel.fetchData() }
     }
 
     private func listEpisodes(episodes: [Serie.Episode]) -> some View {
         VStack(alignment: .leading, spacing: 10) {
             ForEach(episodes, id: \.id) { episode in
+                let file = viewModel.getEpisodeFile(of: episode)
+
                 HStack(alignment: .top) {
                     if episode.isMonitored {
                         unmonitorButton(action: {
@@ -71,16 +66,26 @@ struct MediaDetailsSerieView: View {
                         })
                     }
 
-                    Text("\(episode.episodeNumber)")
-
-                    VStack(alignment: .leading, spacing: 0) {
-                        Text(episode.title)
-                            .multilineTextAlignment(.leading)
+                    VStack(alignment: .leading) {
+                        Group {
+                            Text("\(episode.episodeNumber) - ") + Text(episode.title)
+                        }
+                        .multilineTextAlignment(.leading)
+                        .lineLimit(2)
 
                         if let diffusionData = episode.diffusionDate {
                             Text(diffusionData, style: .date)
                                 .font(.caption)
                                 .foregroundStyle(.gray)
+                        }
+
+                        if let file {
+                            Text(file.quality.name)
+                                .font(.caption)
+                                .padding(.vertical, 2)
+                                .padding(.horizontal, 4)
+                                .background(.gray)
+                                .cornerRadius(5)
                         }
                     }
                 }
@@ -108,21 +113,20 @@ struct MediaDetailsSerieView: View {
         }
     }
 
-    @ViewBuilder private func seasonCounter(season: Serie.Season?) -> some View {
-        if let season {
-            let status = viewModel.getStatus(of: season)
-            let color: Color = switch status {
-            case .completed: .green
-            case .missingMonitored: .red
-            case .missingNonMonitored: .orange
-            }
+    private func seasonCounter(season: Serie.Season) -> some View {
+        let status = viewModel.getStatus(of: season)
 
-            Text("\(season.episodeFileCount) / \(season.episodeCount)")
-                .padding(.vertical, 3)
-                .padding(.horizontal, 6)
-                .background(color)
-                .cornerRadius(8)
+        let color: Color = switch status {
+        case .completed: .green
+        case .missingMonitored: .red
+        case .missingNonMonitored: .orange
         }
+
+        return Text("\(season.episodeFileCount) / \(season.episodeCount)")
+            .padding(.vertical, 3)
+            .padding(.horizontal, 6)
+            .background(color)
+            .cornerRadius(8)
     }
 }
 
@@ -132,7 +136,7 @@ struct MediaDetailsSerieView: View {
         viewModel.serie = .preview()
         viewModel.getSeasonWithIntSerieSeasonReturnValue = viewModel.serie.seasons.randomElement()
         viewModel.getStatusOfSeasonSerieSeasonSeasonStatusReturnValue = SeasonStatus.allCases.randomElement()
-        viewModel.seasons = Dictionary(grouping: [Serie.Episode].preview, by: \.seasonNumber).map({ $0 })
+        viewModel.getSeasonWithIntSerieSeasonReturnValue = viewModel.serie.seasons.randomElement()
 
         return viewModel
     }()

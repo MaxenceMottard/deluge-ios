@@ -9,11 +9,11 @@ import Networking
 
 // sourcery: AutoMockable
 public protocol GetEpisodesWorking: Sendable {
-    func run(id: Int) async throws -> [Serie.Episode]
+    func run(serieId: Int) async throws -> [Serie.Episode]
 }
 
 struct GetEpisodesWorker: GetEpisodesWorking {
-    func run(id serieId: Int) async throws -> [Serie.Episode] {
+    func run(serieId: Int) async throws -> [Serie.Episode] {
         try await Request()
             .set(method: .GET)
             .set(path: "/api/v3/episode")

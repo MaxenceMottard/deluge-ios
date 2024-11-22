@@ -12,7 +12,7 @@ extension Serie {
         public let id: Int
         public let title: String
         public let serieId: Int
-        public let episodeFileId: Int
+        public let fileId: Int
         public let seasonNumber: Int
         public let episodeNumber: Int
         public let isDownloaded: Bool
@@ -23,7 +23,7 @@ extension Serie {
             id: Int,
             title: String,
             serieId: Int,
-            episodeFileId: Int,
+            fileId: Int,
             seasonNumber: Int,
             episodeNumber: Int,
             isDownloaded: Bool,
@@ -33,7 +33,7 @@ extension Serie {
             self.id = id
             self.title = title
             self.serieId = serieId
-            self.episodeFileId = episodeFileId
+            self.fileId = fileId
             self.seasonNumber = seasonNumber
             self.episodeNumber = episodeNumber
             self.isDownloaded = isDownloaded
@@ -57,7 +57,7 @@ extension GetEpisodesWorkerDecodable {
             id: id,
             title: title,
             serieId: seriesId,
-            episodeFileId: episodeFileId,
+            fileId: episodeFileId,
             seasonNumber: seasonNumber,
             episodeNumber: episodeNumber,
             isDownloaded: hasFile,
