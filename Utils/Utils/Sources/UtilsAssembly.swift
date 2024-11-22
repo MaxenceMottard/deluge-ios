@@ -19,6 +19,10 @@ public struct UtilsAssembly: Assembly {
             ImageCacheWorker()
         }
 
+        container.register(TapticEngineWorking.self) { _ in
+            TapticEngineWorker()
+        }
+
         container.register(InstanceWorking.self) { _ in
             InstanceWorker(keychainWorker: container.resolve(KeychainWorking.self)!)
         }
