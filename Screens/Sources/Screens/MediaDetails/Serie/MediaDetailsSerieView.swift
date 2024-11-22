@@ -134,14 +134,24 @@ struct MediaDetailsSerieView: View {
     let viewModel: MediaDetailsSerieViewModeling = {
         let viewModel = MediaDetailsSerieViewModelingMock()
         viewModel.serie = .preview()
-        viewModel.getSeasonWithIntSerieSeasonReturnValue = viewModel.serie.seasons.randomElement()
-        viewModel.getStatusOfSeasonSerieSeasonSeasonStatusReturnValue = SeasonStatus.allCases.randomElement()
-        viewModel.getSeasonWithIntSerieSeasonReturnValue = viewModel.serie.seasons.randomElement()
+        viewModel.seasons = viewModel.serie.seasons
+
+        viewModel.getEpisodesOfSeasonSerieSeasonSerieEpisodeClosure = { _ in
+            Dictionary(grouping: [Serie.Episode].preview, by: \.seasonNumber)
+                .randomElement()!
+                .value
+        }
+        viewModel.getStatusOfSeasonSerieSeasonSeasonStatusClosure = { _ in
+            SeasonStatus.allCases.randomElement()!
+        }
 
         return viewModel
     }()
 
-    MediaDetailsSerieView(viewModel: viewModel)
+    ScrollView {
+        MediaDetailsSerieView(viewModel: viewModel)
+        Spacer()
+    }
 }
 
 
