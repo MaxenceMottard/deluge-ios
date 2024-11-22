@@ -20,6 +20,7 @@ struct InstanceSelectorRoute: Route {
         let viewModel = InstanceSelectorViewModel(
             dependencies: InstanceSelectorViewModel.Dependencies(
                 instanceWorker: Dependency.resolve(InstanceWorking.self)!,
+                tapticEngineWorker: Dependency.resolve(TapticEngineWorking.self)!,
                 systemStatusWebWorker: Dependency.resolve(SystemStatusWebWorking.self)!,
                 router: router
             )

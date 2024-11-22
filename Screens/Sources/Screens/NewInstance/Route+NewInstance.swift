@@ -21,6 +21,7 @@ struct NewInstanceRoute: Route {
             dependencies: NewInstanceViewModel.Dependencies(
                 checkConfigurationWebWorker: Dependency.resolve(SystemStatusWebWorking.self)!,
                 instanceWorker: Dependency.resolve(InstanceWorking.self)!,
+                tapticEngineWorker: Dependency.resolve(TapticEngineWorking.self)!,
                 router: router
             )
         )

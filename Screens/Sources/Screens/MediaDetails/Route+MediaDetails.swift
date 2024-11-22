@@ -8,6 +8,7 @@
 import Routing
 import SwiftUI
 import Workers
+import Utils
 
 extension Route {
     typealias MediaDetails = MediaDetailsRoute
@@ -26,7 +27,8 @@ struct MediaDetailsRoute: Route {
                         serie: serie,
                         dependencies: MediaDetailsSerieViewModel.Dependencies(
                             getSerieEpisodeWorker: Dependency.resolve(GetSerieEpisodeWebWorking.self)!,
-                            monitorSerieEpisodeWorking: Dependency.resolve(MonitorSerieEpisodeWebWorking.self)!
+                            monitorSerieEpisodeWorking: Dependency.resolve(MonitorSerieEpisodeWebWorking.self)!,
+                            tapticEngineWorker: Dependency.resolve(TapticEngineWorking.self)!
                         )
                     )
                 }

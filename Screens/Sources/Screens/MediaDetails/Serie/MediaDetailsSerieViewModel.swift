@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Workers
+import Utils
 
 @MainActor
 // sourcery: AutoMockable
@@ -27,6 +28,7 @@ class MediaDetailsSerieViewModel: MediaDetailsSerieViewModeling {
     struct Dependencies {
         let getSerieEpisodeWorker: GetSerieEpisodeWebWorking
         let monitorSerieEpisodeWorking: MonitorSerieEpisodeWebWorking
+        let tapticEngineWorker: TapticEngineWorking
     }
 
     private let dependencies: Dependencies
@@ -63,6 +65,7 @@ class MediaDetailsSerieViewModel: MediaDetailsSerieViewModeling {
         do {
             let episodeIds = episodes.map(\.id)
             try await dependencies.monitorSerieEpisodeWorking.run(ids: episodeIds, monitored: monitored)
+            dependencies.tapticEngineWorker.triggerNotification(type: .success)
             await fetchEpisodes()
         } catch {
             print(error)

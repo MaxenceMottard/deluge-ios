@@ -34,7 +34,7 @@ extension MediaDetailsView {
                     )
                     .frame(height: posterSize.height * 0.7)
                 }
-                .overlay {
+                .overlay(alignment: .bottom) {
                     VStack(spacing: 10) {
                         ViewWithRatio(ratio: 0.68) {
                             poster
@@ -52,7 +52,6 @@ extension MediaDetailsView {
                             .multilineTextAlignment(.center)
                     }
                     .padding(.horizontal)
-                    .padding(.top, 20)
                 }
                 .readSize($posterSize)
         }
