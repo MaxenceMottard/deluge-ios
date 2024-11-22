@@ -26,10 +26,16 @@ struct HomeView: View {
             ScrollView {
                 if let selectedInstance = viewModel.selectedInstance {
                     VStack {
-                        ContainerView {
-                            LabeledContent("Current instance", value: selectedInstance.name)
+                        Button(action: { viewModel.presentInstanceSelector() }) {
+                            ContainerView {
+                                HStack {
+                                    LabeledContent("Current instance", value: selectedInstance.name)
+                                    Image(systemName: "arrow.2.squarepath")
+                                }
                                 .padding()
+                            }
                         }
+                        .tint(.white)
 
                         LazyVGrid(columns: columns) {
                             ForEach(viewModel.medias, id: \.id) { media in
