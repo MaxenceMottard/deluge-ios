@@ -8,8 +8,8 @@
 import Foundation
 
 public enum RequestError: Error, Equatable {
-    case http(StatusCode)
-    case httpUnknown(Int)
+    case http(StatusCode, String?)
+    case httpUnknown(Int, String?)
     case unknown
     case wrongResponseType(Any.Type)
     case noURL
@@ -18,10 +18,10 @@ public enum RequestError: Error, Equatable {
 
     public static func == (lhs: RequestError, rhs: RequestError) -> Bool {
         switch (lhs, rhs) {
-        case let (.http(lhsStatusCode), .http(rhsStatusCode)):
-            return lhsStatusCode == rhsStatusCode
-        case let (.httpUnknown(lhsCode), .httpUnknown(rhsCode)):
-            return lhsCode == rhsCode
+        case let (.http(lhsStatusCode, lhsString), .http(rhsStatusCode, rhsString)):
+            return lhsStatusCode == rhsStatusCode && lhsString == rhsString
+        case let (.httpUnknown(lhsCode, lhsString), .httpUnknown(rhsCode, rhsString)):
+            return lhsCode == rhsCode && lhsString == rhsString
         case let (.wrongResponseType(lhsType), .wrongResponseType(rhsType)):
             return lhsType == rhsType
         case (.noURL, .noURL), (.noMethod, .noMethod), (.invalidURL, .invalidURL), (.unknown, .unknown):

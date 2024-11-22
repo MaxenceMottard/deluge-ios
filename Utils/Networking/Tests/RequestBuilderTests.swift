@@ -149,7 +149,7 @@ struct RequestBuilderTests {
                 request.requester = requester
                 let urLRequest = URLRequest(url: URL(string: "https://jsonplaceholder.typicode.com/todos/1")!)
 
-                await #expect(throws: RequestError.http(.badRequest)) {
+                await #expect(throws: RequestError.http(.badRequest, "")) {
                     try await request.performRequest(request: urLRequest)
                 }
             }
@@ -161,7 +161,7 @@ struct RequestBuilderTests {
                 request.requester = requester
                 let urLRequest = URLRequest(url: URL(string: "https://jsonplaceholder.typicode.com/todos/1")!)
 
-                await #expect(throws: RequestError.httpUnknown(700)) {
+                await #expect(throws: RequestError.httpUnknown(700, "")) {
                     try await request.performRequest(request: urLRequest)
                 }
             }

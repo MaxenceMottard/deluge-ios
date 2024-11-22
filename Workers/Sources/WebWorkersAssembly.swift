@@ -11,10 +11,12 @@ public struct WebWorkersAssembly: Assembly {
     public init() {}
 
     public func assemble(container: Swinject.Container) {
-        container.register(SystemStatusWebWorking.self) { _ in SystemStatusWebWorker() }
-        container.register(GetSeriesWebWorking.self) { _ in GetSeriesWebWorker() }
-        container.register(GetSerieEpisodeWebWorking.self) { _ in GetSerieEpisodeWebWorker() }
-        container.register(MonitorSerieEpisodeWebWorking.self) { _ in MonitorSerieEpisodeWebWorker() }
-        container.register(GetMoviesWebWorking.self) { _ in GetMoviesWebWorker() }
+        container.register(GetSystemStatusWorking.self) { _ in GetSystemStatusWorker() }
+        container.register(GetSeriesWorking.self) { _ in GetSeriesWorker() }
+        container.register(GetSerieWorking.self) { _ in GetSerieWorker() }
+        container.register(GetEpisodesWorking.self) { _ in GetEpisodesWorker() }
+        container.register(MonitorEpisodesWorking.self) { _ in MonitorEpisodesWorker() }
+        container.register(MonitorSeasonWorking.self) { _ in MonitorSeasonWorker() }
+        container.register(GetMoviesbWorking.self) { _ in GetMoviesWorker() }
     }
 }

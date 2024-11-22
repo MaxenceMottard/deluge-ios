@@ -26,8 +26,8 @@ protocol HomeViewModeling {
 class HomeViewModel: HomeViewModeling {
     struct Dependencies {
         let instanceWorker: InstanceWorking
-        let getMoviesWorker: GetMoviesWebWorking
-        let getSeriesWebWorker: GetSeriesWebWorking
+        let getMoviesWorker: GetMoviesbWorking
+        let getSeriesWebWorker: GetSeriesWorking
         let imageCacheWorker: ImageCacheWorking
         let router: Routing
     }

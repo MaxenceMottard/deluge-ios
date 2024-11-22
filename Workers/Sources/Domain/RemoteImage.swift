@@ -12,7 +12,7 @@ public struct RemoteImage: Sendable {
     let url: String
 }
 
-extension GetSeriesWebWorkerResponse.Image {
+extension GetSeriesWorkerDecodable.Image {
     func toDomain() -> RemoteImage {
         RemoteImage(
             path: url,

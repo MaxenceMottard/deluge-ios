@@ -20,8 +20,8 @@ struct HomeRoute: Route {
         let viewModel = HomeViewModel(
             dependencies: HomeViewModel.Dependencies(
                 instanceWorker: Dependency.resolve(InstanceWorking.self)!,
-                getMoviesWorker: Dependency.resolve(GetMoviesWebWorking.self)!,
-                getSeriesWebWorker: Dependency.resolve(GetSeriesWebWorking.self)!,
+                getMoviesWorker: Dependency.resolve(GetMoviesbWorking.self)!,
+                getSeriesWebWorker: Dependency.resolve(GetSeriesWorking.self)!,
                 imageCacheWorker: Dependency.resolve(ImageCacheWorking.self)!,
                 router: router
             )

@@ -21,7 +21,7 @@ struct InstanceSelectorRoute: Route {
             dependencies: InstanceSelectorViewModel.Dependencies(
                 instanceWorker: Dependency.resolve(InstanceWorking.self)!,
                 tapticEngineWorker: Dependency.resolve(TapticEngineWorking.self)!,
-                systemStatusWebWorker: Dependency.resolve(SystemStatusWebWorking.self)!,
+                systemStatusWebWorker: Dependency.resolve(GetSystemStatusWorking.self)!,
                 router: router
             )
         )

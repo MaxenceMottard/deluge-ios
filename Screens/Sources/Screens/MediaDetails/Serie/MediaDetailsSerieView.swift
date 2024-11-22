@@ -20,6 +20,21 @@ struct MediaDetailsSerieView: View {
 
                 ExpandableView {
                     HStack {
+                        Group {
+                            if let season {
+                                if season.isMonitored {
+                                    unmonitorButton(action: {
+                                        await viewModel.unmonitor(season: season)
+                                    })
+                                } else {
+                                    monitorButton(action: {
+                                        await viewModel.monitor(season: season)
+                                    })
+                                }
+                            }
+                        }
+                        .disabled(season == nil)
+
                         Text(seasonNumber == 0 ? "Épisodes spéciaux" : "Season \(seasonNumber)")
 
                         seasonCounter(season: season)
@@ -36,17 +51,24 @@ struct MediaDetailsSerieView: View {
                 }
             }
         }
-        .task { await viewModel.fetchEpisodes() }
+        .task {
+            await viewModel.fetchSerie()
+            await viewModel.fetchEpisodes()
+        }
     }
 
-    private func listEpisodes(episodes: [SerieEpisode]) -> some View {
+    private func listEpisodes(episodes: [Serie.Episode]) -> some View {
         VStack(alignment: .leading, spacing: 10) {
             ForEach(episodes, id: \.id) { episode in
                 HStack(alignment: .top) {
                     if episode.isMonitored {
-                        unmonitorButton(episodes: [episode])
+                        unmonitorButton(action: {
+                            await viewModel.unmonitor(episodes: [episode])
+                        })
                     } else {
-                        monitorButton(episodes: [episode])
+                        monitorButton(action: {
+                            await viewModel.monitor(episodes: [episode])
+                        })
                     }
 
                     Text("\(episode.episodeNumber)")
@@ -66,17 +88,21 @@ struct MediaDetailsSerieView: View {
         }
     }
 
-    private func monitorButton(episodes: [SerieEpisode]) -> some View {
+    private func monitorButton(action: @escaping () async -> Void) -> some View {
         Button(action: {
-            Task { await viewModel.monitor(episodes: episodes) }
+            Task {
+                await action()
+            }
         }) {
             Image(systemName: "bookmark")
         }
     }
 
-    private func unmonitorButton(episodes: [SerieEpisode]) -> some View {
+    private func unmonitorButton(action: @escaping () async -> Void) -> some View {
         Button(action: {
-            Task { await viewModel.unmonitor(episodes: episodes) }
+            Task {
+                await action()
+            }
         }) {
             Image(systemName: "bookmark.fill")
         }
@@ -106,7 +132,7 @@ struct MediaDetailsSerieView: View {
         viewModel.serie = .preview()
         viewModel.getSeasonWithIntSerieSeasonReturnValue = viewModel.serie.seasons.randomElement()
         viewModel.getStatusOfSeasonSerieSeasonSeasonStatusReturnValue = SeasonStatus.allCases.randomElement()
-        viewModel.seasons = Dictionary(grouping: [SerieEpisode].preview, by: \.seasonNumber).map({ $0 })
+        viewModel.seasons = Dictionary(grouping: [Serie.Episode].preview, by: \.seasonNumber).map({ $0 })
 
         return viewModel
     }()
