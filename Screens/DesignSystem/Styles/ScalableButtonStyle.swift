@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ScalableButtonStyle: ButtonStyle {
+public struct ScalableButtonStyle: ButtonStyle {
     private enum Constants {
         static let defaultScale: CGFloat = 1
         static let pressedScale: CGFloat = 1.05
@@ -18,7 +18,7 @@ struct ScalableButtonStyle: ButtonStyle {
 
     @Binding var scaleValue: CGFloat
 
-    func makeBody(configuration: Configuration) -> some View {
+    public func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .opacity(configuration.isPressed ? Constants.pressedOpacity : Constants.defaultOpacity)
             .animation(.easeOut(duration: Constants.animationDuration), value: scaleValue)
@@ -31,7 +31,7 @@ struct ScalableButtonStyle: ButtonStyle {
     }
 }
 
-extension ButtonStyle where Self == ScalableButtonStyle {
+public extension ButtonStyle where Self == ScalableButtonStyle {
     static func scalable(scale: Binding<CGFloat>) -> ScalableButtonStyle {
         ScalableButtonStyle(scaleValue: scale)
     }

@@ -40,24 +40,26 @@ struct MediaDetailsSerieView: View {
     }
 
     private func listEpisodes(episodes: [SerieEpisode]) -> some View {
-        ForEach(episodes, id: \.id) { episode in
-            HStack(alignment: .top) {
-                if episode.isMonitored {
-                    unmonitorButton(episodes: [episode])
-                } else {
-                    monitorButton(episodes: [episode])
-                }
+        VStack(alignment: .leading, spacing: 10) {
+            ForEach(episodes, id: \.id) { episode in
+                HStack(alignment: .top) {
+                    if episode.isMonitored {
+                        unmonitorButton(episodes: [episode])
+                    } else {
+                        monitorButton(episodes: [episode])
+                    }
 
-                Text("\(episode.episodeNumber)")
+                    Text("\(episode.episodeNumber)")
 
-                VStack(alignment: .leading, spacing: 0) {
-                    Text(episode.title)
-                        .multilineTextAlignment(.leading)
+                    VStack(alignment: .leading, spacing: 0) {
+                        Text(episode.title)
+                            .multilineTextAlignment(.leading)
 
-                    if let diffusionData = episode.diffusionDate {
-                        Text(diffusionData, style: .date)
-                            .font(.caption)
-                            .foregroundStyle(.gray)
+                        if let diffusionData = episode.diffusionDate {
+                            Text(diffusionData, style: .date)
+                                .font(.caption)
+                                .foregroundStyle(.gray)
+                        }
                     }
                 }
             }

@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension Double {
+public extension Double {
     func toString(numberOfDecimals: Int) -> String {
         let formatter = NumberFormatter()
         formatter.maximumFractionDigits = numberOfDecimals

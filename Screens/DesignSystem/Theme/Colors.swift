@@ -7,6 +7,8 @@
 
 import SwiftUI
 
-public struct Colors: Sendable {
-    public let containerBackground: Color
+extension Theme {
+    public struct Colors: Sendable {
+        public let containerBackground: Color
+    }
 }

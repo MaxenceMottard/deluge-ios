@@ -8,7 +8,7 @@
 import SwiftUI
 
 public struct Theme: Sendable {
-    public let colors: Colors
+    public let colors: Theme.Colors
 }
 
 public extension EnvironmentValues {

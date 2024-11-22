@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension Date {
+public extension Date {
     static var today: Date { Date() }
 
     func add(days: Int) -> Date? {

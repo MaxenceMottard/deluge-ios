@@ -6,9 +6,8 @@
 //
 
 import SwiftUI
-import DesignSystem
 
-struct BasicButtonStyle: ButtonStyle {
+public struct BasicButtonStyle: ButtonStyle {
     private enum Constants {
         static let disabledOpacity: Double = 0.3
         static let pressedOpacity: Double = 0.5
@@ -17,7 +16,7 @@ struct BasicButtonStyle: ButtonStyle {
 
     @Environment(\.isEnabled) private var isEnabled
 
-    func makeBody(configuration: Configuration) -> some View {
+    public func makeBody(configuration: Configuration) -> some View {
         ContainerView {
             configuration.label
                 .bold()
@@ -40,7 +39,7 @@ struct BasicButtonStyle: ButtonStyle {
     }
 }
 
-extension ButtonStyle where Self == BasicButtonStyle {
+public extension ButtonStyle where Self == BasicButtonStyle {
     static var basic: BasicButtonStyle {
         BasicButtonStyle()
     }

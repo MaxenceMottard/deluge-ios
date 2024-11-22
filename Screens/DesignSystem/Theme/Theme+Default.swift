@@ -8,7 +8,7 @@
 import SwiftUI
 
 public let defaultTheme = Theme(
-    colors: .init(
+    colors: Theme.Colors(
         containerBackground: Color(.containerBackground)
     )
 )
