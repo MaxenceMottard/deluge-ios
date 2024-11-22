@@ -15,6 +15,7 @@ public struct Serie: Media {
     public let status: Status
     public let poster: String?
     public let banner: String?
+    public let seasons: [Season]
 
     public init(
         id: Int,
@@ -23,7 +24,8 @@ public struct Serie: Media {
         year: Int,
         status: Status,
         poster: String?,
-        banner: String?
+        banner: String?,
+        seasons: [Season]
     ) {
         self.id = id
         self.title = title
@@ -32,6 +34,7 @@ public struct Serie: Media {
         self.status = status
         self.poster = poster
         self.banner = banner
+        self.seasons = seasons
     }
 
     public enum Status: Sendable {
@@ -39,6 +42,31 @@ public struct Serie: Media {
         case ended
         case upcoming
         case deleted
+    }
+
+    public struct Season: Sendable {
+        public let seasonNumber: Int
+        public let isMonitored: Bool
+        public let episodeFileCount: Int
+        public let episodeCount: Int
+        public let totalEpisodeCount: Int
+        public let sizeOnDisk: Int
+
+        public init(
+            seasonNumber: Int,
+            isMonitored: Bool,
+            episodeFileCount: Int,
+            episodeCount: Int,
+            totalEpisodeCount: Int,
+            sizeOnDisk: Int
+        ) {
+            self.seasonNumber = seasonNumber
+            self.isMonitored = isMonitored
+            self.episodeFileCount = episodeFileCount
+            self.episodeCount = episodeCount
+            self.totalEpisodeCount = totalEpisodeCount
+            self.sizeOnDisk = sizeOnDisk
+        }
     }
 }
 
@@ -51,7 +79,17 @@ extension GetSeriesWebWorkerResponse {
             year: year,
             status: status.toDomain(),
             poster: images.first(where: { $0.coverType == .poster })?.remoteUrl,
-            banner: images.first(where: { $0.coverType == .banner })?.remoteUrl
+            banner: images.first(where: { $0.coverType == .banner })?.remoteUrl,
+            seasons: seasons.map {
+                Serie.Season(
+                    seasonNumber: $0.seasonNumber,
+                    isMonitored: $0.monitored,
+                    episodeFileCount: $0.statistics.episodeFileCount,
+                    episodeCount: $0.statistics.episodeCount,
+                    totalEpisodeCount: $0.statistics.totalEpisodeCount,
+                    sizeOnDisk: $0.statistics.sizeOnDisk
+                )
+            }
         )
     }
 }
