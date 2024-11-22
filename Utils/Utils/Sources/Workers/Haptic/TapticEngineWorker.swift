@@ -8,14 +8,20 @@
 import UIKit
 
 struct TapticEngineWorker: TapticEngineWorking {
-    func trigger(type: TapticType) {
-        let type = getNativeType(for: type)
+    func triggerNotification(type: TapticNotificationType) {
+        let type = getNotificationType(for: type)
         let generator = UINotificationFeedbackGenerator()
         generator.prepare()
         generator.notificationOccurred(type)
     }
 
-    private func getNativeType(for type: TapticType) -> UINotificationFeedbackGenerator.FeedbackType {
+    func triggerSelectionChanged() {
+        let generator = UISelectionFeedbackGenerator()
+        generator.prepare()
+        generator.selectionChanged()
+    }
+
+    private func getNotificationType(for type: TapticNotificationType) -> UINotificationFeedbackGenerator.FeedbackType {
         switch type {
         case .success:
             return .success

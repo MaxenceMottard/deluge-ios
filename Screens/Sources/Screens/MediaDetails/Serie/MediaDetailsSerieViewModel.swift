@@ -65,7 +65,7 @@ class MediaDetailsSerieViewModel: MediaDetailsSerieViewModeling {
         do {
             let episodeIds = episodes.map(\.id)
             try await dependencies.monitorSerieEpisodeWorking.run(ids: episodeIds, monitored: monitored)
-            dependencies.tapticEngineWorker.trigger(type: .success)
+            dependencies.tapticEngineWorker.triggerNotification(type: .success)
             await fetchEpisodes()
         } catch {
             print(error)

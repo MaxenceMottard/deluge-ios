@@ -29,12 +29,13 @@ struct InstanceStatus {
 // sourcery: AutoMockable
 protocol InstanceSelectorViewModeling {
     var instances: [Instance] { get }
-    var selectedInstance: Instance? { get set }
+    var selectedInstance: Instance? { get }
 
     func addInstance()
     func remove(instance: Instance)
     func status(for instance: Instance) -> InstanceStatus?
     func fetchInstanceSatus() async
+    func select(instance: Instance)
 }
 
 @Observable
@@ -42,6 +43,7 @@ protocol InstanceSelectorViewModeling {
 class InstanceSelectorViewModel: InstanceSelectorViewModeling {
     struct Dependencies {
         let instanceWorker: InstanceWorking
+        let tapticEngineWorker: TapticEngineWorking
         let systemStatusWebWorker: SystemStatusWebWorking
         let router: Routing
     }
@@ -77,6 +79,11 @@ class InstanceSelectorViewModel: InstanceSelectorViewModeling {
 
     func status(for instance: Instance) -> InstanceStatus? {
         instanceStatus.first(where: { $0.instanceId == instance.id })
+    }
+
+    func select(instance: Instance) {
+        selectedInstance = instance
+        dependencies.tapticEngineWorker.triggerSelectionChanged()
     }
 
     func fetchInstanceSatus() async {

@@ -7,10 +7,11 @@
 
 import Foundation
 
-public enum TapticType {
+public enum TapticNotificationType {
     case success
 }
 
 public protocol TapticEngineWorking {
-    func trigger(type: TapticType)
+    func triggerNotification(type: TapticNotificationType)
+    func triggerSelectionChanged()
 }

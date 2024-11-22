@@ -18,7 +18,7 @@ struct InstanceSelectorView: View {
     var body: some View {
         VStack {
             ForEach(viewModel.instances) { instance in
-                Button(action: { viewModel.selectedInstance = instance }) {
+                Button(action: { viewModel.select(instance: instance) }) {
                     Item(
                         instance: instance,
                         status: viewModel.status(for: instance),
