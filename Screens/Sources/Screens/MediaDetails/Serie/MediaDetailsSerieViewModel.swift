@@ -12,17 +12,18 @@ import Utils
 @MainActor
 // sourcery: AutoMockable
 protocol MediaDetailsSerieViewModeling {
+    var seasons: [Serie.Season] { get }
     var serie: Serie { get }
-    var seasons: [(key: Int, value: [Serie.Episode])] { get }
 
-    func fetchEpisodes() async
-    func fetchSerie() async
+    func fetchData() async
     func monitor(episodes: [Serie.Episode]) async
     func unmonitor(episodes: [Serie.Episode]) async
     func monitor(season: Serie.Season) async
     func unmonitor(season: Serie.Season) async
     func getSeason(with: Int) -> Serie.Season?
     func getStatus(of season: Serie.Season) -> SeasonStatus
+    func getEpisodes(of season: Serie.Season) -> [Serie.Episode]
+    func getEpisodeFile(of episode: Serie.Episode) -> Serie.Episode.File?
 }
 
 @Observable
@@ -31,6 +32,7 @@ class MediaDetailsSerieViewModel: MediaDetailsSerieViewModeling {
     struct Dependencies {
         let getSerieWorker: GetSerieWorking
         let getEpisodesWorker: GetEpisodesWorking
+        let getEpisodesFilesWorking: GetEpisodesFilesWorking
         let monitorEpisodesWorking: MonitorEpisodesWorking
         let monitorSeasonWorker: MonitorSeasonWorking
         let tapticEngineWorker: TapticEngineWorking
@@ -39,14 +41,22 @@ class MediaDetailsSerieViewModel: MediaDetailsSerieViewModeling {
     private let dependencies: Dependencies
 
     var serie: Serie
-    var seasons: [(key: Int, value: [Serie.Episode])] = []
+    var seasons: [Serie.Season] { serie.seasons.sorted { $0.seasonNumber > $1.seasonNumber } }
+    var episodes: [Serie.Episode] = []
+    var episodesFiles: [Serie.Episode.File] = []
 
     init(serie: Workers.Serie, dependencies: Dependencies) {
         self.serie = serie
         self.dependencies = dependencies
     }
 
-    func fetchSerie() async {
+    func fetchData() async {
+        await fetchSerie()
+        await fetchEpisodes()
+        await fetchEpisodesFiles()
+    }
+
+    private func fetchSerie() async {
         do {
             self.serie = try await dependencies.getSerieWorker.run(id: serie.id)
         } catch {
@@ -54,15 +64,19 @@ class MediaDetailsSerieViewModel: MediaDetailsSerieViewModeling {
         }
     }
 
-    func fetchEpisodes() async {
+    private func fetchEpisodes() async {
         do {
-            let episodes = try await dependencies.getEpisodesWorker.run(id: serie.id)
-            // group episodes by seasons, seasons should be sorted descending by seasonNumber, and epiosde should be sorted ascending by episodeNumber result should be a dictionary
-            seasons = Dictionary(grouping: episodes, by: { $0.seasonNumber })
-                .mapValues { $0.sorted(by: { $0.episodeNumber > $1.episodeNumber }) }
-                .sorted(by: { $0.key > $1.key })
+            self.episodes = try await dependencies.getEpisodesWorker.run(serieId: serie.id)
         } catch {
-            seasons = []
+            self.episodes = []
+        }
+    }
+
+    private func fetchEpisodesFiles() async {
+        do {
+            self.episodesFiles = try await dependencies.getEpisodesFilesWorking.run(serieId: serie.id)
+        } catch {
+            self.episodesFiles = []
         }
     }
 
@@ -85,8 +99,7 @@ class MediaDetailsSerieViewModel: MediaDetailsSerieViewModeling {
         } catch {
             dependencies.tapticEngineWorker.triggerNotification(type: .error)
         }
-        await fetchSerie()
-        await fetchEpisodes()
+        await fetchData()
     }
 
     func monitor(episodes: [Serie.Episode]) async {
@@ -105,7 +118,7 @@ class MediaDetailsSerieViewModel: MediaDetailsSerieViewModeling {
         } catch {
             dependencies.tapticEngineWorker.triggerNotification(type: .error)
         }
-        await fetchEpisodes()
+        await fetchData()
     }
 
     func getSeason(with seasonNumber: Int) -> Serie.Season? {
@@ -120,6 +133,15 @@ class MediaDetailsSerieViewModel: MediaDetailsSerieViewModeling {
         } else {
             .missingNonMonitored
         }
+    }
+
+    func getEpisodes(of season: Serie.Season) -> [Serie.Episode] {
+        episodes.filter { $0.seasonNumber == season.seasonNumber }
+            .sorted { $0.episodeNumber > $1.episodeNumber }
+    }
+
+    func getEpisodeFile(of episode: Serie.Episode) -> Serie.Episode.File? {
+        episodesFiles.first { $0.id == episode.fileId }
     }
 }
 

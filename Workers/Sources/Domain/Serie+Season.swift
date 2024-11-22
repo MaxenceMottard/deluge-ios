@@ -8,13 +8,15 @@
 import Foundation
 
 extension Serie {
-    public struct Season: Sendable {
+    public struct Season: Sendable, Identifiable {
         public let seasonNumber: Int
         public let isMonitored: Bool
         public let episodeFileCount: Int
         public let episodeCount: Int
         public let totalEpisodeCount: Int
         public let sizeOnDisk: Int
+
+        public var id: Int { seasonNumber }
 
         public init(
             seasonNumber: Int,

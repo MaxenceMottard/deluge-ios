@@ -33,10 +33,20 @@ struct MediaDetailsView: View {
         let viewModel = MediaDetailsViewModelingMock()
         viewModel.media = Serie.preview()
         viewModel.getSerieViewModelSerieSerieAnyMediaDetailsSerieViewModelingReturnValue = {
-            let serieViewModel = MediaDetailsSerieViewModelingMock()
-            serieViewModel.serie = viewModel.media as! Serie
+            let viewModel = MediaDetailsSerieViewModelingMock()
+            viewModel.serie = .preview()
+            viewModel.seasons = viewModel.serie.seasons
 
-            return serieViewModel
+            viewModel.getEpisodesOfSeasonSerieSeasonSerieEpisodeClosure = { _ in
+                Dictionary(grouping: [Serie.Episode].preview, by: \.seasonNumber)
+                    .randomElement()!
+                    .value
+            }
+            viewModel.getStatusOfSeasonSerieSeasonSeasonStatusClosure = { _ in
+                SeasonStatus.allCases.randomElement()!
+            }
+
+            return viewModel
         }()
 
         return viewModel
