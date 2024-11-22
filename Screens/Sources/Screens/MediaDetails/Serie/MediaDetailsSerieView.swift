@@ -8,6 +8,7 @@
 import SwiftUI
 import Workers
 import NukeUI
+import DesignSystem
 
 struct MediaDetailsSerieView: View {
     let viewModel: any MediaDetailsSerieViewModeling

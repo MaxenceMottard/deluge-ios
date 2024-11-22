@@ -7,13 +7,18 @@
 
 import SwiftUI
 
-struct ExpandableView<H: View, C: View>: View {
+public struct ExpandableView<H: View, C: View>: View {
     @State private var isExpanded: Bool = false
 
     let header: () -> H
     let content: () -> C
 
-    var body: some View {
+    public init(header: @escaping () -> H, content: @escaping () -> C) {
+        self.header = header
+        self.content = content
+    }
+
+    public var body: some View {
         ContainerView {
             VStack(spacing: 0) {
                 HStack {

@@ -10,6 +10,7 @@ import Routing
 import SwiftUI
 import Utils
 import Workers
+import DesignSystem
 
 struct InstanceSelectorView: View {
     @State var viewModel: any InstanceSelectorViewModeling

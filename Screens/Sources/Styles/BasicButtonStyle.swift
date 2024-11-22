@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import DesignSystem
 
 struct BasicButtonStyle: ButtonStyle {
     private enum Constants {

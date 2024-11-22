@@ -47,7 +47,7 @@ private struct ReadSizeModifier: ViewModifier {
     }
 }
 
-extension View {
+public extension View {
     nonisolated func readSize(_ size: Binding<CGSize>) -> some View {
         modifier(ReadSizeModifier(size: size))
     }

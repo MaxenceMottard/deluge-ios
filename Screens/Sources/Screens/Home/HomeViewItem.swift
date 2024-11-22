@@ -8,6 +8,7 @@
 import SwiftUI
 import Workers
 import NukeUI
+import DesignSystem
 
 struct HomeViewItem: View {
     @State private var size: CGSize = .zero
