@@ -27,15 +27,15 @@ struct MonitorSeasonWorkerCodable: Codable {
     let monitorNewItems: String?
     let useSceneNumbering: Bool?
     let runtime: Int?
-    let tvdbID: Int?
-    let tvRageID: Int?
-    let tvMazeID: Int?
-    let tmdbID: Int?
+    let tvdbId: Int?
+    let tvRageId: Int?
+    let tvMazeId: Int?
+    let tmdbId: Int?
     let firstAired: String?
     let lastAired: String?
     let seriesType: String?
     let cleanTitle: String?
-    let imdbID: String?
+    let imdbId: String?
     let titleSlug: String?
     let rootFolderPath: String?
     let certification: String?
@@ -44,7 +44,7 @@ struct MonitorSeasonWorkerCodable: Codable {
     let added: String?
     let ratings: Ratings?
     let statistics: Statistics?
-    let languageProfileID: Int?
+    let languageProfileId: Int?
     let id: Int?
     let previousAiring: String?
     let nextAiring: String?
