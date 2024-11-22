@@ -66,7 +66,7 @@ struct SourceryBuildToolPlugin: BuildToolPlugin {
         // Save templates if we've got commands to run
         if !commands.isEmpty {
             try fileManager.createDirectory(atPath: templatesDirectory.string, withIntermediateDirectories: true)
-            for template in [AutoEquatable, AutoHashable, AutoMockable] {
+            for template in [AutoMockable] {
                 let path = templatesDirectory.appending(subpath: "\(template.name).stencil")
                 fileManager.createFile(
                     atPath: path.string,
