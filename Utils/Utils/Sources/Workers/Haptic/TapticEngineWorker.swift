@@ -23,8 +23,8 @@ struct TapticEngineWorker: TapticEngineWorking {
 
     private func getNotificationType(for type: TapticNotificationType) -> UINotificationFeedbackGenerator.FeedbackType {
         switch type {
-        case .success:
-            return .success
+        case .success: .success
+        case .error: .error
         }
     }
 }

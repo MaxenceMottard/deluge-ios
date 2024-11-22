@@ -53,10 +53,6 @@ public class InstanceWorker: InstanceWorking {
     private func initvalue() {
         let instances = keychainWorker.retrieve(for: Constants.instancesKey, type: Instances.self)
         let selectedInstance = keychainWorker.retrieve(for: Constants.selectedInstanceKey, type: Instance.self)
-
-        print("[DEBUG] InstanceWorker: initvalue instances: \(String(describing: instances))")
-        print("[DEBUG] InstanceWorker: initvalue selectedInstance: \(String(describing: selectedInstance))")
-
         if let instances { self.instances = instances }
         if let selectedInstance { self.selectedInstance = selectedInstance }
     }

@@ -28,6 +28,7 @@ class NewInstanceViewModel: NewInstanceViewModeling {
     struct Dependencies {
         let checkConfigurationWebWorker: SystemStatusWebWorking
         let instanceWorker: InstanceWorking
+        let tapticEngineWorker: TapticEngineWorking
         let router: Routing
     }
 
@@ -57,12 +58,13 @@ class NewInstanceViewModel: NewInstanceViewModeling {
             guard isFormValid else { return }
 
             _ = try await dependencies.checkConfigurationWebWorker.run(instanceUrl: url, apiKey: apiKey)
+            dependencies.tapticEngineWorker.triggerNotification(type: .success)
             let newInstance = Instance(type: type, name: name, url: url, apiKey: apiKey)
             dependencies.instanceWorker.instances.insert(newInstance)
             dependencies.instanceWorker.selectedInstance = newInstance
             dependencies.router.dismiss()
         } catch {
-            print("[DEBUG] EROR: ", error)
+            dependencies.tapticEngineWorker.triggerNotification(type: .error)
         }
     }
 }

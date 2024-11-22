@@ -9,6 +9,7 @@ import Foundation
 
 public enum TapticNotificationType {
     case success
+    case error
 }
 
 public protocol TapticEngineWorking {
