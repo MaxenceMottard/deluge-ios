@@ -17,6 +17,7 @@ protocol MediaDetailsSerieViewModeling {
     func fetchEpisodes() async
     func monitor(episodes: [SerieEpisode]) async
     func unmonitor(episodes: [SerieEpisode]) async
+    func getSeason(with: Int) -> Serie.Season?
 }
 
 @Observable
@@ -65,5 +66,9 @@ class MediaDetailsSerieViewModel: MediaDetailsSerieViewModeling {
         } catch {
             print(error)
         }
+    }
+
+    func getSeason(with seasonNumber: Int) -> Serie.Season? {
+        serie.seasons.first { $0.seasonNumber == seasonNumber }
     }
 }

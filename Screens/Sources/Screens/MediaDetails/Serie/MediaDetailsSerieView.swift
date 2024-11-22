@@ -15,10 +15,18 @@ struct MediaDetailsSerieView: View {
     var body: some View {
         VStack {
             ForEach(viewModel.seasons, id: \.key) { (seasonNumber, episodes) in
+                let season = viewModel.getSeason(with: seasonNumber)
+
                 ExpandableView {
                     HStack {
                         Text(seasonNumber == 0 ? "Épisodes spéciaux" : "Season \(seasonNumber)")
+
                         seasonCounter(episodes: episodes)
+
+                        if let season, season.sizeOnDisk > 0 {
+                            let size = season.sizeOnDisk.toGigabytes().toString(numberOfDecimals: 1)
+                            Text("\(size) GB")
+                        }
                     }
                 } content: {
                     listEpisodes(episodes: episodes)
@@ -121,16 +129,13 @@ struct ExpandableView<H: View, C: View>: View {
     let viewModel: MediaDetailsSerieViewModeling = {
         let viewModel = MediaDetailsSerieViewModelingMock()
         viewModel.serie = .preview()
-        viewModel.seasons = []
+        viewModel.getSeasonWithIntSerieSeasonReturnValue = viewModel.serie.seasons.first!
+        viewModel.seasons = Dictionary(grouping: [SerieEpisode].preview, by: \.seasonNumber).map({ $0 })
 
         return viewModel
     }()
 
-    VStack {
-        MediaDetailsSerieView(viewModel: viewModel)
-
-        Spacer()
-    }
+    MediaDetailsSerieView(viewModel: viewModel)
 }
 
 
