@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>SupportsSwiftPackage</key>
+	<true/>
+	<key>DefaultCompletionName</key>
+	<string>You can keep it empty</string>
+	<key>Description</key>
+	<string></string>
+	<key>Kind</key>
+	<string>Xcode.IDEFoundation.TextSubstitutionFileTemplateKind</string>
+    <key>AllowedTypes</key>
+    <array>
+        <string>public.swift-source</string>
+    </array>
+	<key>Image</key>
+	<dict>
+		<key>FileTypeIcon</key>
+		<string>swift</string>
+	</dict>
+	<key>Options</key>
+	<array>
+		<dict>
+			<key>Identifier</key>
+			<string>workerName</string>
+			<key>Required</key>
+			<true/>
+			<key>Name</key>
+			<string>Worker Name: </string>
+			<key>Type</key>
+			<string>text</string>
+	        <key>NotPersisted</key>
+	        <true/>
+		</dict>
+	</array>
+</dict>
+</plist>
