@@ -43,7 +43,7 @@ public struct Movie: Media {
     }
 }
 
-extension GetMoviesWebWorkerResponse {
+extension GetMoviesWorkerDecodable {
     func toDomain() -> Movie {
         Movie(
             id: id,
@@ -57,7 +57,7 @@ extension GetMoviesWebWorkerResponse {
     }
 }
 
-extension GetMoviesWebWorkerResponse.Status {
+extension GetMoviesWorkerDecodable.Status {
     func toDomain() -> Movie.Status {
         switch self {
         case .tba: return .tba
@@ -69,6 +69,6 @@ extension GetMoviesWebWorkerResponse.Status {
     }
 }
 
-extension Array where Element == GetMoviesWebWorkerResponse {
+extension Array where Element == GetMoviesWorkerDecodable {
     func toDomain() -> [Movie] { map { $0.toDomain() } }
 }

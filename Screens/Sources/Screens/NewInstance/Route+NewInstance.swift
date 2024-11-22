@@ -19,7 +19,7 @@ struct NewInstanceRoute: Route {
     func viewController(router: Router) -> UIViewController {
         let viewModel = NewInstanceViewModel(
             dependencies: NewInstanceViewModel.Dependencies(
-                checkConfigurationWebWorker: Dependency.resolve(SystemStatusWebWorking.self)!,
+                checkConfigurationWebWorker: Dependency.resolve(GetSystemStatusWorking.self)!,
                 instanceWorker: Dependency.resolve(InstanceWorking.self)!,
                 tapticEngineWorker: Dependency.resolve(TapticEngineWorking.self)!,
                 router: router

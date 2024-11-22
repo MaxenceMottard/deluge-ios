@@ -43,7 +43,7 @@ extension Serie {
     }
 }
 
-extension GetSerieEpisodeWebWorkerResponse {
+extension GetEpisodesWorkerDecodable {
     func toDomain() -> Serie.Episode {
         let formatter = ISO8601DateFormatter()
 
@@ -67,6 +67,6 @@ extension GetSerieEpisodeWebWorkerResponse {
     }
 }
 
-extension Array where Element == GetSerieEpisodeWebWorkerResponse {
+extension Array where Element == GetEpisodesWorkerDecodable {
     func toDomain() -> [Serie.Episode] { map { $0.toDomain() } }
 }

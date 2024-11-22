@@ -15,7 +15,7 @@ public struct SystemStatus: Sendable {
     }
 }
 
-extension SystemStatusWebWorkerResponse {
+extension GetSystemStatusWorkerDecodable {
     func toDomain() -> SystemStatus {
         return SystemStatus(version: version)
     }

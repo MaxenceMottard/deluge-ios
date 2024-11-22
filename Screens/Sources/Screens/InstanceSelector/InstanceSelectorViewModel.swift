@@ -44,7 +44,7 @@ class InstanceSelectorViewModel: InstanceSelectorViewModeling {
     struct Dependencies {
         let instanceWorker: InstanceWorking
         let tapticEngineWorker: TapticEngineWorking
-        let systemStatusWebWorker: SystemStatusWebWorking
+        let systemStatusWebWorker: GetSystemStatusWorking
         let router: Routing
     }
 

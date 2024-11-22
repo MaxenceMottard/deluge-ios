@@ -26,7 +26,7 @@ protocol NewInstanceViewModeling {
 @MainActor
 class NewInstanceViewModel: NewInstanceViewModeling {
     struct Dependencies {
-        let checkConfigurationWebWorker: SystemStatusWebWorking
+        let checkConfigurationWebWorker: GetSystemStatusWorking
         let instanceWorker: InstanceWorking
         let tapticEngineWorker: TapticEngineWorking
         let router: Routing

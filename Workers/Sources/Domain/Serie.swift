@@ -45,7 +45,7 @@ public struct Serie: Media {
     }
 }
 
-extension GetSeriesWebWorkerResponse {
+extension GetSeriesWorkerDecodable {
     func toDomain() -> Serie {
         Serie(
             id: id,
@@ -69,7 +69,7 @@ extension GetSeriesWebWorkerResponse {
     }
 }
 
-extension GetSeriesWebWorkerResponse.Status {
+extension GetSeriesWorkerDecodable.Status {
     func toDomain() -> Serie.Status {
         switch self {
         case .continuing: return .continuing
@@ -80,6 +80,6 @@ extension GetSeriesWebWorkerResponse.Status {
     }
 }
 
-extension Array where Element == GetSeriesWebWorkerResponse {
+extension Array where Element == GetSeriesWorkerDecodable {
     func toDomain() -> [Serie] { map { $0.toDomain() } }
 }

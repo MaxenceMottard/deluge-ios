@@ -1,5 +1,5 @@
 //
-//  GetMoviesWebWorker.swift
+//  GetMoviesWorker.swift
 //  Workers
 //
 //  Created by Maxence Mottard on 08/11/2024.
@@ -8,11 +8,11 @@
 import Networking
 
 // sourcery: AutoMockable
-public protocol GetMoviesWebWorking: Sendable {
+public protocol GetMoviesbWorking: Sendable {
     func run() async throws -> [Movie]
 }
 
-struct GetMoviesWebWorker: GetMoviesWebWorking {
+struct GetMoviesWorker: GetMoviesbWorking {
     func run() async throws -> [Movie] {
         try await Request()
             .set(method: .GET)
@@ -20,7 +20,7 @@ struct GetMoviesWebWorker: GetMoviesWebWorking {
             .set(contentType: .json)
             .set(responseType: Void.self)
             .set(interceptor: InstanceInteceptor())
-            .set(responseType: [GetMoviesWebWorkerResponse].self)
+            .set(responseType: [GetMoviesWorkerDecodable].self)
             .run()
             .toDomain()
     }

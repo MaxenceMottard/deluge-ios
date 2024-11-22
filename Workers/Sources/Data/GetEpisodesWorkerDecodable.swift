@@ -1,5 +1,5 @@
 //
-//  GetSerieEpisodeWebWorkerResponse.swift
+//  GetEpisodesWorkerDecodable.swift
 //  Workers
 //
 //  Created by Maxence Mottard on 21/11/2024.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct GetSerieEpisodeWebWorkerResponse: Decodable {
+struct GetEpisodesWorkerDecodable: Decodable {
     let id: Int
     let seriesId: Int
     let episodeFileId: Int

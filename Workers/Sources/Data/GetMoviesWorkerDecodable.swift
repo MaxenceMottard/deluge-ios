@@ -1,5 +1,5 @@
 //
-//  GetSeriesWebWorkerResponse.swift
+//  GetMoviesWorkerDecodable.swift
 //  Workers
 //
 //  Created by Maxence Mottard on 09/11/2024.
@@ -7,30 +7,29 @@
 
 import Foundation
 
-struct GetSeriesWebWorkerResponse: Decodable {
+struct GetMoviesWorkerDecodable: Decodable {
     let id: Int
     let title: String
+    let originalTitle: String
     let alternateTitles: [AlternateTitles]
     let sortTitle: String
     let status: Status
-    let ended: Bool
     let overview: String
-    let network: String
-    let airTime: String?
     let images: [Image]
     let year: Int
-    let seasons: [Season]
+    let path: String
 
     enum Status: String, Decodable {
-        case continuing
-        case ended
-        case upcoming
+        case tba
+        case announced
+        case inCinemas
+        case released
         case deleted
     }
 
     struct AlternateTitles: Decodable {
         let title: String
-        let seasonNumber: Int?
+        let cleanTitle: String?
     }
 
     struct Image: Decodable {
@@ -46,20 +45,6 @@ struct GetSeriesWebWorkerResponse: Decodable {
             case screenshot
             case headshot
             case clearlogo
-        }
-    }
-
-    struct Season: Decodable {
-        let seasonNumber: Int
-        let monitored: Bool
-        let statistics: Statistics
-
-        struct Statistics: Decodable {
-            let episodeFileCount: Int
-            let episodeCount: Int
-            let totalEpisodeCount: Int
-            let sizeOnDisk: Int
-            let percentOfEpisodes: Double
         }
     }
 }

@@ -26,8 +26,8 @@ protocol MediaDetailsSerieViewModeling {
 @MainActor
 class MediaDetailsSerieViewModel: MediaDetailsSerieViewModeling {
     struct Dependencies {
-        let getSerieEpisodeWorker: GetSerieEpisodeWebWorking
-        let monitorSerieEpisodeWorking: MonitorSerieEpisodeWebWorking
+        let getSerieEpisodeWorker: GetEpisodesWorking
+        let monitorSerieEpisodeWorking: MonitorEpisodesWorking
         let tapticEngineWorker: TapticEngineWorking
     }
 

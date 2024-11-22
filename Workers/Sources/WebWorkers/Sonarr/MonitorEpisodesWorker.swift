@@ -1,5 +1,5 @@
 //
-//  MonitorSerieEpisodeWebWorker.swift
+//  MonitorEpisodesWorker.swift
 //  Workers
 //
 //  Created by Maxence Mottard on 08/11/2024.
@@ -8,11 +8,11 @@
 import Networking
 
 // sourcery: AutoMockable
-public protocol MonitorSerieEpisodeWebWorking: Sendable {
+public protocol MonitorEpisodesWorking: Sendable {
     func run(ids: [Int], monitored: Bool) async throws -> Void
 }
 
-struct MonitorSerieEpisodeWebWorker: MonitorSerieEpisodeWebWorking {
+struct MonitorEpisodesWorker: MonitorEpisodesWorking {
     struct Body: Encodable {
         let episodeIds: [Int]
         let monitored: Bool
