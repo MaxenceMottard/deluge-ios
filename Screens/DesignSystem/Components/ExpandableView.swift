@@ -41,13 +41,13 @@ public struct ExpandableView<H: View, C: View>: View {
 
                 if isExpanded {
                     Divider()
-                        .padding(.vertical, 15)
+                        .padding(.vertical)
 
                     content()
                         .frame(maxWidth: .infinity, alignment: .leading)
                 }
             }
-            .padding(20)
+            .padding()
         }
     }
 }

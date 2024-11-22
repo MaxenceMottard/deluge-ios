@@ -10,7 +10,7 @@ import SwiftUI
 public struct ContainerView<Content: View>: View {
     @Environment(\.theme) var theme
 
-    var content: () -> Content
+    let content: () -> Content
 
     public init(content: @escaping () -> Content) {
         self.content = content
@@ -19,7 +19,7 @@ public struct ContainerView<Content: View>: View {
     public var body: some View {
         content()
             .background(theme.colors.containerBackground)
-            .cornerRadius(30)
+            .cornerRadius(10)
     }
 }
 
