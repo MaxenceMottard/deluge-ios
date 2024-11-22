@@ -18,6 +18,7 @@ protocol HomeViewModeling {
 
     func present(media: any Media)
     func fetchMedias() async
+    func presentInstanceSelector()
 }
 
 @Observable
@@ -72,5 +73,9 @@ class HomeViewModel: HomeViewModeling {
         } catch {
             medias = []
         }
+    }
+
+    func presentInstanceSelector() {
+        dependencies.router.present(route: Route.InstanceSelector(), modal: .sheet)
     }
 }

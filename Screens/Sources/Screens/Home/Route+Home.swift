@@ -31,12 +31,6 @@ struct HomeRoute: Route {
         let viewController = UIHostingController(rootView: view)
         viewController.title = "Home"
         viewController.navigationItem.largeTitleDisplayMode = .always
-        viewController.navigationItem.rightBarButtonItem = UIBarButtonItem(
-            image: UIImage(systemName: "server.rack"),
-            primaryAction: UIAction { _ in
-                router.present(route: Route.InstanceSelector(), modal: .sheet)
-            }
-        )
 
         return viewController
     }
