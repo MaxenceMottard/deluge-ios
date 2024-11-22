@@ -10,6 +10,7 @@ import Routing
 import NukeUI
 import Workers
 import Utils
+import DesignSystem
 
 struct HomeView: View {
     @State var viewModel: any HomeViewModeling
@@ -25,7 +26,10 @@ struct HomeView: View {
             ScrollView {
                 if let selectedInstance = viewModel.selectedInstance {
                     VStack {
-                        LabeledContent("Instance", value: selectedInstance.name)
+                        ContainerView {
+                            LabeledContent("Current instance", value: selectedInstance.name)
+                                .padding()
+                        }
 
                         LazyVGrid(columns: columns) {
                             ForEach(viewModel.medias, id: \.id) { media in
