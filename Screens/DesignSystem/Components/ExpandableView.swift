@@ -41,7 +41,7 @@ public struct ExpandableView<H: View, C: View>: View {
 
                 if isExpanded {
                     Divider()
-                        .padding(.vertical, 20)
+                        .padding(.vertical, 15)
 
                     content()
                         .frame(maxWidth: .infinity, alignment: .leading)
