@@ -34,7 +34,7 @@ struct SerieEpisodeExtensions {
         #expect(episodes.downloadedEpisodes == 3)
     }
 
-    @Test func monitedEpisodes() {
+    @Test func monitoredEpisodes() {
         let episodes: [SerieEpisode] = [
             .preview(isDownloaded: true, isMonitored: false),
             .preview(isDownloaded: true, isMonitored: false),
@@ -45,7 +45,7 @@ struct SerieEpisodeExtensions {
         #expect(episodes.monitoredEpisodes == 5)
     }
 
-    @Test func monitedEpisodesWithNonDiffusedEpisodes() {
+    @Test func monitoredEpisodesWithNonDiffusedEpisodes() {
         let episodes: [SerieEpisode] = [
             .preview(isDownloaded: true, isMonitored: false, diffusionDate: .today),
             .preview(isDownloaded: true, isMonitored: false, diffusionDate: .today),
@@ -56,7 +56,7 @@ struct SerieEpisodeExtensions {
         #expect(episodes.monitoredEpisodes == 3)
     }
 
-    @Test func monitedEpisodesWithNonDiffusedEpisodes2() {
+    @Test func monitoredEpisodesWithNonDiffusedEpisodes2() {
         let episodes: [SerieEpisode] = [
             .preview(isDownloaded: true, isMonitored: true, diffusionDate: .today),
             .preview(isDownloaded: true, isMonitored: true, diffusionDate: .today),
