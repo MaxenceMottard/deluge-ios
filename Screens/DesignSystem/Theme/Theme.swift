@@ -1,6 +1,6 @@
 //
 //  Theme.swift
-//  UI
+//  DesignSystem
 //
 //  Created by Maxence Mottard on 01/10/2024.
 //

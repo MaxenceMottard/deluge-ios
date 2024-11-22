@@ -102,6 +102,7 @@ struct InstanceSelectorView: View {
 
                 }
                 .padding(20)
+                .tint(.white)
             }
         }
     }
