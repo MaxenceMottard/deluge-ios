@@ -18,6 +18,7 @@ protocol MediaDetailsSerieViewModeling {
     func monitor(episodes: [SerieEpisode]) async
     func unmonitor(episodes: [SerieEpisode]) async
     func getSeason(with: Int) -> Serie.Season?
+    func getStatus(of season: Serie.Season) -> SeasonStatus
 }
 
 @Observable
@@ -71,4 +72,20 @@ class MediaDetailsSerieViewModel: MediaDetailsSerieViewModeling {
     func getSeason(with seasonNumber: Int) -> Serie.Season? {
         serie.seasons.first { $0.seasonNumber == seasonNumber }
     }
+
+    func getStatus(of season: Serie.Season) -> SeasonStatus {
+        if season.episodeFileCount < season.episodeCount {
+            .missingMonitored
+        } else if season.episodeFileCount == season.episodeCount && season.episodeFileCount > 0 {
+            .completed
+        } else {
+            .missingNonMonitored
+        }
+    }
+}
+
+enum SeasonStatus: CaseIterable {
+    case completed
+    case missingMonitored
+    case missingNonMonitored
 }

@@ -21,11 +21,13 @@ struct MediaDetailsSerieView: View {
                     HStack {
                         Text(seasonNumber == 0 ? "Épisodes spéciaux" : "Season \(seasonNumber)")
 
-                        seasonCounter(episodes: episodes)
+                        seasonCounter(season: season)
 
                         if let season, season.sizeOnDisk > 0 {
                             let size = season.sizeOnDisk.toGigabytes().toString(numberOfDecimals: 1)
                             Text("\(size) GB")
+                                .foregroundStyle(.gray)
+                                .font(.callout)
                         }
                     }
                 } content: {
@@ -77,18 +79,21 @@ struct MediaDetailsSerieView: View {
         }
     }
 
-    private func seasonCounter(episodes: [SerieEpisode]) -> some View {
-        let color: Color = switch episodes.status {
-        case .completed: .green
-        case .missingMonitored: .red
-        case .missingNonMonitored: .orange
-        }
+    @ViewBuilder private func seasonCounter(season: Serie.Season?) -> some View {
+        if let season {
+            let status = viewModel.getStatus(of: season)
+            let color: Color = switch status {
+            case .completed: .green
+            case .missingMonitored: .red
+            case .missingNonMonitored: .orange
+            }
 
-        return Text("\(episodes.downloadedEpisodes) / \(episodes.monitoredEpisodes)")
-            .padding(.vertical, 3)
-            .padding(.horizontal, 6)
-            .background(color)
-            .cornerRadius(8)
+            Text("\(season.episodeFileCount) / \(season.episodeCount)")
+                .padding(.vertical, 3)
+                .padding(.horizontal, 6)
+                .background(color)
+                .cornerRadius(8)
+        }
     }
 }
 
@@ -129,7 +134,8 @@ struct ExpandableView<H: View, C: View>: View {
     let viewModel: MediaDetailsSerieViewModeling = {
         let viewModel = MediaDetailsSerieViewModelingMock()
         viewModel.serie = .preview()
-        viewModel.getSeasonWithIntSerieSeasonReturnValue = viewModel.serie.seasons.first!
+        viewModel.getSeasonWithIntSerieSeasonReturnValue = viewModel.serie.seasons.randomElement()
+        viewModel.getStatusOfSeasonSerieSeasonSeasonStatusReturnValue = SeasonStatus.allCases.randomElement()
         viewModel.seasons = Dictionary(grouping: [SerieEpisode].preview, by: \.seasonNumber).map({ $0 })
 
         return viewModel
