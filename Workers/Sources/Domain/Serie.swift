@@ -43,31 +43,6 @@ public struct Serie: Media {
         case upcoming
         case deleted
     }
-
-    public struct Season: Sendable {
-        public let seasonNumber: Int
-        public let isMonitored: Bool
-        public let episodeFileCount: Int
-        public let episodeCount: Int
-        public let totalEpisodeCount: Int
-        public let sizeOnDisk: Int
-
-        public init(
-            seasonNumber: Int,
-            isMonitored: Bool,
-            episodeFileCount: Int,
-            episodeCount: Int,
-            totalEpisodeCount: Int,
-            sizeOnDisk: Int
-        ) {
-            self.seasonNumber = seasonNumber
-            self.isMonitored = isMonitored
-            self.episodeFileCount = episodeFileCount
-            self.episodeCount = episodeCount
-            self.totalEpisodeCount = totalEpisodeCount
-            self.sizeOnDisk = sizeOnDisk
-        }
-    }
 }
 
 extension GetSeriesWebWorkerResponse {

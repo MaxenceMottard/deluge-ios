@@ -13,11 +13,11 @@ import Utils
 // sourcery: AutoMockable
 protocol MediaDetailsSerieViewModeling {
     var serie: Serie { get }
-    var seasons: [(key: Int, value: [SerieEpisode])] { get }
+    var seasons: [(key: Int, value: [Serie.Episode])] { get }
 
     func fetchEpisodes() async
-    func monitor(episodes: [SerieEpisode]) async
-    func unmonitor(episodes: [SerieEpisode]) async
+    func monitor(episodes: [Serie.Episode]) async
+    func unmonitor(episodes: [Serie.Episode]) async
     func getSeason(with: Int) -> Serie.Season?
     func getStatus(of season: Serie.Season) -> SeasonStatus
 }
@@ -34,7 +34,7 @@ class MediaDetailsSerieViewModel: MediaDetailsSerieViewModeling {
     private let dependencies: Dependencies
 
     let serie: Serie
-    var seasons: [(key: Int, value: [SerieEpisode])] = []
+    var seasons: [(key: Int, value: [Serie.Episode])] = []
 
     init(serie: Workers.Serie, dependencies: Dependencies) {
         self.serie = serie
@@ -53,22 +53,22 @@ class MediaDetailsSerieViewModel: MediaDetailsSerieViewModeling {
         }
     }
 
-    func monitor(episodes: [SerieEpisode]) async {
-        await runMonitorWorker(episodes: episodes, monitored: true)
+    func monitor(episodes: [Serie.Episode]) async {
+        await runMonitorEpisodesWorker(episodes: episodes, monitored: true)
     }
 
-    func unmonitor(episodes: [SerieEpisode]) async {
-        await runMonitorWorker(episodes: episodes, monitored: false)
+    func unmonitor(episodes: [Serie.Episode]) async {
+        await runMonitorEpisodesWorker(episodes: episodes, monitored: false)
     }
 
-    private func runMonitorWorker(episodes: [SerieEpisode], monitored: Bool) async {
+    private func runMonitorEpisodesWorker(episodes: [Serie.Episode], monitored: Bool) async {
         do {
             let episodeIds = episodes.map(\.id)
             try await dependencies.monitorSerieEpisodeWorking.run(ids: episodeIds, monitored: monitored)
             dependencies.tapticEngineWorker.triggerNotification(type: .success)
             await fetchEpisodes()
         } catch {
-            print(error)
+            dependencies.tapticEngineWorker.triggerNotification(type: .error)
         }
     }
 

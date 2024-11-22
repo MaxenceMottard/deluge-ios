@@ -9,7 +9,7 @@ import Foundation
 import Workers
 import Utils
 
-extension SerieEpisode {
+extension Serie.Episode {
     static func preview(
         id: Int = UUID().hashValue,
         title: String = "The beginning",
@@ -20,8 +20,8 @@ extension SerieEpisode {
         isDownloaded: Bool = false,
         isMonitored: Bool = false,
         diffusionDate: Date? = Date()
-    ) -> SerieEpisode {
-        return SerieEpisode(
+    ) -> Serie.Episode {
+        return Serie.Episode(
             id: id,
             title: title,
             serieId: serieId,
@@ -35,8 +35,8 @@ extension SerieEpisode {
     }
 }
 
-extension [SerieEpisode] {
-    static var preview: [SerieEpisode] {
+extension [Serie.Episode] {
+    static var preview: [Serie.Episode] {
         [
             .preview(title: "omnis iste natus error sit voluptatem", seasonNumber: 1, episodeNumber: 1, isDownloaded: false, isMonitored: true),
             .preview(title: "Sed ut perspiciatis unde", seasonNumber: 1, episodeNumber: 2, isDownloaded: false, isMonitored: true),

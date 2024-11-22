@@ -39,7 +39,7 @@ struct MediaDetailsSerieView: View {
         .task { await viewModel.fetchEpisodes() }
     }
 
-    private func listEpisodes(episodes: [SerieEpisode]) -> some View {
+    private func listEpisodes(episodes: [Serie.Episode]) -> some View {
         VStack(alignment: .leading, spacing: 10) {
             ForEach(episodes, id: \.id) { episode in
                 HStack(alignment: .top) {
@@ -66,7 +66,7 @@ struct MediaDetailsSerieView: View {
         }
     }
 
-    private func monitorButton(episodes: [SerieEpisode]) -> some View {
+    private func monitorButton(episodes: [Serie.Episode]) -> some View {
         Button(action: {
             Task { await viewModel.monitor(episodes: episodes) }
         }) {
@@ -74,7 +74,7 @@ struct MediaDetailsSerieView: View {
         }
     }
 
-    private func unmonitorButton(episodes: [SerieEpisode]) -> some View {
+    private func unmonitorButton(episodes: [Serie.Episode]) -> some View {
         Button(action: {
             Task { await viewModel.unmonitor(episodes: episodes) }
         }) {
@@ -106,7 +106,7 @@ struct MediaDetailsSerieView: View {
         viewModel.serie = .preview()
         viewModel.getSeasonWithIntSerieSeasonReturnValue = viewModel.serie.seasons.randomElement()
         viewModel.getStatusOfSeasonSerieSeasonSeasonStatusReturnValue = SeasonStatus.allCases.randomElement()
-        viewModel.seasons = Dictionary(grouping: [SerieEpisode].preview, by: \.seasonNumber).map({ $0 })
+        viewModel.seasons = Dictionary(grouping: [Serie.Episode].preview, by: \.seasonNumber).map({ $0 })
 
         return viewModel
     }()
