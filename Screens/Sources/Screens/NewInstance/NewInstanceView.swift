@@ -9,6 +9,7 @@ import SwiftUI
 import Routing
 import Workers
 import Utils
+import DesignSystem
 
 struct NewInstanceView: View {
     private enum Field: Hashable {

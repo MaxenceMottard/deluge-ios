@@ -19,8 +19,8 @@ struct IsHiddenModifier: ViewModifier {
     }
 }
 
-extension View {
-    nonisolated func hidden(_ isHidden: Bool) -> some View {
+public extension View {
+    func hidden(_ isHidden: Bool) -> some View {
         self.modifier(IsHiddenModifier(isHidden: isHidden))
     }
 }

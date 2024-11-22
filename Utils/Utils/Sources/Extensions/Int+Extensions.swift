@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension Int {
+public extension Int {
     func toGigabytes() -> Double {
         let bytesPerGigabyte = 1_073_741_824.0
         return Double(self) / bytesPerGigabyte

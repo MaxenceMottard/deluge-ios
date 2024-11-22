@@ -10,6 +10,7 @@ import Routing
 import SwiftUI
 import Utils
 import Workers
+import DesignSystem
 
 struct InstanceSelectorView: View {
     @State var viewModel: any InstanceSelectorViewModeling
@@ -100,7 +101,7 @@ struct InstanceSelectorView: View {
                     }
 
                 }
-                .padding()
+                .padding(20)
                 .tint(.white)
             }
         }

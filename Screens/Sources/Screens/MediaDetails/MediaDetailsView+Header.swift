@@ -8,6 +8,7 @@
 import SwiftUI
 import Workers
 import NukeUI
+import DesignSystem
 
 extension MediaDetailsView {
     struct Header: View {
