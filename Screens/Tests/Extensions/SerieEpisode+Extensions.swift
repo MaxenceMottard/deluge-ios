@@ -36,11 +36,11 @@ struct SerieEpisodeExtensions {
 
     @Test func monitoredEpisodes() {
         let episodes: [SerieEpisode] = [
-            .preview(isDownloaded: true, isMonitored: false),
-            .preview(isDownloaded: true, isMonitored: false),
-            .preview(isDownloaded: true, isMonitored: false),
-            .preview(isDownloaded: false, isMonitored: true),
-            .preview(isDownloaded: false, isMonitored: true),
+            .preview(isDownloaded: true, isMonitored: false, diffusionDate: .today.add(days: -1)),
+            .preview(isDownloaded: true, isMonitored: false, diffusionDate: .today.add(days: -1)),
+            .preview(isDownloaded: true, isMonitored: false, diffusionDate: .today.add(days: -1)),
+            .preview(isDownloaded: false, isMonitored: true, diffusionDate: .today.add(days: -1)),
+            .preview(isDownloaded: false, isMonitored: true, diffusionDate: .today.add(days: -1)),
         ]
         #expect(episodes.monitoredEpisodes == 5)
     }
