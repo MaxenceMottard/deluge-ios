@@ -117,10 +117,11 @@ public class RequestBuilder<Response: Sendable> {
         }
 
         if !StatusCode.successCodes.contains(httpResponse.statusCode) {
+            let errorString = String(data: data, encoding: .utf8)
             if let statusCode = StatusCode(rawValue: httpResponse.statusCode) {
-                throw RequestError.http(statusCode)
+                throw RequestError.http(statusCode, errorString)
             } else {
-                throw RequestError.httpUnknown(httpResponse.statusCode)
+                throw RequestError.httpUnknown(httpResponse.statusCode, errorString)
             }
         }
 
