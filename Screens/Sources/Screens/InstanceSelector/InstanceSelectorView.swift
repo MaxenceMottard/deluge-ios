@@ -115,7 +115,7 @@ struct InstanceSelectorView: View {
             Instance(type: .radarr, name: "Radarr Recovery", url: "https://test2.com", apiKey: "124"),
         ]
         viewModel.selectedInstance = viewModel.instances.first
-        viewModel.statusForReturnValue = InstanceStatus(
+        viewModel.statusForInstanceInstanceInstanceStatusReturnValue = InstanceStatus(
             instanceId: 0,
             status: .succeed(SystemStatus(version: "1.19.0"))
         )

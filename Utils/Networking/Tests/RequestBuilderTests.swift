@@ -134,7 +134,7 @@ struct RequestBuilderTests {
             @Test func performWithSuccessCode() async throws {
                 let request = Request()
                 let requester = RequesterMock()
-                requester.dataForReturnValue = (Data(), HTTPURLResponse.ok)
+                requester.dataForRequestURLRequest_DataURLResponseReturnValue = (Data(), HTTPURLResponse.ok)
                 request.requester = requester
                 let urLRequest = URLRequest(url: URL(string: "https://jsonplaceholder.typicode.com/todos/1")!)
 
@@ -145,7 +145,7 @@ struct RequestBuilderTests {
             @Test func performWithErrorCode() async throws {
                 let request = Request()
                 let requester = RequesterMock()
-                requester.dataForReturnValue = (Data(), HTTPURLResponse(statusCode: .badRequest))
+                requester.dataForRequestURLRequest_DataURLResponseReturnValue = (Data(), HTTPURLResponse(statusCode: .badRequest))
                 request.requester = requester
                 let urLRequest = URLRequest(url: URL(string: "https://jsonplaceholder.typicode.com/todos/1")!)
 
@@ -157,7 +157,7 @@ struct RequestBuilderTests {
             @Test func performWithUnknownErrorCode() async throws {
                 let request = Request()
                 let requester = RequesterMock()
-                requester.dataForReturnValue = (Data(), HTTPURLResponse(statusCode: 700))
+                requester.dataForRequestURLRequest_DataURLResponseReturnValue = (Data(), HTTPURLResponse(statusCode: 700))
                 request.requester = requester
                 let urLRequest = URLRequest(url: URL(string: "https://jsonplaceholder.typicode.com/todos/1")!)
 
@@ -169,7 +169,7 @@ struct RequestBuilderTests {
             @Test func performWithUnknownError() async throws {
                 let request = Request()
                 let requester = RequesterMock()
-                requester.dataForReturnValue = (Data(), URLResponse())
+                requester.dataForRequestURLRequest_DataURLResponseReturnValue = (Data(), URLResponse())
                 request.requester = requester
                 let urLRequest = URLRequest(url: URL(string: "https://jsonplaceholder.typicode.com/todos/1")!)
 
@@ -181,7 +181,7 @@ struct RequestBuilderTests {
             @Test func perfomRequestWithVoidAsReponseType() async throws {
                 let request = Request().set(responseType: Void.self)
                 let requester = RequesterMock()
-                requester.dataForReturnValue = ("Response".data(using: .utf8)!, HTTPURLResponse.ok)
+                requester.dataForRequestURLRequest_DataURLResponseReturnValue = ("Response".data(using: .utf8)!, HTTPURLResponse.ok)
                 request.requester = requester
                 let decoder = DecoderMock()
                 request.decoder = decoder
@@ -189,8 +189,8 @@ struct RequestBuilderTests {
                 let urLRequest = URLRequest(url: url)
 
                 let response: Void = try await request.performRequest(request: urLRequest)
-                #expect(requester.dataForCallsCount == 1)
-                #expect(requester.dataForReceivedRequest == urLRequest)
+                #expect(requester.dataForRequestURLRequest_DataURLResponseCallsCount == 1)
+                #expect(requester.dataForRequestURLRequest_DataURLResponseReceivedRequest == urLRequest)
                 #expect(response == ())
                 #expect(decoder.decodeFromCallsCount == 0)
             }
@@ -198,7 +198,7 @@ struct RequestBuilderTests {
             @Test func perfomRequestWithDataAsReponseType() async throws {
                 let request = Request().set(responseType: Data.self)
                 let requester = RequesterMock()
-                requester.dataForReturnValue = ("Response".data(using: .utf8)!, HTTPURLResponse.ok)
+                requester.dataForRequestURLRequest_DataURLResponseReturnValue = ("Response".data(using: .utf8)!, HTTPURLResponse.ok)
                 request.requester = requester
                 let decoder = DecoderMock()
                 request.decoder = decoder
@@ -206,8 +206,8 @@ struct RequestBuilderTests {
                 let urLRequest = URLRequest(url: url)
 
                 let response = try await request.performRequest(request: urLRequest)
-                #expect(requester.dataForCallsCount == 1)
-                #expect(requester.dataForReceivedRequest == urLRequest)
+                #expect(requester.dataForRequestURLRequest_DataURLResponseCallsCount == 1)
+                #expect(requester.dataForRequestURLRequest_DataURLResponseReceivedRequest == urLRequest)
                 #expect(decoder.decodeFromCallsCount == 0)
                 #expect(response == "Response".data(using: .utf8))
             }
@@ -215,7 +215,7 @@ struct RequestBuilderTests {
             @Test func perfomRequestWithDecodableAsReponseType() async throws {
                 let request = Request().set(responseType: TestDecodable.self)
                 let requester = RequesterMock()
-                requester.dataForReturnValue = ("Response".data(using: .utf8)!, HTTPURLResponse.ok)
+                requester.dataForRequestURLRequest_DataURLResponseReturnValue = ("Response".data(using: .utf8)!, HTTPURLResponse.ok)
                 request.requester = requester
                 let decoder = DecoderMock()
                 decoder.decodeFromReturnValue = TestDecodable(id: 1)
@@ -224,8 +224,8 @@ struct RequestBuilderTests {
                 let urLRequest = URLRequest(url: url)
 
                 let response = try await request.performRequest(request: urLRequest)
-                #expect(requester.dataForCallsCount == 1)
-                #expect(requester.dataForReceivedRequest == urLRequest)
+                #expect(requester.dataForRequestURLRequest_DataURLResponseCallsCount == 1)
+                #expect(requester.dataForRequestURLRequest_DataURLResponseReceivedRequest == urLRequest)
                 #expect(decoder.decodeFromCallsCount == 1)
                 #expect(decoder.decodeFromReceivedArguments?.data == "Response".data(using: .utf8))
                 #expect(decoder.decodeFromReceivedArguments?.type == TestDecodable.self)
@@ -235,7 +235,7 @@ struct RequestBuilderTests {
             @Test func perfomRequestWithAnySendableAsReponseType() async throws {
                 let request = Request().set(responseType: AnySendable.self)
                 let requester = RequesterMock()
-                requester.dataForReturnValue = ("Response".data(using: .utf8)!, HTTPURLResponse.ok)
+                requester.dataForRequestURLRequest_DataURLResponseReturnValue = ("Response".data(using: .utf8)!, HTTPURLResponse.ok)
                 request.requester = requester
                 let decoder = DecoderMock()
                 request.decoder = decoder
@@ -245,8 +245,8 @@ struct RequestBuilderTests {
                 await #expect(throws: RequestError.wrongResponseType(AnySendable.self)) {
                     try await request.performRequest(request: urLRequest)
                 }
-                #expect(requester.dataForCallsCount == 1)
-                #expect(requester.dataForReceivedRequest == urLRequest)
+                #expect(requester.dataForRequestURLRequest_DataURLResponseCallsCount == 1)
+                #expect(requester.dataForRequestURLRequest_DataURLResponseReceivedRequest == urLRequest)
                 #expect(decoder.decodeFromCallsCount == 0)
             }
         }

@@ -1,5 +1,5 @@
 //
-//  GetMoviesWebWorking.swift
+//  GetMoviesWebWorker.swift
 //  Workers
 //
 //  Created by Maxence Mottard on 08/11/2024.
@@ -20,7 +20,7 @@ struct GetMoviesWebWorker: GetMoviesWebWorking {
             .set(contentType: .json)
             .set(responseType: Void.self)
             .set(interceptor: InstanceInteceptor())
-            .set(responseType: [GetMoviesWebWorkingResponse].self)
+            .set(responseType: [GetMoviesWebWorkerResponse].self)
             .run()
             .toDomain()
     }

@@ -16,13 +16,6 @@ public struct Serie: Media {
     public let poster: String?
     public let banner: String?
 
-    public enum Status: Sendable {
-        case continuing
-        case ended
-        case upcoming
-        case deleted
-    }
-
     public init(
         id: Int,
         title: String,
@@ -40,9 +33,16 @@ public struct Serie: Media {
         self.poster = poster
         self.banner = banner
     }
+
+    public enum Status: Sendable {
+        case continuing
+        case ended
+        case upcoming
+        case deleted
+    }
 }
 
-extension GetSeriesWebWorkingResponse {
+extension GetSeriesWebWorkerResponse {
     func toDomain() -> Serie {
         Serie(
             id: id,
@@ -56,7 +56,7 @@ extension GetSeriesWebWorkingResponse {
     }
 }
 
-extension GetSeriesWebWorkingResponse.Status {
+extension GetSeriesWebWorkerResponse.Status {
     func toDomain() -> Serie.Status {
         switch self {
         case .continuing: return .continuing
@@ -67,6 +67,6 @@ extension GetSeriesWebWorkingResponse.Status {
     }
 }
 
-extension Array where Element == GetSeriesWebWorkingResponse {
+extension Array where Element == GetSeriesWebWorkerResponse {
     func toDomain() -> [Serie] { map { $0.toDomain() } }
 }

@@ -14,5 +14,6 @@ public struct InitialView: View {
 
     public var body: some View {
         Router.View(dismiss: nil, initialRoute: Route.Home())
+            .tint(.white)
     }
 }

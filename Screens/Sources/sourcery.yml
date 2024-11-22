@@ -4,7 +4,7 @@ templates:
   - ${TEMPLATES_DIR}
 output: ${DERIVED_SOURCES_DIR}
 args:
-  Library:
+  autoMockableImports:
     - Foundation
     - Workers
     - Utils
