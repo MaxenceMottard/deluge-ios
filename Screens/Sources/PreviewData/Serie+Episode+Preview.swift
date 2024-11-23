@@ -1,5 +1,5 @@
 //
-//  SerieEpisode+Preview.swift
+//  Serie+Episode+Preview.swift
 //  Screens
 //
 //  Created by Maxence Mottard on 10/11/2024.
@@ -13,7 +13,7 @@ extension Serie.Episode {
     static func preview(
         id: Int = UUID().hashValue,
         title: String = "The beginning",
-        serieId: Int = 1,
+        serieId: Int = UUID().hashValue,
         fileId: Int = UUID().hashValue,
         seasonNumber: Int = 1,
         episodeNumber: Int = 3,

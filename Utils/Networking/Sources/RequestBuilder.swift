@@ -20,7 +20,7 @@ public class RequestBuilder<Response: Sendable> {
     var queryItems: [URLQueryItem] = []
     var headers: [String: String] = [:]
 
-    var body: Encodable?
+    var body: Data?
 
     public init() {}
 
@@ -53,7 +53,12 @@ public class RequestBuilder<Response: Sendable> {
         return self
     }
 
-    public func set<B: Encodable>(body: B) -> Self {
+    public func set<B: Encodable>(body: B) throws -> Self {
+        self.body = try encoder.encode(body)
+        return self
+    }
+
+    public func set(body: Data?) -> Self {
         self.body = body
         return self
     }
@@ -97,13 +102,10 @@ public class RequestBuilder<Response: Sendable> {
 
         var request = URLRequest(url: finalUrl)
         request.httpMethod = method.rawValue
+        request.httpBody = body
 
         headers.forEach { key, value in
             request.addValue(value, forHTTPHeaderField: key)
-        }
-
-        if let body = body {
-            request.httpBody = try encoder.encode(body)
         }
 
         return request

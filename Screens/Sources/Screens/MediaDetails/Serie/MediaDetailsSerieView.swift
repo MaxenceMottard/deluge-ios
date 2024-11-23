@@ -22,111 +22,51 @@ struct MediaDetailsSerieView: View {
                     HStack {
                         Group {
                             if season.isMonitored {
-                                unmonitorButton(action: {
-                                    await viewModel.unmonitor(season: season)
-                                })
+                                Button(action: { unmonitor(season: season) }) {
+                                    Image(systemName: "bookmark.fill")
+                                }
                             } else {
-                                monitorButton(action: {
-                                    await viewModel.monitor(season: season)
-                                })
+                                Button(action: { monitor(season: season) }) {
+                                    Image(systemName: "bookmark")
+                                }
                             }
                         }
 
-                        Text(season.seasonNumber == 0 ? "Épisodes spéciaux" : "Season \(season.seasonNumber)")
+                        Group {
+                            if season.seasonNumber == 0 {
+                                Text("Épisodes spéciaux")
+                            } else {
+                                Text("Season \(season.seasonNumber)")
+                            }
+                        }
 
-                        seasonCounter(season: season)
+                        SerieCounterView(
+                            season: season,
+                            status: viewModel.getStatus(of: season)
+                        )
 
-                        let size = season.sizeOnDisk.toGigabytes().toString(numberOfDecimals: 1)
-                        Text("\(size) GB")
-                            .foregroundStyle(.gray)
-                            .font(.callout)
-                            .hidden(season.sizeOnDisk < 1)
+                        FileSizeView(size: season.sizeOnDisk)
                     }
                 } content: {
-                    listEpisodes(episodes: episodes)
+                    MediaDetailsSerieEpisodesView(
+                        episodes: episodes,
+                        getEpisodeFile: viewModel.getEpisodeFile(of:),
+                        monitor: { await viewModel.monitor(episodes: [$0]) },
+                        unmonitor: { await viewModel.unmonitor(episodes: [$0]) },
+                        search: viewModel.search(episode:)
+                    )
                 }
             }
         }
         .task { await viewModel.fetchData() }
     }
 
-    private func listEpisodes(episodes: [Serie.Episode]) -> some View {
-        VStack(alignment: .leading, spacing: 10) {
-            ForEach(episodes, id: \.id) { episode in
-                let file = viewModel.getEpisodeFile(of: episode)
-
-                HStack(alignment: .top) {
-                    if episode.isMonitored {
-                        unmonitorButton(action: {
-                            await viewModel.unmonitor(episodes: [episode])
-                        })
-                    } else {
-                        monitorButton(action: {
-                            await viewModel.monitor(episodes: [episode])
-                        })
-                    }
-
-                    VStack(alignment: .leading) {
-                        Group {
-                            Text("\(episode.episodeNumber) - ") + Text(episode.title)
-                        }
-                        .multilineTextAlignment(.leading)
-                        .lineLimit(2)
-
-                        if let diffusionData = episode.diffusionDate {
-                            Text(diffusionData, style: .date)
-                                .font(.caption)
-                                .foregroundStyle(.gray)
-                        }
-
-                        if let file {
-                            Text(file.quality.name)
-                                .font(.caption)
-                                .padding(.vertical, 2)
-                                .padding(.horizontal, 4)
-                                .background(.gray)
-                                .cornerRadius(5)
-                        }
-                    }
-                }
-            }
-        }
+    private func monitor(season: Serie.Season) {
+        Task { await viewModel.monitor(season: season) }
     }
 
-    private func monitorButton(action: @escaping () async -> Void) -> some View {
-        Button(action: {
-            Task {
-                await action()
-            }
-        }) {
-            Image(systemName: "bookmark")
-        }
-    }
-
-    private func unmonitorButton(action: @escaping () async -> Void) -> some View {
-        Button(action: {
-            Task {
-                await action()
-            }
-        }) {
-            Image(systemName: "bookmark.fill")
-        }
-    }
-
-    private func seasonCounter(season: Serie.Season) -> some View {
-        let status = viewModel.getStatus(of: season)
-
-        let color: Color = switch status {
-        case .completed: .green
-        case .missingMonitored: .red
-        case .missingNonMonitored: .orange
-        }
-
-        return Text("\(season.episodeFileCount) / \(season.episodeCount)")
-            .padding(.vertical, 3)
-            .padding(.horizontal, 6)
-            .background(color)
-            .cornerRadius(8)
+    private func unmonitor(season: Serie.Season) {
+        Task { await viewModel.unmonitor(season: season) }
     }
 }
 
@@ -135,22 +75,15 @@ struct MediaDetailsSerieView: View {
         let viewModel = MediaDetailsSerieViewModelingMock()
         viewModel.serie = .preview()
         viewModel.seasons = viewModel.serie.seasons
-
-        viewModel.getEpisodesOfSeasonSerieSeasonSerieEpisodeClosure = { _ in
-            Dictionary(grouping: [Serie.Episode].preview, by: \.seasonNumber)
-                .randomElement()!
-                .value
-        }
-        viewModel.getStatusOfSeasonSerieSeasonSeasonStatusClosure = { _ in
-            SeasonStatus.allCases.randomElement()!
-        }
+        viewModel.getEpisodesOfSeasonSerieSeasonSerieEpisodeReturnValue = .preview.prefix(6).map({ $0 })
+        viewModel.getStatusOfSeasonSerieSeasonSeasonStatusReturnValue = .missingNonMonitored
+        viewModel.getEpisodeFileOfEpisodeSerieEpisodeSerieEpisodeFileReturnValue = .preview()
 
         return viewModel
     }()
 
     ScrollView {
         MediaDetailsSerieView(viewModel: viewModel)
-        Spacer()
     }
 }
 
