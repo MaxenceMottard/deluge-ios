@@ -24,6 +24,8 @@ protocol MediaDetailsSerieViewModeling {
     func getStatus(of season: Serie.Season) -> SeasonStatus
     func getEpisodes(of season: Serie.Season) -> [Serie.Episode]
     func getEpisodeFile(of episode: Serie.Episode) -> Serie.Episode.File?
+
+    func search(episode: Serie.Episode) async
 }
 
 @Observable
@@ -36,6 +38,7 @@ class MediaDetailsSerieViewModel: MediaDetailsSerieViewModeling {
         let monitorEpisodesWorking: MonitorEpisodesWorking
         let monitorSeasonWorker: MonitorSeasonWorking
         let tapticEngineWorker: TapticEngineWorking
+        let commandWorker: SonarrCommandWorking
     }
 
     private let dependencies: Dependencies
@@ -142,6 +145,16 @@ class MediaDetailsSerieViewModel: MediaDetailsSerieViewModeling {
 
     func getEpisodeFile(of episode: Serie.Episode) -> Serie.Episode.File? {
         episodesFiles.first { $0.id == episode.fileId }
+    }
+
+    // MARK: Actions
+
+    func search(episode: Serie.Episode) async {
+        do {
+            try await dependencies.commandWorker.run(command: .episodeSearch(ids: [episode.id]))
+        } catch {
+            print(error)
+        }
     }
 }
 

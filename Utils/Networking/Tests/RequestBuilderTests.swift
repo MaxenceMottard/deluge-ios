@@ -67,9 +67,9 @@ struct RequestBuilderTests {
         }
 
         @Test func setBody() async throws {
-            let request = Request().set(body: ["id": 1])
-            let body = try #require(request.body as? [String: Int])
-            #expect(body == ["id": 1])
+            let request = try Request().set(body: ["id": 1])
+            let expectedBody = try? JSONEncoder().encode(["id": 1])
+            #expect(request.body == expectedBody)
         }
 
         @Test func setResponseType() async throws {
@@ -81,7 +81,7 @@ struct RequestBuilderTests {
 
         @Suite("generateUrlRequest") struct GenerateUrlRequest {
             @Test func generateUrlRequest() throws {
-                let Request = Request()
+                let Request = try Request()
                     .set(url: "https://jsonplaceholder.typicode.com")
                     .set(path: "/todos/1")
                     .set(method: .PATCH)

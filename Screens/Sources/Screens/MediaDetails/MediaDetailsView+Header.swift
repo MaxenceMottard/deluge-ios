@@ -23,16 +23,11 @@ extension MediaDetailsView {
                 .clipped()
                 .overlay(alignment: .bottom) {
                     LinearGradient(
-                        colors: [
-                            .clear,
-                            .black.opacity(0.5),
-                            .black.opacity(0.6),
-                            .black
-                        ],
+                        colors: [.clear, .black],
                         startPoint: .top,
                         endPoint: .bottom
                     )
-                    .frame(height: posterSize.height * 0.7)
+                    .frame(height: posterSize.height * 0.5)
                 }
                 .overlay(alignment: .bottom) {
                     VStack(spacing: 10) {

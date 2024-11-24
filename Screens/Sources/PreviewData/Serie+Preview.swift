@@ -10,6 +10,7 @@ import Workers
 
 extension Serie {
     static func preview(
+        id: Int = UUID().hashValue,
         title: String = "First serie name",
         description: String = "But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth",
         year: Int = 2021,
@@ -44,7 +45,7 @@ extension Serie {
         ]
     ) -> Serie {
         return Serie(
-            id: UUID().hashValue,
+            id: id,
             title: title,
             description: description,
             year: year,
