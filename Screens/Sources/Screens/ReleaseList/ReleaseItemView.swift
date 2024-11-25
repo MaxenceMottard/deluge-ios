@@ -28,11 +28,7 @@ struct ReleaseItemView: View {
                     Text(release.indexer)
                     FileQualityView(quality: release.quality.name)
                     FileSizeView(size: release.size)
-                    CounterView(
-                        leftValue: "\(release.seeders)",
-                        rightValue: "\(release.leechers)",
-                        status: .neutral
-                    )
+                    PillView(value: "\(release.seeders) / \(release.leechers)", status: .info)
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
 

@@ -13,6 +13,7 @@ import DesignSystem
 struct MediaDetailsSerieEpisodesView: View {
     let episodes: [Serie.Episode]
     let getEpisodeFile: (Serie.Episode) -> Serie.Episode.File?
+    let getEpisodeQueueItem: (Serie.Episode) -> Serie.QueueItem?
     let monitor: (Serie.Episode) async -> Void
     let unmonitor: (Serie.Episode) async -> Void
     let search: (Serie.Episode) async -> Void
@@ -22,6 +23,7 @@ struct MediaDetailsSerieEpisodesView: View {
         VStack(alignment: .leading, spacing: 10) {
             ForEach(episodes, id: \.id) { episode in
                 let file = getEpisodeFile(episode)
+                let queueItem = getEpisodeQueueItem(episode)
 
                 HStack(alignment: .top) {
                     if episode.isMonitored {
@@ -41,11 +43,23 @@ struct MediaDetailsSerieEpisodesView: View {
                         .multilineTextAlignment(.leading)
                         .lineLimit(2)
 
-                        if let diffusionData = episode.diffusionDate {
-                            Text(diffusionData, style: .date)
-                                .font(.caption)
-                                .foregroundStyle(.gray)
+                        HStack {
+                            if file != nil {
+                                Image(systemName: "checkmark.icloud")
+                                    .foregroundStyle(.green)
+                            }
+
+                            if queueItem != nil {
+                                Image(systemName: "icloud.and.arrow.down")
+                                    .foregroundStyle(.purple)
+                            }
+
+                            if let diffusionData = episode.diffusionDate {
+                                Text(diffusionData, style: .date)
+                                    .foregroundStyle(.gray)
+                            }
                         }
+                        .font(.caption)
 
                         FileQualityView(quality: file?.quality.name)
                     }
@@ -76,6 +90,9 @@ struct MediaDetailsSerieEpisodesView: View {
         getEpisodeFile: { _ in
             let values = [Serie.Episode.File.preview(), nil]
             return values.randomElement()!
+        },
+        getEpisodeQueueItem: { _ in
+            nil
         },
         monitor: { _ in },
         unmonitor: { _ in },

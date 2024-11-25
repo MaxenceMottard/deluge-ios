@@ -17,6 +17,7 @@ struct MediaDetailsSerieView: View {
         VStack {
             ForEach(viewModel.seasons) { season in
                 let episodes = viewModel.getEpisodes(of: season)
+                let queueItems = viewModel.getQueueItems(of: season)
 
                 ExpandableView {
                     HStack {
@@ -40,9 +41,15 @@ struct MediaDetailsSerieView: View {
                             }
                         }
 
-                        CounterView(
-                            leftValue: "\(season.episodeFileCount)",
-                            rightValue: "\(season.episodeCount)",
+                        PillView(
+                            value: [
+                                String(season.episodeFileCount),
+                                queueItems.isEmpty ? nil : "+ \(queueItems.count)",
+                                "/",
+                                String(season.episodeCount)
+                            ]
+                            .compactMap({ $0 })
+                            .joined(separator: " "),
                             status: viewModel.getStatus(of: season).toCounterStatus()
                         )
 
@@ -52,6 +59,7 @@ struct MediaDetailsSerieView: View {
                     MediaDetailsSerieEpisodesView(
                         episodes: episodes,
                         getEpisodeFile: viewModel.getEpisodeFile(of:),
+                        getEpisodeQueueItem: viewModel.getQueueItem(of:),
                         monitor: { await viewModel.monitor(episodes: [$0]) },
                         unmonitor: { await viewModel.unmonitor(episodes: [$0]) },
                         search: viewModel.search(episode:),
@@ -77,9 +85,9 @@ struct MediaDetailsSerieView: View {
         let viewModel = MediaDetailsSerieViewModelingMock()
         viewModel.serie = .preview()
         viewModel.seasons = viewModel.serie.seasons
-        viewModel.getEpisodesOfSeasonSerieSeasonSerieEpisodeReturnValue = .preview.prefix(6).map({ $0 })
-        viewModel.getStatusOfSeasonSerieSeasonSeasonStatusReturnValue = .missingNonMonitored
-        viewModel.getEpisodeFileOfEpisodeSerieEpisodeSerieEpisodeFileReturnValue = .preview()
+        viewModel.getEpisodesOfSerieSeasonSerieEpisodeReturnValue = .preview.prefix(6).map({ $0 })
+        viewModel.getStatusOfSerieSeasonSeasonStatusReturnValue = .missingNonMonitored
+        viewModel.getEpisodeFileOfSerieEpisodeSerieEpisodeFileReturnValue = .preview()
 
         return viewModel
     }()
@@ -90,11 +98,12 @@ struct MediaDetailsSerieView: View {
 }
 
 private extension SeasonStatus {
-    func toCounterStatus() -> CounterView.Status {
+    func toCounterStatus() -> PillView.Status {
         switch self {
         case .completed: .success
         case .missingMonitored: .error
         case .missingNonMonitored: .warning
+        case .queued: .queued
         }
     }
 }

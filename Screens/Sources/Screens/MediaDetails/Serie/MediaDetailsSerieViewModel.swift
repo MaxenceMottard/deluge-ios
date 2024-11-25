@@ -22,12 +22,14 @@ protocol MediaDetailsSerieViewModeling {
     func monitor(season: Serie.Season) async
     func unmonitor(season: Serie.Season) async
     func getSeason(with: Int) -> Serie.Season?
-    func getStatus(of season: Serie.Season) -> SeasonStatus
-    func getEpisodes(of season: Serie.Season) -> [Serie.Episode]
-    func getEpisodeFile(of episode: Serie.Episode) -> Serie.Episode.File?
+    func getStatus(of: Serie.Season) -> SeasonStatus
+    func getEpisodes(of: Serie.Season) -> [Serie.Episode]
+    func getEpisodeFile(of: Serie.Episode) -> Serie.Episode.File?
+    func getQueueItem(of: Serie.Episode) -> Serie.QueueItem?
+    func getQueueItems(of season: Serie.Season) -> [Serie.QueueItem]
 
     func search(episode: Serie.Episode) async
-    func getReleases(of episode: Serie.Episode) async
+    func getReleases(of: Serie.Episode) async
 }
 
 @Observable
@@ -41,6 +43,7 @@ class MediaDetailsSerieViewModel: MediaDetailsSerieViewModeling {
         let monitorSeasonWorker: MonitorSeasonWorking
         let tapticEngineWorker: TapticEngineWorking
         let commandWorker: SonarrCommandWorking
+        let getSerieQueueWorker: GetSerieQueueWorking
         let router: Routing
     }
 
@@ -50,6 +53,7 @@ class MediaDetailsSerieViewModel: MediaDetailsSerieViewModeling {
     var seasons: [Serie.Season] { serie.seasons.sorted { $0.seasonNumber > $1.seasonNumber } }
     var episodes: [Serie.Episode] = []
     var episodesFiles: [Serie.Episode.File] = []
+    var queueItems: [Serie.QueueItem] = []
 
     init(serie: Workers.Serie, dependencies: Dependencies) {
         self.serie = serie
@@ -60,6 +64,7 @@ class MediaDetailsSerieViewModel: MediaDetailsSerieViewModeling {
         await fetchSerie()
         await fetchEpisodes()
         await fetchEpisodesFiles()
+        await fetchSerieQueue()
     }
 
     private func fetchSerie() async {
@@ -83,6 +88,14 @@ class MediaDetailsSerieViewModel: MediaDetailsSerieViewModeling {
             self.episodesFiles = try await dependencies.getEpisodesFilesWorking.run(serieId: serie.id)
         } catch {
             self.episodesFiles = []
+        }
+    }
+
+    private func fetchSerieQueue() async {
+        do {
+            self.queueItems = try await dependencies.getSerieQueueWorker.run(id: serie.id)
+        } catch {
+            self.queueItems = []
         }
     }
 
@@ -132,7 +145,11 @@ class MediaDetailsSerieViewModel: MediaDetailsSerieViewModeling {
     }
 
     func getStatus(of season: Serie.Season) -> SeasonStatus {
-        if season.episodeFileCount < season.episodeCount {
+        if !getQueueItems(of: season).isEmpty {
+            return .queued
+        }
+
+        return if season.episodeFileCount < season.episodeCount {
             .missingMonitored
         } else if season.episodeFileCount == season.episodeCount && season.episodeFileCount > 0 {
             .completed
@@ -148,6 +165,14 @@ class MediaDetailsSerieViewModel: MediaDetailsSerieViewModeling {
 
     func getEpisodeFile(of episode: Serie.Episode) -> Serie.Episode.File? {
         episodesFiles.first { $0.id == episode.fileId }
+    }
+
+    func getQueueItem(of episode: Serie.Episode) -> Serie.QueueItem? {
+        queueItems.first { $0.episodeId == episode.id }
+    }
+
+    func getQueueItems(of season: Serie.Season) -> [Serie.QueueItem] {
+        queueItems.filter { $0.seasonNumber == season.seasonNumber }
     }
 
     // MARK: Actions
@@ -176,4 +201,5 @@ enum SeasonStatus: CaseIterable {
     case completed
     case missingMonitored
     case missingNonMonitored
+    case queued
 }
