@@ -36,9 +36,9 @@ struct MediaDetailsView: View {
             let viewModel = MediaDetailsSerieViewModelingMock()
             viewModel.serie = .preview()
             viewModel.seasons = viewModel.serie.seasons
-            viewModel.getEpisodesOfSeasonSerieSeasonSerieEpisodeReturnValue = .preview.prefix(6).map({ $0 })
-            viewModel.getStatusOfSeasonSerieSeasonSeasonStatusReturnValue = .missingNonMonitored
-            viewModel.getEpisodeFileOfEpisodeSerieEpisodeSerieEpisodeFileReturnValue = .preview()
+            viewModel.getEpisodesOfSerieSeasonSerieEpisodeReturnValue = .preview.prefix(6).map({ $0 })
+            viewModel.getStatusOfSerieSeasonSeasonStatusReturnValue = .missingNonMonitored
+            viewModel.getEpisodeFileOfSerieEpisodeSerieEpisodeFileReturnValue = .preview()
 
             return viewModel
         }()

@@ -7,14 +7,12 @@
 
 import SwiftUI
 
-public struct CounterView: View {
-    private let leftValue: String
-    private let rightValue: String
+public struct PillView: View {
+    private let value: String
     private let status: Status
 
-    public init(leftValue: String, rightValue: String, status: Status) {
-        self.leftValue = leftValue
-        self.rightValue = rightValue
+    public init(value: String, status: Status) {
+        self.value = value
         self.status = status
     }
 
@@ -23,12 +21,13 @@ public struct CounterView: View {
         case .success: .green
         case .error: .red
         case .warning: .orange
-        case .neutral: .blue
+        case .info: .blue
+        case .queued: .purple
         }
     }
 
     public var body: some View {
-        Text("\(leftValue) / \(rightValue)")
+        Text(value)
             .padding(.vertical, 3)
             .padding(.horizontal, 6)
             .background(color)
@@ -39,14 +38,15 @@ public struct CounterView: View {
         case success
         case error
         case warning
-        case neutral
+        case info
+        case queued
     }
 }
 
 #Preview {
-    ForEach(CounterView.Status.allCases, id: \.self) { status in
-        CounterView(leftValue: "20", rightValue: "50", status: status)
+    ForEach(PillView.Status.allCases, id: \.self) { status in
+        PillView(value: "20 / 200", status: status)
     }
 }
 
-extension CounterView.Status: CaseIterable {}
+extension PillView.Status: CaseIterable {}
