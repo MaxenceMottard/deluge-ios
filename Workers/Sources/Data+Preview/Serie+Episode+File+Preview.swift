@@ -6,10 +6,9 @@
 //
 
 import Foundation
-import Workers
 import Utils
 
-extension Serie.Episode.File {
+public extension Serie.Episode.File {
     static func preview(
         serieId: Int = UUID().hashValue,
         seasonNumber: Int = 1,

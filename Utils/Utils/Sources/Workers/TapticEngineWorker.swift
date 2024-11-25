@@ -7,6 +7,16 @@
 
 import UIKit
 
+public enum TapticNotificationType {
+    case success
+    case error
+}
+
+public protocol TapticEngineWorking {
+    func triggerNotification(type: TapticNotificationType)
+    func triggerSelectionChanged()
+}
+
 struct TapticEngineWorker: TapticEngineWorking {
     func triggerNotification(type: TapticNotificationType) {
         let type = getNotificationType(for: type)

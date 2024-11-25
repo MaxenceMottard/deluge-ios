@@ -40,9 +40,10 @@ struct MediaDetailsSerieView: View {
                             }
                         }
 
-                        SerieCounterView(
-                            season: season,
-                            status: viewModel.getStatus(of: season)
+                        CounterView(
+                            leftValue: "\(season.episodeFileCount)",
+                            rightValue: "\(season.episodeCount)",
+                            status: viewModel.getStatus(of: season).toCounterStatus()
                         )
 
                         FileSizeView(size: season.sizeOnDisk)
@@ -53,7 +54,8 @@ struct MediaDetailsSerieView: View {
                         getEpisodeFile: viewModel.getEpisodeFile(of:),
                         monitor: { await viewModel.monitor(episodes: [$0]) },
                         unmonitor: { await viewModel.unmonitor(episodes: [$0]) },
-                        search: viewModel.search(episode:)
+                        search: viewModel.search(episode:),
+                        release: viewModel.release(episode:)
                     )
                 }
             }
@@ -87,4 +89,12 @@ struct MediaDetailsSerieView: View {
     }
 }
 
-
+private extension SeasonStatus {
+    func toCounterStatus() -> CounterView.Status {
+        switch self {
+        case .completed: .success
+        case .missingMonitored: .error
+        case .missingNonMonitored: .warning
+        }
+    }
+}

@@ -22,6 +22,7 @@ public struct WebWorkersAssembly: Assembly {
         container.register(MonitorEpisodesWorking.self) { _ in MonitorEpisodesWorker() }
         container.register(MonitorSeasonWorking.self) { _ in MonitorSeasonWorker() }
         container.register(SonarrCommandWorking.self) { _ in SonarrCommandWorker() }
+        container.register(ReleaseEpisodeWorking.self) { _ in ReleaseEpisodeWorker() }
 
         // MARK: Radarr
         container.register(GetMoviesbWorking.self) { _ in GetMoviesWorker() }

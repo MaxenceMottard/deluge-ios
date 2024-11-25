@@ -6,11 +6,16 @@
 //
 
 import SwiftUI
+import Utils
 
-struct FileSizeView: View {
-    let size: Int
+public struct FileSizeView: View {
+    private let size: Int
 
-    var body: some View {
+    public init(size: Int) {
+        self.size = size
+    }
+
+    public var body: some View {
         Text("\(size.toGigabytes().toString(numberOfDecimals: 1)) GB")
             .foregroundStyle(.gray)
             .font(.callout)

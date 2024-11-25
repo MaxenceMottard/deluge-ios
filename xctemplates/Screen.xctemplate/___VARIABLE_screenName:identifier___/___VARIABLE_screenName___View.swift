@@ -4,7 +4,7 @@ import SwiftUI
 import Routing
 
 struct ___VARIABLE_screenName:identifier___View: View {
-    @State var viewModel: ___VARIABLE_screenName:identifier___ViewModel
+    @State var viewModel: any ___VARIABLE_screenName:identifier___ViewModeling
 
     var body: some View {
         Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)

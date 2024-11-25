@@ -9,7 +9,7 @@ import Foundation
 import Combine
 
 @Observable
-public class InstanceWorker: InstanceWorking {
+class InstanceWorker: InstanceWorking {
     private enum Constants {
         static let instancesKey = "instances"
         static let selectedInstanceKey = "selected-instance"
@@ -18,19 +18,19 @@ public class InstanceWorker: InstanceWorking {
     private let keychainWorker: KeychainWorking
     private var cancellables = Set<AnyCancellable>()
 
-    public var instances = Instances() {
+    var instances = Instances() {
         didSet { update(instances: instances) }
     }
-    public var selectedInstance: Instance? {
+    var selectedInstance: Instance? {
         didSet { update(selectedInstance: selectedInstance) }
     }
 
-    public init(keychainWorker: KeychainWorking) {
+    init(keychainWorker: KeychainWorking) {
         self.keychainWorker = keychainWorker
         initvalue()
     }
 
-    private func update(instances: Instances) {
+    func update(instances: Instances) {
         let isSaved = keychainWorker.save(for: Constants.instancesKey, value: instances)
         guard isSaved else { return }
     }
@@ -39,11 +39,11 @@ public class InstanceWorker: InstanceWorking {
         keychainWorker.save(for: Constants.selectedInstanceKey, value: newValue)
     }
 
-    public func remove(instance: Instance) {
+    func remove(instance: Instance) {
         instances.remove(instance)
     }
 
-    public func select(instance newSelectedInstance: Instance) {
+    func select(instance newSelectedInstance: Instance) {
         selectedInstance = newSelectedInstance
         keychainWorker.save(for: Constants.selectedInstanceKey, value: newSelectedInstance)
     }

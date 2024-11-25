@@ -8,6 +8,11 @@
 import Foundation
 import Nuke
 
+// sourcery: AutoMockable
+public protocol ImageCacheWorking: Sendable {
+    func cache(for url: URL?) async
+}
+
 struct ImageCacheWorker: ImageCacheWorking {
     private static let cache = try! DataCache(name: "com.trimarr.media.cache")
     private static let pipeline = ImagePipeline {
@@ -21,3 +26,11 @@ struct ImageCacheWorker: ImageCacheWorking {
         _ = try? await Self.pipeline.image(for: url)
     }
 }
+
+extension ImageCacheWorking {
+    public func cache(string urlString: String?) async {
+        guard let urlString = urlString else { return }
+        await cache(for: URL(string: urlString))
+    }
+}
+
