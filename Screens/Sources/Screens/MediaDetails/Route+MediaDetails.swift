@@ -32,7 +32,8 @@ struct MediaDetailsRoute: Route {
                             monitorEpisodesWorking: Dependency.resolve(MonitorEpisodesWorking.self)!,
                             monitorSeasonWorker: Dependency.resolve(MonitorSeasonWorking.self)!,
                             tapticEngineWorker: Dependency.resolve(TapticEngineWorking.self)!,
-                            commandWorker: Dependency.resolve(SonarrCommandWorking.self)!
+                            commandWorker: Dependency.resolve(SonarrCommandWorking.self)!,
+                            router: router
                         )
                     )
                 }

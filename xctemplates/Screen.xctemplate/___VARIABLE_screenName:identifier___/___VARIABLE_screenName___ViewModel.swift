@@ -3,9 +3,15 @@
 import Routing
 import Foundation
 
+@MainActor
+// sourcery: AutoMockable
+protocol ___VARIABLE_screenName:identifier___ViewModeling {
+
+}
+
 @Observable
 @MainActor
-class ___VARIABLE_screenName:identifier___ViewModel {
+class ___VARIABLE_screenName:identifier___ViewModel: ___VARIABLE_screenName:identifier___ViewModeling {
     struct Dependencies {
         let router: Routing
     }

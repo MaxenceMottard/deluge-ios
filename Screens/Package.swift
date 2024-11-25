@@ -26,6 +26,7 @@ let package = Package(
         .target(
             name: "DesignSystem",
             dependencies: [
+                "Utils",
             ],
             path: "DesignSystem",
             resources: [

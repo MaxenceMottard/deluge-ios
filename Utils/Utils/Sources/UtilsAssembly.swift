@@ -11,17 +11,10 @@ public struct UtilsAssembly: Assembly {
     public init() {}
 
     public func assemble(container: Container) {
-        container.register(KeychainWorking.self) { _ in
-            KeychainWorker()
-        }
-
-        container.register(ImageCacheWorking.self) { _ in
-            ImageCacheWorker()
-        }
-
-        container.register(TapticEngineWorking.self) { _ in
-            TapticEngineWorker()
-        }
+        container.register(KeychainWorking.self) { _ in KeychainWorker() }
+        container.register(ImageCacheWorking.self) { _ in ImageCacheWorker() }
+        container.register(TapticEngineWorking.self) { _ in TapticEngineWorker() }
+        container.register(OpenURLWorking.self) { _ in OpenURLWorker() }
 
         container.register(InstanceWorking.self) { _ in
             InstanceWorker(keychainWorker: container.resolve(KeychainWorking.self)!)

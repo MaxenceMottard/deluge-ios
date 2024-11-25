@@ -37,20 +37,6 @@ extension Serie.Episode {
             self.dateAdded = dateAdded
             self.quality = quality
         }
-
-        public struct Quality: Sendable {
-            public let id: Int
-            public let name: String
-            public let source: String
-            public let resolution: Int
-
-            public init(id: Int, name: String, source: String, resolution: Int) {
-                self.id = id
-                self.name = name
-                self.source = source
-                self.resolution = resolution
-            }
-        }
     }
 }
 
@@ -66,7 +52,7 @@ extension GetEpisodesFilesWorkerDecodable {
             path: path,
             size: size,
             dateAdded: formatter.date(from: dateAdded),
-            quality: Serie.Episode.File.Quality(
+            quality: Workers.Quality(
                 id: quality.quality.id,
                 name: quality.quality.name,
                 source: quality.quality.source,

@@ -7,7 +7,15 @@
 
 import Foundation
 
-public class KeychainWorker: KeychainWorking {
+public protocol KeychainWorking {
+    func retrieve(for: String) -> Data?
+    func retrieve<D>(for key: String, type: D.Type) -> D? where D : Decodable
+    @discardableResult func save(for: String, data: Data) -> Bool
+    @discardableResult func save<E>(for: String, value: E) -> Bool where E: Encodable
+    @discardableResult func delete(for key: String) -> Bool
+}
+
+public struct KeychainWorker: KeychainWorking {
     private let jsonDecoder = JSONDecoder()
     private let jsonEncoder = JSONEncoder()
 

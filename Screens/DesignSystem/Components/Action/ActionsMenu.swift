@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ActionsMenu: View {
+public struct ActionsMenu: View {
     @State private var size: CGSize = .zero
 
     private let _actions: [any Action]
@@ -15,13 +15,13 @@ struct ActionsMenu: View {
         _actions.map({ AnyAction(action: $0) })
     }
 
-    init(actions: [any Action]) {
+    public init(actions: [any Action]) {
         self._actions = actions
     }
 
     private let icon: Image = Image(systemName: "ellipsis")
 
-    var body: some View {
+    public var body: some View {
         icon
             .frame(height: size.width)
             .readSize($size)
@@ -47,9 +47,7 @@ struct ActionsMenu: View {
 }
 
 #Preview {
-    ActionsMenu(
-        actions: [
-            .search(action: {}),
-        ]
-    )
+    ActionsMenu(actions: [
+        .search(action: {}),
+    ])
 }

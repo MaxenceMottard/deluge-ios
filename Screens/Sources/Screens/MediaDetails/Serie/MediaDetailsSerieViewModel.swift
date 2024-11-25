@@ -8,6 +8,7 @@
 import SwiftUI
 import Workers
 import Utils
+import Routing
 
 @MainActor
 // sourcery: AutoMockable
@@ -26,6 +27,7 @@ protocol MediaDetailsSerieViewModeling {
     func getEpisodeFile(of episode: Serie.Episode) -> Serie.Episode.File?
 
     func search(episode: Serie.Episode) async
+    func release(episode: Serie.Episode) async
 }
 
 @Observable
@@ -39,6 +41,7 @@ class MediaDetailsSerieViewModel: MediaDetailsSerieViewModeling {
         let monitorSeasonWorker: MonitorSeasonWorking
         let tapticEngineWorker: TapticEngineWorking
         let commandWorker: SonarrCommandWorking
+        let router: Routing
     }
 
     private let dependencies: Dependencies
@@ -155,6 +158,11 @@ class MediaDetailsSerieViewModel: MediaDetailsSerieViewModeling {
         } catch {
             print(error)
         }
+    }
+
+    func release(episode: Serie.Episode) async {
+        let route = Route.ReleaseResult(serie: serie, episode: episode)
+        dependencies.router.present(route: route, modal: .sheet)
     }
 }
 

@@ -16,6 +16,7 @@ struct MediaDetailsSerieEpisodesView: View {
     let monitor: (Serie.Episode) async -> Void
     let unmonitor: (Serie.Episode) async -> Void
     let search: (Serie.Episode) async -> Void
+    let release: (Serie.Episode) async -> Void
 
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
@@ -46,12 +47,13 @@ struct MediaDetailsSerieEpisodesView: View {
                                 .foregroundStyle(.gray)
                         }
 
-                        FileQualityView(quality: file?.quality)
+                        FileQualityView(quality: file?.quality.name)
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
 
                     ActionsMenu(actions: [
-                        .search(action: { await search(episode) })
+                        .search { await search(episode) },
+                        .release { await release(episode) },
                     ])
                 }
             }
@@ -77,7 +79,8 @@ struct MediaDetailsSerieEpisodesView: View {
         },
         monitor: { _ in },
         unmonitor: { _ in },
-        search: { _ in }
+        search: { _ in },
+        release: { _ in }
     )
 }
 

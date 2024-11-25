@@ -7,22 +7,22 @@
 
 import SwiftUI
 
-protocol Action {
+public protocol Action {
     var icon: Image { get }
     var label: String { get }
     var action: () async -> Void { get }
 }
 
-struct AnyAction: Action, Identifiable {
-    var id: UUID = UUID()
+public struct AnyAction: Action, Identifiable {
+    public var id: UUID = UUID()
 
     private let _icon: Image
     private let _label: String
     private let _action: () async -> Void
 
-    var icon: Image { _icon }
-    var label: String { _label }
-    var action: () async -> Void { _action }
+    public var icon: Image { _icon }
+    public var label: String { _label }
+    public var action: () async -> Void { _action }
 
     init(action: any Action) {
         self._icon = action.icon
