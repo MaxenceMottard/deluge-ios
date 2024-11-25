@@ -1,5 +1,5 @@
 //
-//  ReleaseResultView.swift
+//  ReleaseListView.swift
 //  Trimarr
 //
 //  Created by Maxence Mottard on 24/11/2024.
@@ -11,8 +11,8 @@ import Workers
 import Utils
 import DesignSystem
 
-struct ReleaseResultView: View {
-    @State var viewModel: ReleaseResultViewModeling
+struct ReleaseListView: View {
+    @State var viewModel: ReleaseListViewModeling
 
     var body: some View {
         ScrollView {
@@ -28,10 +28,11 @@ struct ReleaseResultView: View {
                         .progressViewStyle(.circular)
                 } else {
                     VStack(spacing: 12) {
-                        ForEach(viewModel.results, id: \.title) { result in
-                            ReleaseResultItemView(
-                                result: result,
-                                openInBrowser: { viewModel.openInBrowser(url: $0) }
+                        ForEach(viewModel.results, id: \.title) { release in
+                            ReleaseItemView(
+                                release: release,
+                                openInBrowser: { viewModel.openInBrowser(release: release) },
+                                downloadRelease: { await viewModel.download(release: release) }
                             )
                         }
                     }
@@ -46,8 +47,8 @@ struct ReleaseResultView: View {
 }
 
 #Preview {
-    let viewModel: ReleaseResultViewModeling = {
-        let viewModel = ReleaseResultViewModelingMock()
+    let viewModel: ReleaseListViewModeling = {
+        let viewModel = ReleaseListViewModelingMock()
         viewModel.isLoading = false
         viewModel.results = .preview
         viewModel.title = "Serie name - 2x12 - Episode name"
@@ -55,16 +56,16 @@ struct ReleaseResultView: View {
         return viewModel
     }()
 
-    ReleaseResultView(viewModel: viewModel)
+    ReleaseListView(viewModel: viewModel)
 }
 
-#Preview("ReleaseResultView Loading") {
-    let viewModel: ReleaseResultViewModeling = {
-        let viewModel = ReleaseResultViewModelingMock()
+#Preview("ReleaseListView Loading") {
+    let viewModel: ReleaseListViewModeling = {
+        let viewModel = ReleaseListViewModelingMock()
         viewModel.isLoading = true
 
         return viewModel
     }()
 
-    ReleaseResultView(viewModel: viewModel)
+    ReleaseListView(viewModel: viewModel)
 }

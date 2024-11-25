@@ -1,5 +1,5 @@
 //
-//  Route+ReleaseResult.swift
+//  Route+ReleaseList.swift
 //  Trimarr
 //
 //  Created by Maxence Mottard on 24/11/2024.
@@ -11,25 +11,28 @@ import Workers
 import Utils
 
 extension Route {
-    typealias ReleaseResult = ReleaseResultRoute
+    typealias ReleaseList = ReleaseListRoute
 }
 
-struct ReleaseResultRoute: Route {
+struct ReleaseListRoute: Route {
     let serie: Serie
     let episode: Serie.Episode
+    let onDownloadReleaseSuccess: () async -> Void
 
     func viewController(router: Router) -> UIViewController {
-        let viewModel = ReleaseResultViewModel(
-            dependencies: ReleaseResultViewModel.Dependencies(
+        let viewModel = ReleaseListViewModel(
+            dependencies: ReleaseListViewModel.Dependencies(
+                getEpisodeReleasesWorker: Dependency.resolve(GetEpisodeReleasesWorking.self)!,
                 releaseEpisodeWorker: Dependency.resolve(ReleaseEpisodeWorking.self)!,
                 openURLWorker: Dependency.resolve(OpenURLWorking.self)!,
                 router: router
             ),
             serie: serie,
-            episode: episode
+            episode: episode,
+            onDownloadReleaseSuccess: onDownloadReleaseSuccess
         )
 
-        let view = ReleaseResultView(viewModel: viewModel).environmentObject(router)
+        let view = ReleaseListView(viewModel: viewModel).environmentObject(router)
         let viewController = UIHostingController(rootView: view)
         viewController.title = ""
         viewController.navigationItem.largeTitleDisplayMode = .never

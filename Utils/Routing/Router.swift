@@ -13,7 +13,6 @@ public protocol Routing {
     init(dismiss: (() -> Void)?)
 
     func setRoot(viewController: UIViewController)
-    @MainActor func present(route: any Route, modal kind: RoutingModalKind, onDismiss: (() -> Void)?)
     @MainActor func present(route: any Route, modal kind: RoutingModalKind)
     @MainActor func navigate(to route: any Route)
     @MainActor func dismiss()
@@ -45,11 +44,7 @@ public class Router: @preconcurrency Routing, ObservableObject {
         navigationController.viewControllers = [viewController]
     }
 
-    @MainActor public func present(route: any Route, modal kind: RoutingModalKind) {
-        self.present(route: route, modal: kind, onDismiss: nil)
-    }
-
-    @MainActor public func present(route: any Route, modal kind: ModalKind, onDismiss: (() -> Void)?) {
+    @MainActor public func present(route: any Route, modal kind: ModalKind) {
         let router = Router()
         let viewController = route.viewController(router: router)
         router.setRoot(viewController: viewController)

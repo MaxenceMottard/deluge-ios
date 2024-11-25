@@ -1,5 +1,5 @@
 //
-//  ReleaseResult+Preview.swift
+//  Release+Preview.swift
 //  Screens
 //
 //  Created by Maxence Mottard on 25/11/2024.
@@ -8,7 +8,7 @@
 import Foundation
 import Utils
 
-public extension ReleaseResult {
+public extension Release {
     static func preview(
         title: String = "Ultimate.Collection.2024.MULTi.1080p.WEB-DL.x264-Shadow \(UUID().uuidString)",
         infoUrl: String = "https://google.com",
@@ -27,9 +27,11 @@ public extension ReleaseResult {
         size: Int = 10031312462,
         ageHours: Double = 36.6,
         ageMinutes: Double = 200.98,
-        indexer: String = "the pirate bay"
-    ) -> ReleaseResult {
-        ReleaseResult(
+        indexer: String = "the pirate bay",
+        indexerId: Int = 1,
+        guid: String = "https://google.com"
+    ) -> Release {
+        Release(
             title: title,
             infoUrl: infoUrl,
             downloadUrl: downloadUrl,
@@ -42,13 +44,15 @@ public extension ReleaseResult {
             size: size,
             ageHours: ageHours,
             ageMinutes: ageMinutes,
-            indexer: indexer
+            indexer: indexer,
+            indexerId: indexerId,
+            guid: guid
         )
     }
 }
 
-public extension [ReleaseResult] {
-    static var preview: [ReleaseResult] {
+public extension [Release] {
+    static var preview: [Release] {
         [
             .preview(),
             .preview(),

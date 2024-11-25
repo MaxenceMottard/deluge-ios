@@ -1,5 +1,5 @@
 //
-//  ReleaseResult.swift
+//  Release.swift
 //  Workers
 //
 //  Created by Maxence Mottard on 24/11/2024.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct ReleaseResult: Sendable, Equatable {
+public struct Release: Sendable, Equatable {
     public let title: String
     public let infoUrl: String
     public let downloadUrl: String
@@ -21,6 +21,8 @@ public struct ReleaseResult: Sendable, Equatable {
     public let ageHours: Double
     public let ageMinutes: Double
     public let indexer: String
+    public let indexerId: Int
+    public let guid: String
 
     public init(
         title: String,
@@ -35,7 +37,9 @@ public struct ReleaseResult: Sendable, Equatable {
         size: Int,
         ageHours: Double,
         ageMinutes: Double,
-        indexer: String
+        indexer: String,
+        indexerId: Int,
+        guid: String
     ) {
         self.title = title
         self.infoUrl = infoUrl
@@ -50,14 +54,16 @@ public struct ReleaseResult: Sendable, Equatable {
         self.ageHours = ageHours
         self.ageMinutes = ageMinutes
         self.indexer = indexer
+        self.indexerId = indexerId
+        self.guid = guid
     }
 }
 
-extension ReleaseEpisodeWorkerDecodable {
-    func toDomain() -> ReleaseResult {
+extension GetEpisodeReleasesWorkerDecodable {
+    func toDomain() -> Release {
         let formatter = ISO8601DateFormatter()
 
-        return ReleaseResult(
+        return Release(
             title: title,
             infoUrl: infoUrl,
             downloadUrl: downloadUrl,
@@ -75,11 +81,13 @@ extension ReleaseEpisodeWorkerDecodable {
             size: size,
             ageHours: ageHours,
             ageMinutes: ageMinutes,
-            indexer: indexer
+            indexer: indexer,
+            indexerId: indexerId,
+            guid: guid
         )
     }
 }
 
-extension Array where Element == ReleaseEpisodeWorkerDecodable {
-    func toDomain() -> [ReleaseResult] { map { $0.toDomain() } }
+extension Array where Element == GetEpisodeReleasesWorkerDecodable {
+    func toDomain() -> [Release] { map { $0.toDomain() } }
 }

@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-
 public protocol Route {
     @MainActor
     func viewController(router: Router) -> UIViewController
