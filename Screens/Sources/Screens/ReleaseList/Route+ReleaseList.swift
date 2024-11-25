@@ -17,6 +17,7 @@ extension Route {
 struct ReleaseListRoute: Route {
     let serie: Serie
     let episode: Serie.Episode
+    let onDownloadReleaseSuccess: () async -> Void
 
     func viewController(router: Router) -> UIViewController {
         let viewModel = ReleaseListViewModel(
@@ -27,7 +28,8 @@ struct ReleaseListRoute: Route {
                 router: router
             ),
             serie: serie,
-            episode: episode
+            episode: episode,
+            onDownloadReleaseSuccess: onDownloadReleaseSuccess
         )
 
         let view = ReleaseListView(viewModel: viewModel).environmentObject(router)

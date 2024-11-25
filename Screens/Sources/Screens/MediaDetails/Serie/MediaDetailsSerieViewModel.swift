@@ -161,7 +161,13 @@ class MediaDetailsSerieViewModel: MediaDetailsSerieViewModeling {
     }
 
     func getReleases(of episode: Serie.Episode) async {
-        let route = Route.ReleaseList(serie: serie, episode: episode)
+        let route = Route.ReleaseList(
+            serie: serie,
+            episode: episode,
+            onDownloadReleaseSuccess: { [weak self] in
+                await self?.fetchData()
+            }
+        )
         dependencies.router.present(route: route, modal: .sheet)
     }
 }

@@ -33,6 +33,7 @@ class ReleaseListViewModel: ReleaseListViewModeling {
     }
 
     private let dependencies: Dependencies
+    private let onDownloadReleaseSuccess: () async -> Void
 
     let serie: Serie
     let episode: Serie.Episode
@@ -43,10 +44,16 @@ class ReleaseListViewModel: ReleaseListViewModeling {
         "\(serie.title) - \(episode.seasonNumber)x\(episode.episodeNumber) - \(episode.title)"
     }
 
-    init(dependencies: Dependencies, serie: Serie, episode: Serie.Episode) {
+    init(
+        dependencies: Dependencies,
+        serie: Serie,
+        episode: Serie.Episode,
+        onDownloadReleaseSuccess: @escaping () async -> Void
+    ) {
         self.dependencies = dependencies
         self.episode = episode
         self.serie = serie
+        self.onDownloadReleaseSuccess = onDownloadReleaseSuccess
     }
 
     func release() async {
@@ -70,6 +77,8 @@ class ReleaseListViewModel: ReleaseListViewModeling {
                 indexerId: release.indexerId,
                 guid: release.guid
             )
+            dependencies.router.dismiss()
+            await onDownloadReleaseSuccess()
         } catch {
             print(error)
         }
