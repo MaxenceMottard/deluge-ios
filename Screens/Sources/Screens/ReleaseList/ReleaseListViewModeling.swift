@@ -1,5 +1,5 @@
 //
-//  ReleaseResultViewModel.swift
+//  ReleaseListViewModeling.swift
 //  Trimarr
 //
 //  Created by Maxence Mottard on 24/11/2024.
@@ -12,10 +12,10 @@ import Utils
 
 @MainActor
 // sourcery: AutoMockable
-protocol ReleaseResultViewModeling {
+protocol ReleaseListViewModeling {
     var title: String { get }
     var isLoading: Bool { get }
-    var results: [ReleaseResult] { get }
+    var results: [Release] { get }
 
     func release() async
     func openInBrowser(url: String)
@@ -23,9 +23,9 @@ protocol ReleaseResultViewModeling {
 
 @Observable
 @MainActor
-class ReleaseResultViewModel: ReleaseResultViewModeling {
+class ReleaseListViewModel: ReleaseListViewModeling {
     struct Dependencies {
-        let releaseEpisodeWorker: ReleaseEpisodeWorking
+        let releaseEpisodeWorker: GetEpisodeReleasesWorking
         let openURLWorker: OpenURLWorking
         let router: Routing
     }
@@ -35,7 +35,7 @@ class ReleaseResultViewModel: ReleaseResultViewModeling {
     let serie: Serie
     let episode: Serie.Episode
     var isLoading: Bool = false
-    var results: [ReleaseResult] = []
+    var results: [Release] = []
 
     var title: String {
         "\(serie.title) - \(episode.seasonNumber)x\(episode.episodeNumber) - \(episode.title)"

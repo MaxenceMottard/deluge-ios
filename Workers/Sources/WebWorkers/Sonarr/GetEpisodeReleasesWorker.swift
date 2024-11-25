@@ -8,19 +8,19 @@
 import Networking
 
 // sourcery: AutoMockable
-public protocol ReleaseEpisodeWorking: Sendable {
-    func run(id episodeId: Int) async throws -> [ReleaseResult]
+public protocol GetEpisodeReleasesWorking: Sendable {
+    func run(id episodeId: Int) async throws -> [Release]
 }
 
-struct ReleaseEpisodeWorker: ReleaseEpisodeWorking {
-    func run(id episodeId: Int) async throws -> [ReleaseResult] {
+struct GetEpisodeReleasesWorker: GetEpisodeReleasesWorking {
+    func run(id episodeId: Int) async throws -> [Release] {
         try await Request()
             .set(method: .GET)
             .set(path: "/api/v3/release")
             .set(contentType: .json)
             .set(queryParameter: "episodeId", value: "\(episodeId)")
             .set(interceptor: InstanceInteceptor())
-            .set(responseType: [ReleaseEpisodeWorkerDecodable].self)
+            .set(responseType: [GetEpisodeReleasesWorkerDecodable].self)
             .run()
             .toDomain()
     }

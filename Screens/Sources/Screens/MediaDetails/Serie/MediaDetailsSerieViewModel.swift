@@ -161,7 +161,7 @@ class MediaDetailsSerieViewModel: MediaDetailsSerieViewModeling {
     }
 
     func release(episode: Serie.Episode) async {
-        let route = Route.ReleaseResult(serie: serie, episode: episode)
+        let route = Route.ReleaseList(serie: serie, episode: episode)
         dependencies.router.present(route: route, modal: .sheet)
     }
 }

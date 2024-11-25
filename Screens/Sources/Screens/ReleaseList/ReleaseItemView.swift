@@ -1,5 +1,5 @@
 //
-//  ReleaseResultItemView.swift
+//  ReleaseItemView.swift
 //  Screens
 //
 //  Created by Maxence Mottard on 25/11/2024.
@@ -9,8 +9,8 @@ import SwiftUI
 import Workers
 import DesignSystem
 
-struct ReleaseResultItemView: View {
-    let result: ReleaseResult
+struct ReleaseItemView: View {
+    let result: Release
     let openInBrowser: (String) -> Void
 
     var body: some View {
@@ -44,7 +44,7 @@ struct ReleaseResultItemView: View {
 }
 
 #Preview {
-    ReleaseResultItemView(
+    ReleaseItemView(
         result: .preview(),
         openInBrowser: { _ in }
     )
