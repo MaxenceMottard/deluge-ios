@@ -27,7 +27,7 @@ protocol MediaDetailsSerieViewModeling {
     func getEpisodeFile(of episode: Serie.Episode) -> Serie.Episode.File?
 
     func search(episode: Serie.Episode) async
-    func release(episode: Serie.Episode) async
+    func getReleases(of episode: Serie.Episode) async
 }
 
 @Observable
@@ -160,7 +160,7 @@ class MediaDetailsSerieViewModel: MediaDetailsSerieViewModeling {
         }
     }
 
-    func release(episode: Serie.Episode) async {
+    func getReleases(of episode: Serie.Episode) async {
         let route = Route.ReleaseList(serie: serie, episode: episode)
         dependencies.router.present(route: route, modal: .sheet)
     }

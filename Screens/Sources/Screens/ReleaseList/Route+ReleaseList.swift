@@ -21,7 +21,8 @@ struct ReleaseListRoute: Route {
     func viewController(router: Router) -> UIViewController {
         let viewModel = ReleaseListViewModel(
             dependencies: ReleaseListViewModel.Dependencies(
-                releaseEpisodeWorker: Dependency.resolve(GetEpisodeReleasesWorking.self)!,
+                getEpisodeReleasesWorker: Dependency.resolve(GetEpisodeReleasesWorking.self)!,
+                releaseEpisodeWorker: Dependency.resolve(ReleaseEpisodeWorking.self)!,
                 openURLWorker: Dependency.resolve(OpenURLWorking.self)!,
                 router: router
             ),

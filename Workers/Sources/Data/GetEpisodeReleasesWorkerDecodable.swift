@@ -21,6 +21,8 @@ struct GetEpisodeReleasesWorkerDecodable: Decodable {
     let ageHours: Double
     let ageMinutes: Double
     let indexer: String
+    let indexerId: Int
+    let guid: String
 
     struct Quality: Decodable {
         let quality: Information

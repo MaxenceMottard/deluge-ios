@@ -28,10 +28,11 @@ struct ReleaseListView: View {
                         .progressViewStyle(.circular)
                 } else {
                     VStack(spacing: 12) {
-                        ForEach(viewModel.results, id: \.title) { result in
+                        ForEach(viewModel.results, id: \.title) { release in
                             ReleaseItemView(
-                                result: result,
-                                openInBrowser: { viewModel.openInBrowser(url: $0) }
+                                release: release,
+                                openInBrowser: { viewModel.openInBrowser(release: release) },
+                                downloadRelease: { await viewModel.download(release: release) }
                             )
                         }
                     }

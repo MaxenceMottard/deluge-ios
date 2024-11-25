@@ -10,31 +10,34 @@ import Workers
 import DesignSystem
 
 struct ReleaseItemView: View {
-    let result: Release
-    let openInBrowser: (String) -> Void
+    let release: Release
+    let openInBrowser: () -> Void
+    let downloadRelease: () async -> Void
 
     var body: some View {
         ContainerView {
             VStack(spacing: 10) {
-                Button(action: { openInBrowser(result.infoUrl) }) {
-                    Text(result.title)
+                Button(action: { openInBrowser() }) {
+                    Text(release.title)
                         .multilineTextAlignment(.leading)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .lineLimit(2)
                 }
 
                 HStack {
-                    Text(result.indexer)
-                    FileQualityView(quality: result.quality.name)
+                    Text(release.indexer)
+                    FileQualityView(quality: release.quality.name)
+                    FileSizeView(size: release.size)
                     CounterView(
-                        leftValue: "\(result.seeders)",
-                        rightValue: "\(result.leechers)",
+                        leftValue: "\(release.seeders)",
+                        rightValue: "\(release.leechers)",
                         status: .neutral
                     )
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
 
                 ActionsStack(actions: [
+                    .download { await downloadRelease() },
                 ])
                 .frame(maxWidth: .infinity, alignment: .trailing)
             }
@@ -45,7 +48,8 @@ struct ReleaseItemView: View {
 
 #Preview {
     ReleaseItemView(
-        result: .preview(),
-        openInBrowser: { _ in }
+        release: .preview(),
+        openInBrowser: {},
+        downloadRelease: {}
     )
 }

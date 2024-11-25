@@ -18,14 +18,16 @@ protocol ReleaseListViewModeling {
     var results: [Release] { get }
 
     func release() async
-    func openInBrowser(url: String)
+    func openInBrowser(release: Release)
+    func download(release: Release) async
 }
 
 @Observable
 @MainActor
 class ReleaseListViewModel: ReleaseListViewModeling {
     struct Dependencies {
-        let releaseEpisodeWorker: GetEpisodeReleasesWorking
+        let getEpisodeReleasesWorker: GetEpisodeReleasesWorking
+        let releaseEpisodeWorker: ReleaseEpisodeWorking
         let openURLWorker: OpenURLWorking
         let router: Routing
     }
@@ -50,15 +52,26 @@ class ReleaseListViewModel: ReleaseListViewModeling {
     func release() async {
         do {
             isLoading = true
-            self.results = try await dependencies.releaseEpisodeWorker.run(id: episode.id)
+            self.results = try await dependencies.getEpisodeReleasesWorker.run(id: episode.id)
         } catch {
             print(error)
         }
         isLoading = false
     }
 
-    func openInBrowser(url: String) {
-        guard let url = URL(string: url) else { return }
+    func openInBrowser(release: Release) {
+        guard let url = URL(string: release.infoUrl) else { return }
         dependencies.openURLWorker.open(url: url)
+    }
+
+    func download(release: Release) async {
+        do {
+            try await dependencies.releaseEpisodeWorker.run(
+                indexerId: release.indexerId,
+                guid: release.guid
+            )
+        } catch {
+            print(error)
+        }
     }
 }

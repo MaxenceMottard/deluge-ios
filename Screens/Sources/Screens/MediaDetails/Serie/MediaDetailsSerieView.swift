@@ -55,7 +55,7 @@ struct MediaDetailsSerieView: View {
                         monitor: { await viewModel.monitor(episodes: [$0]) },
                         unmonitor: { await viewModel.unmonitor(episodes: [$0]) },
                         search: viewModel.search(episode:),
-                        release: viewModel.release(episode:)
+                        release: viewModel.getReleases(of:)
                     )
                 }
             }

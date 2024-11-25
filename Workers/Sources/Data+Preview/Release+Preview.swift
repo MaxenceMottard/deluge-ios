@@ -27,7 +27,9 @@ public extension Release {
         size: Int = 10031312462,
         ageHours: Double = 36.6,
         ageMinutes: Double = 200.98,
-        indexer: String = "the pirate bay"
+        indexer: String = "the pirate bay",
+        indexerId: Int = 1,
+        guid: String = "https://google.com"
     ) -> Release {
         Release(
             title: title,
@@ -42,7 +44,9 @@ public extension Release {
             size: size,
             ageHours: ageHours,
             ageMinutes: ageMinutes,
-            indexer: indexer
+            indexer: indexer,
+            indexerId: indexerId,
+            guid: guid
         )
     }
 }

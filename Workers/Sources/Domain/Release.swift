@@ -21,6 +21,8 @@ public struct Release: Sendable, Equatable {
     public let ageHours: Double
     public let ageMinutes: Double
     public let indexer: String
+    public let indexerId: Int
+    public let guid: String
 
     public init(
         title: String,
@@ -35,7 +37,9 @@ public struct Release: Sendable, Equatable {
         size: Int,
         ageHours: Double,
         ageMinutes: Double,
-        indexer: String
+        indexer: String,
+        indexerId: Int,
+        guid: String
     ) {
         self.title = title
         self.infoUrl = infoUrl
@@ -50,6 +54,8 @@ public struct Release: Sendable, Equatable {
         self.ageHours = ageHours
         self.ageMinutes = ageMinutes
         self.indexer = indexer
+        self.indexerId = indexerId
+        self.guid = guid
     }
 }
 
@@ -75,7 +81,9 @@ extension GetEpisodeReleasesWorkerDecodable {
             size: size,
             ageHours: ageHours,
             ageMinutes: ageMinutes,
-            indexer: indexer
+            indexer: indexer,
+            indexerId: indexerId,
+            guid: guid
         )
     }
 }
