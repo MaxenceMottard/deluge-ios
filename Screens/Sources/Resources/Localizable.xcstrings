@@ -4,9 +4,6 @@
     "%lld - " : {
 
     },
-    "Épisodes spéciaux" : {
-
-    },
     "home.label.currentInstance" : {
       "localizations" : {
         "en" : {
@@ -90,6 +87,26 @@
         }
       }
     },
+    "mediaDetails.serie.label.season %lld" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Season %lld"
+          }
+        }
+      }
+    },
+    "mediaDetails.serie.label.specials" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Specials"
+          }
+        }
+      }
+    },
     "newInstance.field.apiKey" : {
       "localizations" : {
         "en" : {
@@ -169,9 +186,6 @@
           }
         }
       }
-    },
-    "Season %lld" : {
-
     }
   },
   "version" : "1.0"
