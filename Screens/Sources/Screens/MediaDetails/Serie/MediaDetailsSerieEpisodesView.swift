@@ -38,7 +38,7 @@ struct MediaDetailsSerieEpisodesView: View {
 
                     VStack(alignment: .leading) {
                         Group {
-                            Text("\(episode.episodeNumber) - ") + Text(episode.title)
+                            Text("\(episode.episodeNumber)") + Text(" - ") + Text(episode.title)
                         }
                         .multilineTextAlignment(.leading)
                         .lineLimit(2)

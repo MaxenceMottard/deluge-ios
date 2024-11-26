@@ -1,8 +1,25 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-    "%lld - " : {
-
+    " - " : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "-"
+          }
+        }
+      }
+    },
+    "%lld" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld"
+          }
+        }
+      }
     },
     "home.label.currentInstance" : {
       "localizations" : {
