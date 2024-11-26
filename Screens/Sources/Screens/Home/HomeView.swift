@@ -29,7 +29,7 @@ struct HomeView: View {
                         Button(action: { viewModel.presentInstanceSelector() }) {
                             ContainerView {
                                 HStack {
-                                    LabeledContent("Current instance", value: selectedInstance.name)
+                                    LabeledContent("home.label.currentInstance", value: selectedInstance.name)
                                     Image(systemName: "arrow.2.squarepath")
                                 }
                                 .padding()
@@ -49,7 +49,7 @@ struct HomeView: View {
                     .padding(.horizontal)
 
                 } else {
-                    Text("No instance selected")
+                    Text("home.label.noInstance")
                 }
             }
         }

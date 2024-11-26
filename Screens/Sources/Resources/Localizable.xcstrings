@@ -4,11 +4,38 @@
     "%lld - " : {
 
     },
-    "Current instance" : {
-
-    },
     "Épisodes spéciaux" : {
 
+    },
+    "home.label.currentInstance" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Current instance"
+          }
+        }
+      }
+    },
+    "home.label.noInstance" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No instance selected"
+          }
+        }
+      }
+    },
+    "home.title" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Home"
+          }
+        }
+      }
     },
     "Instance" : {
 
@@ -142,9 +169,6 @@
           }
         }
       }
-    },
-    "No instance selected" : {
-
     },
     "Season %lld" : {
 
