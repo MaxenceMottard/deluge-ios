@@ -7,9 +7,21 @@
 
 import Foundation
 import Combine
+import Utils
+
+// sourcery: AutoMockable
+public protocol InstanceRepository: AnyObject {
+    typealias Instances = Set<Instance>
+
+    var instances: Instances { get set }
+    var selectedInstance: Instance? { get set }
+
+    func remove(instance: Instance)
+    func select(instance: Instance)
+}
 
 @Observable
-class InstanceWorker: InstanceRepository {
+class DefaultInstanceRepository: InstanceRepository {
     private enum Constants {
         static let instancesKey = "instances"
         static let selectedInstanceKey = "selected-instance"

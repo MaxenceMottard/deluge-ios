@@ -18,14 +18,14 @@ struct MediaDetailsRoute: Route {
     let media: any Media
 
     func viewController(router: Router) -> UIViewController {
-        let viewModel = MediaDetailsViewModel(
+        let viewModel = DefaultMediaDetailsViewModel(
             media: media,
-            dependencies: MediaDetailsViewModel.Dependencies(
+            dependencies: DefaultMediaDetailsViewModel.Dependencies(
                 router: router,
                 getSerieViewModel: { serie in
-                    MediaDetailsSerieViewModel(
+                    DefaultMediaDetailsSerieViewModel(
                         serie: serie,
-                        dependencies: MediaDetailsSerieViewModel.Dependencies(
+                        dependencies: DefaultMediaDetailsSerieViewModel.Dependencies(
                             getSerieWorker: Dependency.resolve(GetSerieWorking.self)!,
                             getEpisodesWorker: Dependency.resolve(GetEpisodesWorking.self)!,
                             getEpisodesFilesWorking: Dependency.resolve(GetEpisodesFilesWorking.self)!,

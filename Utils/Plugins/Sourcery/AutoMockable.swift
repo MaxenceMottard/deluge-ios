@@ -379,7 +379,7 @@ extension SourceryBuildToolPlugin {
             {%- endmacro %}
 
             {% for type in types.protocols where type.based.AutoMockable or type|annotated:"AutoMockable" %}{% if type.name != "AutoMockable" %}
-            {% call accessLevel type.accessLevel %}class {{ type.name }}Mock{% set generics %}{% call extractProtocolCompositionFromAssociatedTypes type %}{% endset %}{{ generics | replace:",>",">"}}: {{ type.name }}{% call extractRequiredProtocolConformance type %} {%- set requirements -%}{% call extractProtocolRequirementsFromType type %}{%- endset -%} {{ requirements|replace:",{","{"|replace:"{"," {" }}
+            {% call accessLevel type.accessLevel %}class Mock{{ type.name }}{% set generics %}{% call extractProtocolCompositionFromAssociatedTypes type %}{% endset %}{{ generics | replace:",>",">"}}: {{ type.name }}{% call extractRequiredProtocolConformance type %} {%- set requirements -%}{% call extractProtocolRequirementsFromType type %}{%- endset -%} {{ requirements|replace:",{","{"|replace:"{"," {" }}
             {% for associatedType in type.associatedTypes|sortedValuesByKeys %}
                 {% if associatedType.type.kind == nil or not associatedType.type.kind|contains:"protocol" %}
                 typealias {{ associatedType.name }} = {% if associatedType.type != nil %}{{ associatedType.type.name }}{% elif associatedType.typeName != nil %}{{ associatedType.typeName.name }}{% else %}Any{% endif %}

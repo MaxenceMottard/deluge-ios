@@ -15,8 +15,8 @@ extension Route {
 
 struct SearchRoute: Route {
     func viewController(router: Router) -> UIViewController {
-        let viewModel = SearchViewModel(
-            dependencies: SearchViewModel.Dependencies(
+        let viewModel = DefaultSearchViewModel(
+            dependencies: DefaultSearchViewModel.Dependencies(
                 searchSerieWorker: Dependency.resolve(SearchSerieWorking.self)!,
                 router: router
             )

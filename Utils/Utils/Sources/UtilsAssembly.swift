@@ -15,11 +15,6 @@ public struct UtilsAssembly: Assembly {
         container.register(ImageCacheWorking.self) { _ in ImageCacheWorker() }
         container.register(TapticEngineWorking.self) { _ in TapticEngineWorker() }
         container.register(OpenURLWorking.self) { _ in OpenURLWorker() }
-
-        container.register(InstanceWorking.self) { _ in
-            InstanceWorker(keychainWorker: container.resolve(KeychainWorking.self)!)
-        }
-        .inObjectScope(.container)
     }
 }
 

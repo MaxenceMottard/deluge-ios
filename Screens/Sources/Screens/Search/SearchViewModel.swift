@@ -12,14 +12,14 @@ import Workers
 
 @MainActor
 // sourcery: AutoMockable
-protocol SearchViewModeling {
+protocol SearchViewModel {
     var isLoading: Bool { get }
     var searchResults: [SearchSerieResult] { get }
 }
 
 @Observable
 @MainActor
-class SearchViewModel: NSObject, SearchViewModeling  {
+class DefaultSearchViewModel: NSObject, SearchViewModel  {
     private enum Constants {
         static let searchDelay: TimeInterval = 0.5
     }
@@ -68,7 +68,7 @@ class SearchViewModel: NSObject, SearchViewModeling  {
     }
 }
 
-extension SearchViewModel: UISearchResultsUpdating {
+extension DefaultSearchViewModel: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         searchText = searchController.searchBar.text
     }

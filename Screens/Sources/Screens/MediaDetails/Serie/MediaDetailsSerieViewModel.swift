@@ -12,7 +12,7 @@ import Routing
 
 @MainActor
 // sourcery: AutoMockable
-protocol MediaDetailsSerieViewModeling {
+protocol MediaDetailsSerieViewModel {
     var seasons: [Serie.Season] { get }
     var serie: Serie { get }
 
@@ -34,7 +34,7 @@ protocol MediaDetailsSerieViewModeling {
 
 @Observable
 @MainActor
-class MediaDetailsSerieViewModel: MediaDetailsSerieViewModeling {
+class DefaultMediaDetailsSerieViewModel: MediaDetailsSerieViewModel {
     struct Dependencies {
         let getSerieWorker: GetSerieWorking
         let getEpisodesWorker: GetEpisodesWorking

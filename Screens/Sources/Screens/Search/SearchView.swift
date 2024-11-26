@@ -10,7 +10,7 @@ import Routing
 import Workers
 
 struct SearchView: View {
-    @State var viewModel: any SearchViewModeling
+    @State var viewModel: any SearchViewModel
 
     var body: some View {
         if viewModel.isLoading {
@@ -34,8 +34,8 @@ struct SearchView: View {
 }
 
 #Preview {
-    let viewModel: SearchViewModeling = {
-        let viewModel = SearchViewModelingMock()
+    let viewModel: SearchViewModel = {
+        let viewModel = MockSearchViewModel()
         viewModel.searchResults = .preview
         viewModel.isLoading = false
 
@@ -46,8 +46,8 @@ struct SearchView: View {
 }
 
 #Preview("SearchView - Loading") {
-    let viewModel: SearchViewModeling = {
-        let viewModel = SearchViewModelingMock()
+    let viewModel: SearchViewModel = {
+        let viewModel = MockSearchViewModel()
         viewModel.isLoading = true
 
         return viewModel

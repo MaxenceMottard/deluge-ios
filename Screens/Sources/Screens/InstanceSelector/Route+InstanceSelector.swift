@@ -17,9 +17,9 @@ extension Route {
 struct InstanceSelectorRoute: Route {
     @MainActor
     func viewController(router: Router) -> UIViewController {
-        let viewModel = InstanceSelectorViewModel(
-            dependencies: InstanceSelectorViewModel.Dependencies(
-                instanceWorker: Dependency.resolve(InstanceWorking.self)!,
+        let viewModel = DefaultInstanceSelectorViewModel(
+            dependencies: DefaultInstanceSelectorViewModel.Dependencies(
+                instanceRepository: Dependency.resolve(InstanceRepository.self)!,
                 tapticEngineWorker: Dependency.resolve(TapticEngineWorking.self)!,
                 systemStatusWebWorker: Dependency.resolve(GetSystemStatusWorking.self)!,
                 router: router

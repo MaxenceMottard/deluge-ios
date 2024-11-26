@@ -12,7 +12,7 @@ import Utils
 import DesignSystem
 
 struct ReleaseListView: View {
-    @State var viewModel: ReleaseListViewModeling
+    @State var viewModel: ReleaseListViewModel
 
     var body: some View {
         ScrollView {
@@ -47,8 +47,8 @@ struct ReleaseListView: View {
 }
 
 #Preview {
-    let viewModel: ReleaseListViewModeling = {
-        let viewModel = ReleaseListViewModelingMock()
+    let viewModel: ReleaseListViewModel = {
+        let viewModel = MockReleaseListViewModel()
         viewModel.isLoading = false
         viewModel.results = .preview
         viewModel.title = "Serie name - 2x12 - Episode name"
@@ -60,8 +60,8 @@ struct ReleaseListView: View {
 }
 
 #Preview("ReleaseListView Loading") {
-    let viewModel: ReleaseListViewModeling = {
-        let viewModel = ReleaseListViewModelingMock()
+    let viewModel: ReleaseListViewModel = {
+        let viewModel = MockReleaseListViewModel()
         viewModel.isLoading = true
 
         return viewModel

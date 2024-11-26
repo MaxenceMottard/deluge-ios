@@ -17,10 +17,10 @@ extension Route {
 struct NewInstanceRoute: Route {
     @MainActor
     func viewController(router: Router) -> UIViewController {
-        let viewModel = NewInstanceViewModel(
-            dependencies: NewInstanceViewModel.Dependencies(
+        let viewModel = DefaultNewInstanceViewModel(
+            dependencies: DefaultNewInstanceViewModel.Dependencies(
                 checkConfigurationWebWorker: Dependency.resolve(GetSystemStatusWorking.self)!,
-                instanceWorker: Dependency.resolve(InstanceWorking.self)!,
+                instanceRepository: Dependency.resolve(InstanceRepository.self)!,
                 tapticEngineWorker: Dependency.resolve(TapticEngineWorking.self)!,
                 router: router
             )

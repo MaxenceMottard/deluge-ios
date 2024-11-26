@@ -13,6 +13,7 @@ import Utils
 private let assembler = Assembler([
     WebWorkersAssembly(),
     UtilsAssembly(),
+    RepositoriesAssembly()
 ])
 
 public let Dependency = assembler.resolver

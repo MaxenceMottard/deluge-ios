@@ -13,7 +13,7 @@ import Workers
 import DesignSystem
 
 struct InstanceSelectorView: View {
-    @State var viewModel: any InstanceSelectorViewModeling
+    @State var viewModel: any InstanceSelectorViewModel
 
     var body: some View {
         VStack {
@@ -115,8 +115,8 @@ struct InstanceSelectorView: View {
 }
 
 #Preview {
-    let viewModel: InstanceSelectorViewModeling = {
-        let viewModel = InstanceSelectorViewModelingMock()
+    let viewModel: InstanceSelectorViewModel = {
+        let viewModel = MockInstanceSelectorViewModel()
         viewModel.instances = [
             Instance(type: .sonarr, name: "Sonarr Main", url: "https://test.com", apiKey: "123"),
             Instance(type: .radarr, name: "Radarr Recovery", url: "https://test2.com", apiKey: "124"),

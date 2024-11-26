@@ -12,7 +12,7 @@ import Utils
 
 @MainActor
 // sourcery: AutoMockable
-protocol NewInstanceViewModeling {
+protocol NewInstanceViewModel {
     var name: String { get set }
     var url: String { get set }
     var apiKey: String { get set }
@@ -24,10 +24,10 @@ protocol NewInstanceViewModeling {
 
 @Observable
 @MainActor
-class NewInstanceViewModel: NewInstanceViewModeling {
+class DefaultNewInstanceViewModel: NewInstanceViewModel {
     struct Dependencies {
         let checkConfigurationWebWorker: GetSystemStatusWorking
-        let instanceWorker: InstanceWorking
+        let instanceRepository: InstanceRepository
         let tapticEngineWorker: TapticEngineWorking
         let router: Routing
     }
@@ -60,8 +60,8 @@ class NewInstanceViewModel: NewInstanceViewModeling {
             _ = try await dependencies.checkConfigurationWebWorker.run(instanceUrl: url, apiKey: apiKey)
             dependencies.tapticEngineWorker.triggerNotification(type: .success)
             let newInstance = Instance(type: type, name: name, url: url, apiKey: apiKey)
-            dependencies.instanceWorker.instances.insert(newInstance)
-            dependencies.instanceWorker.selectedInstance = newInstance
+            dependencies.instanceRepository.instances.insert(newInstance)
+            dependencies.instanceRepository.selectedInstance = newInstance
             dependencies.router.dismiss()
         } catch {
             dependencies.tapticEngineWorker.triggerNotification(type: .error)

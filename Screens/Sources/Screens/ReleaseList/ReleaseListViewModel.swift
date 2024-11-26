@@ -1,5 +1,5 @@
 //
-//  ReleaseListViewModeling.swift
+//  ReleaseListViewModel.swift
 //  Trimarr
 //
 //  Created by Maxence Mottard on 24/11/2024.
@@ -12,7 +12,7 @@ import Utils
 
 @MainActor
 // sourcery: AutoMockable
-protocol ReleaseListViewModeling {
+protocol ReleaseListViewModel {
     var title: String { get }
     var isLoading: Bool { get }
     var results: [Release] { get }
@@ -24,7 +24,7 @@ protocol ReleaseListViewModeling {
 
 @Observable
 @MainActor
-class ReleaseListViewModel: ReleaseListViewModeling {
+class DefaultReleaseListViewModel: ReleaseListViewModel {
     struct Dependencies {
         let getEpisodeReleasesWorker: GetEpisodeReleasesWorking
         let releaseEpisodeWorker: ReleaseEpisodeWorking

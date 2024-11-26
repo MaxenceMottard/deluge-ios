@@ -18,7 +18,7 @@ struct NewInstanceView: View {
         case apiKey
     }
 
-    @State var viewModel: any NewInstanceViewModeling
+    @State var viewModel: any NewInstanceViewModel
     @FocusState private var focused: Field?
 
     var body: some View {
@@ -90,8 +90,8 @@ struct NewInstanceView: View {
 }
 
 #Preview {
-    let viewModel: any NewInstanceViewModeling = {
-        let viewModel = NewInstanceViewModelingMock()
+    let viewModel: any NewInstanceViewModel = {
+        let viewModel = MockNewInstanceViewModel()
         viewModel.name = ""
         viewModel.url = ""
         viewModel.apiKey = ""

@@ -18,7 +18,6 @@ struct GetMoviesWorker: GetMoviesbWorking {
             .set(method: .GET)
             .set(path: "/api/v3/movie")
             .set(contentType: .json)
-            .set(responseType: Void.self)
             .set(interceptor: InstanceInteceptor())
             .set(responseType: [GetMoviesWorkerDecodable].self)
             .run()

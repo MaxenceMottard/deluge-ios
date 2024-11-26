@@ -12,7 +12,7 @@ import Workers
 
 @MainActor
 // sourcery: AutoMockable
-protocol HomeViewModeling {
+protocol HomeViewModel {
     var selectedInstance: Instance? { get }
     var medias: [any Media] { get }
 
@@ -23,9 +23,9 @@ protocol HomeViewModeling {
 
 @Observable
 @MainActor
-class HomeViewModel: HomeViewModeling {
+class DefaultHomeViewModel: HomeViewModel {
     struct Dependencies {
-        let instanceWorker: InstanceWorking
+        let instanceRepository: InstanceRepository
         let getMoviesWorker: GetMoviesbWorking
         let getSeriesWebWorker: GetSeriesWorking
         let imageCacheWorker: ImageCacheWorking
@@ -37,7 +37,7 @@ class HomeViewModel: HomeViewModeling {
     // MARK: State
 
     var selectedInstance: Instance? {
-        dependencies.instanceWorker.selectedInstance
+        dependencies.instanceRepository.selectedInstance
     }
 
     var medias: [any Media] = []

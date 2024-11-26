@@ -11,7 +11,7 @@ import NukeUI
 import DesignSystem
 
 struct MediaDetailsSerieView: View {
-    let viewModel: any MediaDetailsSerieViewModeling
+    let viewModel: any MediaDetailsSerieViewModel
 
     var body: some View {
         VStack {
@@ -81,8 +81,8 @@ struct MediaDetailsSerieView: View {
 }
 
 #Preview {
-    let viewModel: MediaDetailsSerieViewModeling = {
-        let viewModel = MediaDetailsSerieViewModelingMock()
+    let viewModel: MediaDetailsSerieViewModel = {
+        let viewModel = MockMediaDetailsSerieViewModel()
         viewModel.serie = .preview()
         viewModel.seasons = viewModel.serie.seasons
         viewModel.getEpisodesOfSerieSeasonSerieEpisodeReturnValue = .preview.prefix(6).map({ $0 })
