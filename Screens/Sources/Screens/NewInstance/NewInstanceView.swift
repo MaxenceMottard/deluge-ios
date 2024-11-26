@@ -25,7 +25,7 @@ struct NewInstanceView: View {
         VStack {
             Form {
                 Section {
-                    Picker("newInstance.field.instanceType", selection: $viewModel.type) {
+                    Picker(String(localized: "newInstance.field.instanceType", bundle: .module), selection: $viewModel.type) {
                         ForEach(Instance.InstanceType.allCases) {
                             Text(String(describing: $0).capitalized)
                         }
@@ -34,12 +34,12 @@ struct NewInstanceView: View {
 
                 Section(
                     content: {
-                        TextField("newInstance.field.name", text: $viewModel.name)
+                        TextField(String(localized: "newInstance.field.name", bundle: .module), text: $viewModel.name)
                             .autocorrectionDisabled()
                             .focused($focused, equals: .name)
                             .onSubmit { focused = .url }
 
-                        TextField("newInstance.field.url", text: $viewModel.url)
+                        TextField(String(localized: "newInstance.field.url", bundle: .module), text: $viewModel.url)
                             .textContentType(.URL)
                             .keyboardType(.URL)
                             .autocapitalization(.none)
@@ -48,12 +48,12 @@ struct NewInstanceView: View {
                             .onSubmit { focused = .apiKey }
                     },
                     header: {
-                        Text("newInstance.section.instance")
+                        Text("newInstance.section.instance", bundle: .module)
                     },
                     footer: {
                         VStack(alignment: .leading, spacing: 0) {
-                            Text("newInstance.label.urlHelp")
-                            Text("newInstance.label.urlSample")
+                            Text("newInstance.label.urlHelp", bundle: .module)
+                            Text("newInstance.label.urlSample", bundle: .module)
                                 .tint(.white)
                                 .disabled(true)
                         }
@@ -62,19 +62,19 @@ struct NewInstanceView: View {
                 )
 
                 Section {
-                    TextField("newInstance.field.apiKey", text: $viewModel.apiKey)
+                    TextField(String(localized: "newInstance.field.apiKey", bundle: .module), text: $viewModel.apiKey)
                         .autocapitalization(.none)
                         .autocorrectionDisabled()
                         .focused($focused, equals: .apiKey)
                         .onSubmit { submitForm() }
                 } footer: {
-                    Text("newInstance.label.apiKeyHelp")
+                    Text("newInstance.label.apiKeyHelp", bundle: .module)
                         .font(.footnote)
                 }
             }
             Spacer()
 
-            Button("newInstance.button.connect".uppercased()) {
+            Button(String(localized: "newInstance.button.connect", bundle: .module).uppercased()) {
                 submitForm()
             }
             .disabled(!viewModel.isFormValid)

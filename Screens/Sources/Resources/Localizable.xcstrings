@@ -121,12 +121,22 @@
         }
       }
     },
+    "newInstance.button.connect" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Connect"
+          }
+        }
+      }
+    },
     "newInstance.field.apiKey" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Api Key"
+            "value" : "API Key"
           }
         }
       }
@@ -136,7 +146,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Type"
+            "value" : "Instance Type"
           }
         }
       }
@@ -166,7 +176,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "You can find your API key under Settings -> General in the web interface."
+            "value" : "You can find your API key under Settings → General in the web interface."
           }
         }
       }
@@ -176,7 +186,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Please enter the url with format"
+            "value" : "Please enter the URL in the following format:"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Entrez l’url de votre "
           }
         }
       }
@@ -184,6 +200,12 @@
     "newInstance.label.urlSample" : {
       "localizations" : {
         "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "https://ecorp.com:8989"
+          }
+        },
+        "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "https://ecorp.com:8989"
@@ -196,6 +218,12 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
+            "value" : "Instance details"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
             "value" : "Instance"
           }
         }
@@ -207,6 +235,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "New instance"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nouvelle instance"
           }
         }
       }

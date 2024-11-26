@@ -5,7 +5,7 @@ import PackageDescription
 
 let package = Package(
     name: "Screens",
-    defaultLocalization: "EN",
+    defaultLocalization: "en",
     platforms: [
         .iOS(.v17),
     ],
