@@ -12,11 +12,11 @@ struct ___VARIABLE_screenName:identifier___View: View {
 }
 
 #Preview {
-    ___VARIABLE_screenName:identifier___View(
-        viewModel: ___VARIABLE_screenName:identifier___ViewModel(
-            dependencies: ___VARIABLE_screenName:identifier___ViewModel.Dependencies(
-                router: Router()
-            )
-        )
-    )
+    let viewModel: ___VARIABLE_screenName:identifier___ViewModeling = {
+        let viewModel = ___VARIABLE_screenName:identifier___ViewModelingMock()
+
+        return viewModel
+    }()
+
+    ___VARIABLE_screenName:identifier___View(viewModel: viewModel)
 }

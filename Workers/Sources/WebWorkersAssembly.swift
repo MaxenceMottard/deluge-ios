@@ -25,6 +25,7 @@ public struct WebWorkersAssembly: Assembly {
         container.register(GetEpisodeReleasesWorking.self) { _ in GetEpisodeReleasesWorker() }
         container.register(ReleaseEpisodeWorking.self) { _ in ReleaseEpisodeWorker() }
         container.register(GetSerieQueueWorking.self) { _ in GetSerieQueueWorker() }
+        container.register(SearchSerieWorking.self) { _ in SearchSerieWorker() }
 
         // MARK: Radarr
         container.register(GetMoviesbWorking.self) { _ in GetMoviesWorker() }

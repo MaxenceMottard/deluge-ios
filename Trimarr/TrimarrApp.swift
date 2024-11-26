@@ -12,8 +12,9 @@ import Screens
 struct TrimarrApp: App {
     var body: some Scene {
         WindowGroup {
-            InitialView()
+            Tab()
                 .ignoresSafeArea()
+                .tint(.white)
         }
     }
 }

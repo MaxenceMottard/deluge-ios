@@ -410,6 +410,38 @@
           }
         }
       }
+    },
+    "search.label.noResults" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No results found. Please perform a search."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aucun résultat trouvé. Veuillez effectuer une recherche."
+          }
+        }
+      }
+    },
+    "search.title" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Search"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rechercher"
+          }
+        }
+      }
     }
   },
   "version" : "1.0"
