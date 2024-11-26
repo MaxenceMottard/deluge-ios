@@ -25,7 +25,7 @@ struct NewInstanceView: View {
         VStack {
             Form {
                 Section {
-                    Picker("Type", selection: $viewModel.type) {
+                    Picker("newInstance.field.instanceType", selection: $viewModel.type) {
                         ForEach(Instance.InstanceType.allCases) {
                             Text(String(describing: $0).capitalized)
                         }
@@ -34,12 +34,12 @@ struct NewInstanceView: View {
 
                 Section(
                     content: {
-                        TextField("Name", text: $viewModel.name)
+                        TextField("newInstance.field.name", text: $viewModel.name)
                             .autocorrectionDisabled()
                             .focused($focused, equals: .name)
                             .onSubmit { focused = .url }
 
-                        TextField("URL", text: $viewModel.url)
+                        TextField("newInstance.field.url", text: $viewModel.url)
                             .textContentType(.URL)
                             .keyboardType(.URL)
                             .autocapitalization(.none)
@@ -52,8 +52,8 @@ struct NewInstanceView: View {
                     },
                     footer: {
                         VStack(alignment: .leading, spacing: 0) {
-                            Text("Please enter the url with format")
-                            Text("https://ecorp.com:8989")
+                            Text("newInstance.label.urlHelp")
+                            Text("newInstance.label.urlSample")
                                 .tint(.white)
                                 .disabled(true)
                         }
@@ -62,19 +62,19 @@ struct NewInstanceView: View {
                 )
 
                 Section {
-                    TextField("Api Key", text: $viewModel.apiKey)
+                    TextField("newInstance.field.apiKey", text: $viewModel.apiKey)
                         .autocapitalization(.none)
                         .autocorrectionDisabled()
                         .focused($focused, equals: .apiKey)
                         .onSubmit { submitForm() }
                 } footer: {
-                    Text("You can find your API key under Settings -> General in the web interface.")
+                    Text("newInstance.label.apiKeyHelp")
                         .font(.footnote)
                 }
             }
             Spacer()
 
-            Button("Connect".uppercased()) {
+            Button("newInstance.button.connect".uppercased()) {
                 submitForm()
             }
             .disabled(!viewModel.isFormValid)

@@ -4,16 +4,10 @@
     "%lld - " : {
 
     },
-    "Api Key" : {
-
-    },
     "Current instance" : {
 
     },
     "Épisodes spéciaux" : {
-
-    },
-    "https://ecorp.com:8989" : {
 
     },
     "Instance" : {
@@ -69,25 +63,90 @@
         }
       }
     },
-    "Name" : {
-
+    "newInstance.field.apiKey" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Api Key"
+          }
+        }
+      }
+    },
+    "newInstance.field.instanceType" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Type"
+          }
+        }
+      }
+    },
+    "newInstance.field.name" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Name"
+          }
+        }
+      }
+    },
+    "newInstance.field.url" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "URL"
+          }
+        }
+      }
+    },
+    "newInstance.label.apiKeyHelp" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You can find your API key under Settings -> General in the web interface."
+          }
+        }
+      }
+    },
+    "newInstance.label.urlHelp" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Please enter the url with format"
+          }
+        }
+      }
+    },
+    "newInstance.label.urlSample" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "https://ecorp.com:8989"
+          }
+        }
+      }
+    },
+    "newInstance.title" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "New instance"
+          }
+        }
+      }
     },
     "No instance selected" : {
 
     },
-    "Please enter the url with format" : {
-
-    },
     "Season %lld" : {
-
-    },
-    "Type" : {
-
-    },
-    "URL" : {
-
-    },
-    "You can find your API key under Settings -> General in the web interface." : {
 
     }
   },
