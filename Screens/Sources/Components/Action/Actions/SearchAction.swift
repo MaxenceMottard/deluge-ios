@@ -9,7 +9,7 @@ import SwiftUI
 
 public struct SearchAction: Action {
     public let icon: Image = Image(systemName: "magnifyingglass")
-    public let label: String = "Search"
+    public let label: LocalizedStringKey = "action.search"
     public let action: () async -> Void
 }
 
