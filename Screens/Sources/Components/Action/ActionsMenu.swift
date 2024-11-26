@@ -33,7 +33,7 @@ public struct ActionsMenu: View {
                             Task { await action.action() }
                         } label: {
                             action.icon
-                            Text(action.label)
+                            Text(action.label, bundle: .module)
                         }
                     }
                 } label: {

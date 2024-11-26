@@ -9,7 +9,7 @@ import SwiftUI
 
 public struct DownloadAction: Action {
     public let icon: Image = Image(systemName: "square.and.arrow.down")
-    public let label: String = "Download"
+    public let label: LocalizedStringKey = "action.download"
     public let action: () async -> Void
 }
 

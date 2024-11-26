@@ -9,7 +9,7 @@ import SwiftUI
 
 public struct ReleaseAction: Action {
     public let icon: Image = Image(systemName: "person.fill")
-    public let label: String = "Release"
+    public let label: LocalizedStringKey = "action.release"
     public let action: () async -> Void
 }
 

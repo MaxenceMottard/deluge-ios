@@ -30,7 +30,7 @@ struct InstanceSelectorView: View {
 
             Spacer()
 
-            Button("Add instance") {
+            Button(String(localized: "instanceSelector.button.addInstance", bundle: .module)) {
                 viewModel.addInstance()
             }
             .buttonStyle(.basic)
@@ -80,17 +80,23 @@ struct InstanceSelectorView: View {
                                 .foregroundStyle(statusColor)
                         }
 
-                        LabeledContent("URL", value: instance.url)
-                            .lineLimit(1)
+                        LabeledContent(
+                            String(localized: "instanceSelector.label.url", bundle: .module),
+                            value: instance.url
+                        )
+                        .lineLimit(1)
 
-                        LabeledContent("Version", value: status?.system?.version ?? "")
-                            .lineLimit(1)
+                        LabeledContent(
+                            String(localized: "instanceSelector.label.version", bundle: .module),
+                            value: status?.system?.version ?? ""
+                        )
+                        .lineLimit(1)
 
                     }
 
                     Menu {
                         Button(action: { onRemoveTap() }) {
-                            Text("Remove")
+                            Text("instanceSelector.button.remove", bundle: .module)
                             Image(systemName: "trash")
                                 .foregroundStyle(.red)
                         }

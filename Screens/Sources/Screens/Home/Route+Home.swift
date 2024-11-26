@@ -29,7 +29,7 @@ struct HomeRoute: Route {
 
         let view = HomeView(viewModel: viewModel).environmentObject(router)
         let viewController = UIHostingController(rootView: view)
-        viewController.title = "Home"
+        viewController.title = String(localized: "home.title", bundle: .module)
         viewController.navigationItem.largeTitleDisplayMode = .always
 
         return viewController

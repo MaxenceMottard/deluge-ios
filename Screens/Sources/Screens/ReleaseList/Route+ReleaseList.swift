@@ -34,7 +34,6 @@ struct ReleaseListRoute: Route {
 
         let view = ReleaseListView(viewModel: viewModel).environmentObject(router)
         let viewController = UIHostingController(rootView: view)
-        viewController.title = ""
         viewController.navigationItem.largeTitleDisplayMode = .never
 
         return viewController

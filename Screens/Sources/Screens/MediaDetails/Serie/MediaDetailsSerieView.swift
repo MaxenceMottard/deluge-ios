@@ -35,9 +35,9 @@ struct MediaDetailsSerieView: View {
 
                         Group {
                             if season.seasonNumber == 0 {
-                                Text("Épisodes spéciaux")
+                                Text("mediaDetails.serie.label.specials", bundle: .module)
                             } else {
-                                Text("Season \(season.seasonNumber)")
+                                Text("mediaDetails.serie.label.season \(season.seasonNumber)", bundle: .module)
                             }
                         }
 

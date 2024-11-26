@@ -5,6 +5,7 @@ import PackageDescription
 
 let package = Package(
     name: "Screens",
+    defaultLocalization: "en",
     platforms: [
         .iOS(.v17),
     ],
@@ -45,7 +46,7 @@ let package = Package(
             ],
             path: "Sources",
             resources: [
-                .process("Resources"),
+                .process("Resources")
             ],
             plugins: [
                 .plugin(name: "SourceryPlugin", package: "Utils"),
