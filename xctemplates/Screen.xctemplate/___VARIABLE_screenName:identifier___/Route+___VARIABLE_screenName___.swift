@@ -17,7 +17,8 @@ struct ___VARIABLE_screenName:identifier___Route: Route {
 
         let view = ___VARIABLE_screenName:identifier___View(viewModel: viewModel).environmentObject(router)
         let viewController = UIHostingController(rootView: view)
-        viewController.title = /*@START_MENU_TOKEN@*/"Title"/*@END_MENU_TOKEN@*/
+        let title: String.LocalizationValue = /*@START_MENU_TOKEN@*/"localization_key"/*@END_MENU_TOKEN@*/
+        viewController.title = String(localized: title)
         viewController.navigationItem.largeTitleDisplayMode = /*@START_MENU_TOKEN@*/.never/*@END_MENU_TOKEN@*/
 
         return viewController

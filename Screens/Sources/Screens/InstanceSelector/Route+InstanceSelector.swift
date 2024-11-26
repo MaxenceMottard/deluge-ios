@@ -28,7 +28,8 @@ struct InstanceSelectorRoute: Route {
 
         let view = InstanceSelectorView(viewModel: viewModel).environmentObject(router)
         let viewController = UIHostingController(rootView: view)
-        viewController.title = "Instances"
+        let title: String.LocalizationValue = "instanceSelector.title"
+        viewController.title = String(localized: title)
         viewController.navigationItem.largeTitleDisplayMode = .always
         viewController.navigationItem.rightBarButtonItem = UIBarButtonItem(
             image: UIImage(systemName: "xcross"),

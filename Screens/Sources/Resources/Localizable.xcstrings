@@ -1,0 +1,95 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "%lld - " : {
+
+    },
+    "Api Key" : {
+
+    },
+    "Current instance" : {
+
+    },
+    "Épisodes spéciaux" : {
+
+    },
+    "https://ecorp.com:8989" : {
+
+    },
+    "Instance" : {
+
+    },
+    "instanceSelector.button.addInstance" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add instance"
+          }
+        }
+      }
+    },
+    "instanceSelector.button.remove" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remove"
+          }
+        }
+      }
+    },
+    "instanceSelector.label.url" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "URL"
+          }
+        }
+      }
+    },
+    "instanceSelector.label.version" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Version"
+          }
+        }
+      }
+    },
+    "instanceSelector.title" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Instances"
+          }
+        }
+      }
+    },
+    "Name" : {
+
+    },
+    "No instance selected" : {
+
+    },
+    "Please enter the url with format" : {
+
+    },
+    "Season %lld" : {
+
+    },
+    "Type" : {
+
+    },
+    "URL" : {
+
+    },
+    "You can find your API key under Settings -> General in the web interface." : {
+
+    }
+  },
+  "version" : "1.0"
+}

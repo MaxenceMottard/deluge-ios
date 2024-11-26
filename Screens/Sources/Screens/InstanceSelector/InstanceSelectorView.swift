@@ -30,7 +30,7 @@ struct InstanceSelectorView: View {
 
             Spacer()
 
-            Button("Add instance") {
+            Button("instanceSelector.button.addInstance") {
                 viewModel.addInstance()
             }
             .buttonStyle(.basic)
@@ -80,17 +80,17 @@ struct InstanceSelectorView: View {
                                 .foregroundStyle(statusColor)
                         }
 
-                        LabeledContent("URL", value: instance.url)
+                        LabeledContent("instanceSelector.label.url", value: instance.url)
                             .lineLimit(1)
 
-                        LabeledContent("Version", value: status?.system?.version ?? "")
+                        LabeledContent("instanceSelector.label.version", value: status?.system?.version ?? "")
                             .lineLimit(1)
 
                     }
 
                     Menu {
                         Button(action: { onRemoveTap() }) {
-                            Text("Remove")
+                            Text("instanceSelector.button.remove")
                             Image(systemName: "trash")
                                 .foregroundStyle(.red)
                         }
