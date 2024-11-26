@@ -41,7 +41,7 @@ class ReleaseListViewModel: ReleaseListViewModeling {
     var results: [Release] = []
 
     var title: String {
-        "\(serie.title) - \(episode.seasonNumber)x\(episode.episodeNumber) - \(episode.title)"
+        String(localized: "releaseList.tile \(serie.title) \(episode.seasonNumber) \(episode.episodeNumber) \(episode.title)", bundle: .module)
     }
 
     init(

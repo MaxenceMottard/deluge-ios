@@ -37,11 +37,9 @@ struct MediaDetailsSerieEpisodesView: View {
                     }
 
                     VStack(alignment: .leading) {
-                        Group {
-                            Text("\(episode.episodeNumber)") + Text(" - ") + Text(episode.title)
-                        }
-                        .multilineTextAlignment(.leading)
-                        .lineLimit(2)
+                        Text("mediaDetails.serie.label.episodeName \(episode.episodeNumber) \(episode.title)")
+                            .multilineTextAlignment(.leading)
+                            .lineLimit(2)
 
                         HStack {
                             if file != nil {
