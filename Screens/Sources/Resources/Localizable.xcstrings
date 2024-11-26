@@ -34,9 +34,6 @@
         }
       }
     },
-    "Instance" : {
-
-    },
     "instanceSelector.button.addInstance" : {
       "localizations" : {
         "en" : {
@@ -173,6 +170,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "https://ecorp.com:8989"
+          }
+        }
+      }
+    },
+    "newInstance.section.instance" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Instance"
           }
         }
       }

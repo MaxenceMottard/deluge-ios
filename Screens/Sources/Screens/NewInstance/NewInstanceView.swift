@@ -48,7 +48,7 @@ struct NewInstanceView: View {
                             .onSubmit { focused = .apiKey }
                     },
                     header: {
-                        Text("Instance")
+                        Text("newInstance.section.instance")
                     },
                     footer: {
                         VStack(alignment: .leading, spacing: 0) {
