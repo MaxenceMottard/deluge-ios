@@ -35,5 +35,6 @@ public struct WebWorkersAssembly: Assembly {
         // MARK: Radarr
         container.register(GetMoviesbWorking.self) { _ in GetMoviesWorker() }
         container.register(GetMovieReleasesWorking.self) { _ in GetMovieReleasesWorker() }
+        container.register(DeleteMovieWorking.self) { _ in DeleteMovieWorker() }
     }
 }
