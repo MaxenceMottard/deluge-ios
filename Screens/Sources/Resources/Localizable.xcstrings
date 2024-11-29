@@ -1,6 +1,22 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "action.automaticSearch" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Automatic search"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Recherche interactive"
+          }
+        }
+      }
+    },
     "action.download" : {
       "localizations" : {
         "en" : {
@@ -17,28 +33,18 @@
         }
       }
     },
-    "action.release" : {
+    "action.interactiveSearch" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Release"
-          }
-        }
-      }
-    },
-    "action.search" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Search"
+            "value" : "Interactive search"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Rechercher"
+            "value" : "Recherche automatique"
           }
         }
       }

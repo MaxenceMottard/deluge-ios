@@ -64,8 +64,8 @@ struct MediaDetailsSerieEpisodesView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
 
                     ActionsMenu(actions: [
-                        .search { await search(episode) },
-                        .release { await release(episode) },
+                        .automaticSearch { await search(episode) },
+                        .interactiveSearch { await release(episode) },
                     ])
                 }
             }
