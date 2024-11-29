@@ -32,7 +32,7 @@ struct DeleteMediaRoute: Route {
         let view = DeleteMediaView(viewModel: viewModel).environmentObject(router)
         let viewController = UIHostingController(rootView: view)
         viewController.title = String(localized: "deleteMedia.title \(media.title)", bundle: .module)
-        viewController.navigationItem.largeTitleDisplayMode = /*@START_MENU_TOKEN@*/.never/*@END_MENU_TOKEN@*/
+        viewController.navigationItem.largeTitleDisplayMode = .never
 
         return viewController
     }
