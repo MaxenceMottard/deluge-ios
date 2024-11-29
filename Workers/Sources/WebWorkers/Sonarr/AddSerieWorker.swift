@@ -15,6 +15,7 @@ public protocol AddSerieWorking: Sendable {
         root: String,
         qualityProfileId: Int,
         monitor: SerieMonitor,
+        serieType: SerieType,
         seasonFolder: Bool,
         searchForMissingEpisodes: Bool,
         searchForCutoffUnmetEpisodes: Bool
@@ -27,24 +28,26 @@ struct AddSerieWorker: AddSerieWorking {
         root: String,
         qualityProfileId: Int,
         monitor: SerieMonitor,
+        serieType: SerieType,
         seasonFolder: Bool,
         searchForMissingEpisodes: Bool,
         searchForCutoffUnmetEpisodes: Bool
     ) async throws {
         guard let sendableDictionary = serie.data else { throw RequestError.invalidData }
-        var dictionary = sendableDictionary as [String: Any]
 
+        var dictionary = sendableDictionary as [String: Any]
         dictionary["qualityProfileId"] = qualityProfileId
         dictionary["languageProfileId"] = qualityProfileId
         dictionary["seasonFolder"] = seasonFolder
         dictionary["rootFolderPath"] = root
+        dictionary["seriesType"] = serieType.rawValue
         dictionary["addOptions"] = [
             "monitor": monitor.rawValue,
             "searchForMissingEpisodes": searchForMissingEpisodes,
             "searchForCutoffUnmetEpisodes": searchForCutoffUnmetEpisodes
         ]
 
-        let data = try? JSONSerialization.data(withJSONObject: dictionary)
+        let data = try JSONSerialization.data(withJSONObject: dictionary)
 
         try await Request()
             .set(method: .POST)

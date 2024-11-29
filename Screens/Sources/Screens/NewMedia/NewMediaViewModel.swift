@@ -74,6 +74,7 @@ class DefaultNewMediaViewModel: NewMediaViewModel {
                 root: selectedRootFolder.path,
                 qualityProfileId: selectedQualityProfile.id,
                 monitor: selectedMonitorType,
+                serieType: selectedSerieType,
                 seasonFolder: isSeasonFolderOn,
                 searchForMissingEpisodes: searchForMissingEpisodes,
                 searchForCutoffUnmetEpisodes: searchForCutoffUnmetEpisodes

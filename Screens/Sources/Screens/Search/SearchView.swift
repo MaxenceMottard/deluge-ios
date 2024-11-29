@@ -18,8 +18,11 @@ struct SearchView: View {
                 .progressViewStyle(.circular)
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
         } else if viewModel.searchResults.isEmpty {
-            Text("search.label.noResults", bundle: .module)
-                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+            VStack {
+                Text("search.label.noResults.1", bundle: .module)
+                Text("search.label.noResults.2", bundle: .module)
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
         } else {
             ScrollView {
                 VStack {
