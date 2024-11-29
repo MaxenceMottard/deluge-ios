@@ -5,6 +5,7 @@
 //  Created by Maxence Mottard on 26/11/2024.
 //
 
+import Foundation
 import Networking
 import Workers
 
@@ -16,6 +17,7 @@ public protocol GlobalDataRepository: Sendable {
     func fetch() async
 }
 
+@Observable
 class DefaultGlobalDataRepository: GlobalDataRepository, @unchecked Sendable {
     struct Dependencies {
         let getQualityProfilesWorker: GetQualityProfilesWorking

@@ -8,12 +8,12 @@
 import Foundation
 
 public struct RootFolder: Sendable, Identifiable, Hashable {
-    public let id: String
+    public let id: Int
     public let path: String
     public let accessible: Bool
     public let freeSpace: Int
 
-    public init(id: String, path: String, accessible: Bool, freeSpace: Int) {
+    public init(id: Int, path: String, accessible: Bool, freeSpace: Int) {
         self.id = id
         self.path = path
         self.accessible = accessible

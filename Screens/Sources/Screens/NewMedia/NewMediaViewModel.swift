@@ -12,8 +12,19 @@ import Workers
 @MainActor
 // sourcery: AutoMockable
 protocol NewMediaViewModel {
+    var searchResult: SearchSerieResult { get }
     var rootFolders: [RootFolder] { get }
+    var qualityProfiles: [QualityProfile] { get }
     var selectedRootFolder: RootFolder? { get set }
+    var selectedQualityProfile: QualityProfile? { get set }
+    var selectedMonitorType: SerieMonitor { get set }
+    var selectedSerieType: SerieType { get set }
+    var isSeasonFolderOn: Bool { get set }
+    var searchForMissingEpisodes: Bool { get set }
+    var searchForCutoffUnmetEpisodes: Bool { get set }
+    var tagsTextfield: String { get set }
+
+    func addMedia() async
 }
 
 @Observable
@@ -21,19 +32,55 @@ protocol NewMediaViewModel {
 class DefaultNewMediaViewModel: NewMediaViewModel {
     struct Dependencies {
         let globalDataRepository: GlobalDataRepository
+        let addSerieWorker: AddSerieWorking
         let router: Routing
     }
 
     private let dependencies: Dependencies
+    let searchResult: SearchSerieResult
 
     var rootFolders: [RootFolder] {
         dependencies.globalDataRepository.rootFolders
     }
 
-    var selectedRootFolder: RootFolder?
-
-    init(dependencies: Dependencies) {
-        self.dependencies = dependencies
+    var qualityProfiles: [QualityProfile] {
+        dependencies.globalDataRepository.qualityProfiles
     }
 
+    var selectedRootFolder: RootFolder?
+    var selectedQualityProfile: QualityProfile?
+    var selectedMonitorType: SerieMonitor = .all
+    var selectedSerieType: SerieType = .standard
+    var tagsTextfield: String = ""
+    var isSeasonFolderOn: Bool = true
+    var searchForMissingEpisodes: Bool = true
+    var searchForCutoffUnmetEpisodes: Bool = false
+
+    init(dependencies: Dependencies, searchResult: SearchSerieResult) {
+        self.dependencies = dependencies
+        self.searchResult = searchResult
+    }
+
+    func addMedia() async {
+        do {
+            guard
+                let selectedRootFolder,
+                let selectedQualityProfile else {
+                return
+            }
+
+            try await dependencies.addSerieWorker.run(
+                serie: searchResult,
+                root: selectedRootFolder.path,
+                qualityProfileId: selectedQualityProfile.id,
+                monitor: selectedMonitorType,
+                seasonFolder: isSeasonFolderOn,
+                searchForMissingEpisodes: searchForMissingEpisodes,
+                searchForCutoffUnmetEpisodes: searchForCutoffUnmetEpisodes
+            )
+            dependencies.router.dismiss()
+        } catch {
+            print(error)
+        }
+    }
 }

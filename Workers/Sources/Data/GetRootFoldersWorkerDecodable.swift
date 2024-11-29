@@ -8,7 +8,7 @@
 import Foundation
 
 struct GetRootFoldersWorkerDecodable: Decodable {
-    let id: String
+    let id: Int
     let path: String
     let accessible: Bool
     let freeSpace: Int

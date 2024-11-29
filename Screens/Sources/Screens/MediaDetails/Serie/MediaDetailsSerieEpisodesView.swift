@@ -37,7 +37,7 @@ struct MediaDetailsSerieEpisodesView: View {
                     }
 
                     VStack(alignment: .leading) {
-                        Text("mediaDetails.serie.label.episodeName \(episode.episodeNumber) \(episode.title)")
+                        Text("mediaDetails.serie.label.episodeName \(episode.episodeNumber) \(episode.title)", bundle: .module)
                             .multilineTextAlignment(.leading)
                             .lineLimit(2)
 
