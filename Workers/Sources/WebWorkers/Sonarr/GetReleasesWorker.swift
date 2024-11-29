@@ -1,5 +1,5 @@
 //
-//  ReleaseEpisodeWorker.swift
+//  GetReleasesWorker.swift
 //  Workers
 //
 //  Created by Maxence Mottard on 23/11/2024.
@@ -8,11 +8,11 @@
 import Networking
 
 // sourcery: AutoMockable
-public protocol GetEpisodeReleasesWorking: Sendable {
+public protocol GetReleasesWorking: Sendable {
     func run(id episodeId: Int) async throws -> [Release]
 }
 
-struct GetEpisodeReleasesWorker: GetEpisodeReleasesWorking {
+struct GetReleasesWorker: GetReleasesWorking {
     func run(id episodeId: Int) async throws -> [Release] {
         try await Request()
             .set(method: .GET)
@@ -20,7 +20,7 @@ struct GetEpisodeReleasesWorker: GetEpisodeReleasesWorking {
             .set(contentType: .json)
             .set(queryParameter: "episodeId", value: "\(episodeId)")
             .set(interceptor: InstanceInteceptor())
-            .set(responseType: [GetEpisodeReleasesWorkerDecodable].self)
+            .set(responseType: [GetReleasesWorkerDecodable].self)
             .run()
             .toDomain()
     }

@@ -47,7 +47,7 @@ class DefaultMediaDetailsSerieViewModel: MediaDetailsSerieViewModel {
         let commandWorker: SonarrCommandWorking
         let getSerieQueueWorker: GetSerieQueueWorking
         let getSeasonReleasesWorker: GetSeasonReleasesWorking
-        let getEpisodeReleasesWorker: GetEpisodeReleasesWorking
+        let getEpisodeReleasesWorker: GetReleasesWorking
         let router: Routing
     }
 

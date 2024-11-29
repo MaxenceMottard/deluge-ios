@@ -21,7 +21,7 @@ struct GetSeasonReleasesWorker: GetSeasonReleasesWorking {
             .set(queryParameter: "seriesId", value: "\(serieId)")
             .set(queryParameter: "seasonNumber", value: "\(seasonNumber)")
             .set(interceptor: InstanceInteceptor())
-            .set(responseType: [GetEpisodeReleasesWorkerDecodable].self)
+            .set(responseType: [GetReleasesWorkerDecodable].self)
             .run()
             .toDomain()
     }

@@ -35,7 +35,7 @@ struct MediaDetailsRoute: Route {
                             commandWorker: Dependency.resolve(SonarrCommandWorking.self)!,
                             getSerieQueueWorker: Dependency.resolve(GetSerieQueueWorking.self)!,
                             getSeasonReleasesWorker: Dependency.resolve(GetSeasonReleasesWorking.self)!,
-                            getEpisodeReleasesWorker: Dependency.resolve(GetEpisodeReleasesWorking.self)!,
+                            getEpisodeReleasesWorker: Dependency.resolve(GetReleasesWorking.self)!,
                             router: router
                         )
                     )
