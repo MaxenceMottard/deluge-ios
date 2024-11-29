@@ -10,13 +10,12 @@ import SwiftUI
 public struct ActionsMenu: View {
     @State private var size: CGSize = .zero
 
-    private let _actions: [any Action]
-    private var actions: [AnyAction] {
-        _actions.map({ AnyAction(action: $0) })
-    }
+    private let actions: [AnyAction]
 
-    public init(actions: [any Action]) {
-        self._actions = actions
+    public init(actions: [(any Action)?]) {
+        self.actions = actions
+            .compactMap({ $0 })
+            .map({ AnyAction(action: $0) })
     }
 
     private let icon: Image = Image(systemName: "ellipsis")

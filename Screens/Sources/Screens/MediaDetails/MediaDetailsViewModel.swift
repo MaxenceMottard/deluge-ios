@@ -13,11 +13,13 @@ import Foundation
 // sourcery: AutoMockable
 protocol MediaDetailsViewModel {
     var media: any Media { get }
+    var getSerieViewModel: (Serie) -> any MediaDetailsSerieViewModel { get }
+    var getMovieViewModel: (Movie) -> any MediaDetailsMovieViewModel { get }
 
     func deleteAction()
     func refreshAction() async
     func automaticSearchAction() async
-    func getSerieViewModel(serie: Serie) -> any MediaDetailsSerieViewModel
+    func interactiveSearchAction()
 }
 
 @Observable
@@ -25,22 +27,31 @@ protocol MediaDetailsViewModel {
 class DefaultMediaDetailsViewModel: MediaDetailsViewModel {
     struct Dependencies {
         let commandWorker: SonarrCommandWorking
-        let getSerieViewModel: (Serie) -> any MediaDetailsSerieViewModel
+        let getMovieReleasesWorker: GetMovieReleasesWorking
         let router: Routing
     }
 
     private let dependencies: Dependencies
+    let getSerieViewModel: (Serie) -> any MediaDetailsSerieViewModel
+    let getMovieViewModel: (Movie) -> any MediaDetailsMovieViewModel
     let media: any Media
 
-    init(media: any Media, dependencies: Dependencies) {
+    init(
+        media: any Media,
+        getSerieViewModel: @escaping (Serie) -> any MediaDetailsSerieViewModel,
+        getMovieViewModel: @escaping (Movie) -> any MediaDetailsMovieViewModel,
+        dependencies: Dependencies
+    ) {
         self.media = media
+        self.getSerieViewModel = getSerieViewModel
+        self.getMovieViewModel = getMovieViewModel
         self.dependencies = dependencies
     }
 
     func refreshAction() async {
         do {
-            if let serie = media as? Serie {
-                try await dependencies.commandWorker.run(command: .refreshSerie(id: serie.id))
+            if let media = media as? Serie {
+                try await dependencies.commandWorker.run(command: .refreshSerie(id: media.id))
             }
         } catch {
             print(error)
@@ -59,15 +70,23 @@ class DefaultMediaDetailsViewModel: MediaDetailsViewModel {
 
     func automaticSearchAction() async {
         do {
-            if let serie = media as? Serie {
-                try await dependencies.commandWorker.run(command: .serieSearch(id: serie.id))
+            if let media = media as? Serie {
+                try await dependencies.commandWorker.run(command: .serieSearch(id: media.id))
             }
         } catch {
             print(error)
         }
     }
 
-    func getSerieViewModel(serie: Serie) -> any MediaDetailsSerieViewModel {
-        dependencies.getSerieViewModel(serie)
+    func interactiveSearchAction() {
+        guard let media = media as? Movie else { return }
+        let route = Route.ReleaseList(
+            title: "releaseList.title.movie \(media.title)",
+            onDownloadReleaseSuccess: {},
+            getReleases: { [dependencies] in
+                try await dependencies.getMovieReleasesWorker.run(id: media.id)
+            }
+        )
+        dependencies.router.present(route: route, modal: .sheet)
     }
 }

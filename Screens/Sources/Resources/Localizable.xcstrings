@@ -145,6 +145,9 @@
         }
       }
     },
+    "Hello, World!" : {
+
+    },
     "home.label.currentInstance" : {
       "localizations" : {
         "en" : {
@@ -893,6 +896,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@ - %lldx%lld - %@"
+          }
+        }
+      }
+    },
+    "releaseList.title.movie %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@"
           }
         }
       }

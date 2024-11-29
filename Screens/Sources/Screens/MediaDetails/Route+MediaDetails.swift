@@ -20,26 +20,35 @@ struct MediaDetailsRoute: Route {
     func viewController(router: Router) -> UIViewController {
         let viewModel = DefaultMediaDetailsViewModel(
             media: media,
+            getSerieViewModel: { serie in
+                DefaultMediaDetailsSerieViewModel(
+                    serie: serie,
+                    dependencies: DefaultMediaDetailsSerieViewModel.Dependencies(
+                        getSerieWorker: Dependency.resolve(GetSerieWorking.self)!,
+                        getEpisodesWorker: Dependency.resolve(GetEpisodesWorking.self)!,
+                        getEpisodesFilesWorking: Dependency.resolve(GetEpisodesFilesWorking.self)!,
+                        monitorEpisodesWorking: Dependency.resolve(MonitorEpisodesWorking.self)!,
+                        monitorSeasonWorker: Dependency.resolve(MonitorSeasonWorking.self)!,
+                        tapticEngineWorker: Dependency.resolve(TapticEngineWorking.self)!,
+                        commandWorker: Dependency.resolve(SonarrCommandWorking.self)!,
+                        getSerieQueueWorker: Dependency.resolve(GetSerieQueueWorking.self)!,
+                        getSeasonReleasesWorker: Dependency.resolve(GetSeasonReleasesWorking.self)!,
+                        getEpisodeReleasesWorker: Dependency.resolve(GetEpisodeReleasesWorking.self)!,
+                        router: router
+                    )
+                )
+            },
+            getMovieViewModel: { movie in
+                DefaultMediaDetailsMovieViewModel(
+                    movie: movie,
+                    dependencies: DefaultMediaDetailsMovieViewModel.Dependencies(
+                        router: router
+                    )
+                )
+            },
             dependencies: DefaultMediaDetailsViewModel.Dependencies(
                 commandWorker: Dependency.resolve(SonarrCommandWorking.self)!,
-                getSerieViewModel: { serie in
-                    DefaultMediaDetailsSerieViewModel(
-                        serie: serie,
-                        dependencies: DefaultMediaDetailsSerieViewModel.Dependencies(
-                            getSerieWorker: Dependency.resolve(GetSerieWorking.self)!,
-                            getEpisodesWorker: Dependency.resolve(GetEpisodesWorking.self)!,
-                            getEpisodesFilesWorking: Dependency.resolve(GetEpisodesFilesWorking.self)!,
-                            monitorEpisodesWorking: Dependency.resolve(MonitorEpisodesWorking.self)!,
-                            monitorSeasonWorker: Dependency.resolve(MonitorSeasonWorking.self)!,
-                            tapticEngineWorker: Dependency.resolve(TapticEngineWorking.self)!,
-                            commandWorker: Dependency.resolve(SonarrCommandWorking.self)!,
-                            getSerieQueueWorker: Dependency.resolve(GetSerieQueueWorking.self)!,
-                            getSeasonReleasesWorker: Dependency.resolve(GetSeasonReleasesWorking.self)!,
-                            getEpisodeReleasesWorker: Dependency.resolve(GetEpisodeReleasesWorking.self)!,
-                            router: router
-                        )
-                    )
-                },
+                getMovieReleasesWorker: Dependency.resolve(GetMovieReleasesWorking.self)!,
                 router: router
             )
         )

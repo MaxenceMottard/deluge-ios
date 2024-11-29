@@ -30,6 +30,7 @@ struct MediaDetailsView: View {
                     ActionsMenu(actions: [
                         .refresh { await viewModel.refreshAction() },
                         .automaticSearch { await viewModel.automaticSearchAction() },
+                        viewModel.media is Movie ? .interactiveSearch { viewModel.interactiveSearchAction() } : nil,
                         .remove { viewModel.deleteAction() },
                     ])
                     .padding(.vertical, 5)
@@ -42,8 +43,12 @@ struct MediaDetailsView: View {
             }
 
             VStack {
-                if let serie = viewModel.media as? Workers.Serie {
-                    MediaDetailsSerieView(viewModel: viewModel.getSerieViewModel(serie: serie))
+                if let media = viewModel.media as? Workers.Serie {
+                    MediaDetailsSerieView(viewModel: viewModel.getSerieViewModel(media))
+                }
+
+                if let media = viewModel.media as? Workers.Movie {
+                    MediaDetailsMovieView(viewModel: viewModel.getMovieViewModel(media))
                 }
             }
             .padding()
@@ -56,7 +61,7 @@ struct MediaDetailsView: View {
     let viewModel: any MediaDetailsViewModel = {
         let viewModel = MockMediaDetailsViewModel()
         viewModel.media = Serie.preview()
-        viewModel.getSerieViewModelSerieSerieAnyMediaDetailsSerieViewModelReturnValue = {
+        viewModel.getSerieViewModel = { _ in
             let viewModel = MockMediaDetailsSerieViewModel()
             viewModel.serie = .preview()
             viewModel.seasons = viewModel.serie.seasons
@@ -67,7 +72,7 @@ struct MediaDetailsView: View {
             viewModel.getQueueItemsOfSeasonSerieSeasonSerieQueueItemReturnValue = []
 
             return viewModel
-        }()
+        }
 
         return viewModel
     }()
@@ -79,6 +84,11 @@ struct MediaDetailsView: View {
     let viewModel: any MediaDetailsViewModel = {
         let viewModel = MockMediaDetailsViewModel()
         viewModel.media = Movie.preview()
+        viewModel.getMovieViewModel = { _ in
+            let viewModel = MockMediaDetailsMovieViewModel()
+
+            return viewModel
+        }
 
         return viewModel
     }()
