@@ -22,8 +22,10 @@ struct NewMediaRoute: Route {
         let viewModel = DefaultNewMediaViewModel(
             dependencies: DefaultNewMediaViewModel.Dependencies(
                 globalDataRepository: Dependency.resolve(GlobalDataRepository.self)!,
+                addSerieWorker: Dependency.resolve(AddSerieWorking.self)!,
                 router: router
-            )
+            ),
+            searchResult: searchResult
         )
 
         let view = NewMediaView(viewModel: viewModel).environmentObject(router)

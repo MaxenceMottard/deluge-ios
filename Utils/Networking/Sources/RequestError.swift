@@ -15,6 +15,7 @@ public enum RequestError: Error, Equatable {
     case noURL
     case noMethod
     case invalidURL
+    case invalidData
 
     public static func == (lhs: RequestError, rhs: RequestError) -> Bool {
         switch (lhs, rhs) {

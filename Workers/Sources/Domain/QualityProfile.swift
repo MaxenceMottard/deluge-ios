@@ -6,7 +6,7 @@
 //
 
 
-public struct QualityProfile: Sendable, Identifiable {
+public struct QualityProfile: Sendable, Identifiable, Hashable {
     public let id: Int
     public let name: String
     public let upgradeAllowed: Bool
