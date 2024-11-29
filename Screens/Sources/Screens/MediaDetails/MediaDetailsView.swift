@@ -9,13 +9,37 @@ import SwiftUI
 import Routing
 import NukeUI
 import Workers
+import DesignSystem
 
 struct MediaDetailsView: View {
     @State var viewModel: any MediaDetailsViewModel
 
     var body: some View {
         ScrollView {
-            Header(media: viewModel.media)
+            VStack {
+                Header(media: viewModel.media)
+
+                HStack(alignment: .top) {
+                    ActionsMenu(actions: [])
+                        .hidden()
+
+                    Text(viewModel.media.title)
+                        .font(.title2)
+                        .multilineTextAlignment(.center)
+
+                    ActionsMenu(actions: [
+                        .refresh { await viewModel.refreshAction() },
+                        .automaticSearch { await viewModel.automaticSearchAction() },
+                        .remove { viewModel.deleteAction() },
+                    ])
+                    .padding(.vertical, 5)
+                }
+
+                Text(String(viewModel.media.year))
+                    .font(.subheadline)
+                    .foregroundStyle(.gray)
+                    .multilineTextAlignment(.center)
+            }
 
             VStack {
                 if let serie = viewModel.media as? Workers.Serie {

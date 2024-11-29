@@ -11,6 +11,8 @@ import Networking
 public enum SonarrCommand: Sendable {
     case episodeSearch(ids: [Int])
     case seasonSearch(serieId: Int, seasonNumber: Int)
+    case serieSearch(id: Int)
+    case refreshSerie(id: Int)
 }
 
 // sourcery: AutoMockable
@@ -45,6 +47,16 @@ extension SonarrCommand {
                 "name": "SeasonSearch",
                 "seriesId": serieId,
                 "seasonNumber": seasonNumber,
+            ]
+        case let .serieSearch(id):
+            [
+                "name": "SeriesSearch",
+                "seriesId": id,
+            ]
+        case let .refreshSerie(id):
+            [
+                "name": "RefreshSeries",
+                "seriesId": id,
             ]
         }
     }

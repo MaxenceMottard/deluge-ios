@@ -21,7 +21,7 @@ struct MediaDetailsRoute: Route {
         let viewModel = DefaultMediaDetailsViewModel(
             media: media,
             dependencies: DefaultMediaDetailsViewModel.Dependencies(
-                router: router,
+                commandWorker: Dependency.resolve(SonarrCommandWorking.self)!,
                 getSerieViewModel: { serie in
                     DefaultMediaDetailsSerieViewModel(
                         serie: serie,
@@ -39,7 +39,8 @@ struct MediaDetailsRoute: Route {
                             router: router
                         )
                     )
-                }
+                },
+                router: router
             )
         )
 

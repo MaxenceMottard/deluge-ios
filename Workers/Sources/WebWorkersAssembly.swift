@@ -30,6 +30,7 @@ public struct WebWorkersAssembly: Assembly {
         container.register(GetQualityProfilesWorking.self) { _ in GetQualityProfilesWorker() }
         container.register(GetRootFoldersWorking.self) { _ in GetRootFoldersWorker() }
         container.register(AddSerieWorking.self) { _ in AddSerieWorker() }
+        container.register(DeleteSerieWorking.self) { _ in DeleteSerieWorker() }
 
         // MARK: Radarr
         container.register(GetMoviesbWorking.self) { _ in GetMoviesWorker() }

@@ -30,23 +30,12 @@ extension MediaDetailsView {
                     .frame(height: posterSize.height * 0.5)
                 }
                 .overlay(alignment: .bottom) {
-                    VStack(spacing: 10) {
-                        ViewWithRatio(ratio: 0.68) {
-                            poster
-                        }
-                        .frame(width: 200)
-                        .cornerRadius(8)
-
-                        Text(media.title)
-                            .font(.title2)
-                            .multilineTextAlignment(.center)
-
-                        Text(String(media.year))
-                            .font(.subheadline)
-                            .foregroundStyle(.gray)
-                            .multilineTextAlignment(.center)
+                    ViewWithRatio(ratio: 0.68) {
+                        poster
                     }
-                    .padding(.horizontal)
+                    .frame(width: 200)
+                    .cornerRadius(8)
+                    .padding(.bottom, 20)
                 }
                 .readSize($posterSize)
         }
