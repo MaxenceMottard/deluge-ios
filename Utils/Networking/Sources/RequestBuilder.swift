@@ -7,7 +7,7 @@
 
 import Foundation
 
-public class RequestBuilder<Response: Sendable> {
+public class RequestBuilder<Response> {
     let encoder: JSONEncoder = JSONEncoder()
     var decoder: any Decoder = JSONDecoder()
     var requester: any Requester = URLSession.shared
@@ -67,7 +67,7 @@ public class RequestBuilder<Response: Sendable> {
         return try interceptor.intercept(request: self)
     }
 
-    public func set<R: Sendable>(responseType: R.Type) -> RequestBuilder<R> {
+    public func set<R>(responseType: R.Type) -> RequestBuilder<R> {
         let newBuilder = RequestBuilder<R>()
         newBuilder.url = self.url
         newBuilder.path = self.path

@@ -17,12 +17,13 @@ extension Route {
 struct HomeRoute: Route {
     @MainActor
     func viewController(router: Router) -> UIViewController {
-        let viewModel = HomeViewModel(
-            dependencies: HomeViewModel.Dependencies(
-                instanceWorker: Dependency.resolve(InstanceWorking.self)!,
+        let viewModel = DefaultHomeViewModel(
+            dependencies: DefaultHomeViewModel.Dependencies(
+                instanceRepository: Dependency.resolve(InstanceRepository.self)!,
                 getMoviesWorker: Dependency.resolve(GetMoviesbWorking.self)!,
                 getSeriesWebWorker: Dependency.resolve(GetSeriesWorking.self)!,
                 imageCacheWorker: Dependency.resolve(ImageCacheWorking.self)!,
+                globalDataRepository: Dependency.resolve(GlobalDataRepository.self)!,
                 router: router
             )
         )

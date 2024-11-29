@@ -7,13 +7,19 @@
 
 import SwiftUI
 
+@MainActor
 public protocol Route {
-    @MainActor
+    var detents: [UISheetPresentationController.Detent] { get }
+
     func viewController(router: Router) -> UIViewController
 }
 
 extension Route {
     static var name: String {
         return String(describing: self)
+    }
+
+    public var detents: [UISheetPresentationController.Detent] {
+        [.large()]
     }
 }

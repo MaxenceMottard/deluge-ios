@@ -1,8 +1,8 @@
 //
 //  InstanceRepository.swift
-//  Utils
+//  Screens
 //
-//  Created by Maxence Mottard on 08/11/2024.
+//  Created by Maxence Mottard on 26/11/2024.
 //
 
 import Foundation

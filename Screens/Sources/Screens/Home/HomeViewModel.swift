@@ -12,23 +12,24 @@ import Workers
 
 @MainActor
 // sourcery: AutoMockable
-protocol HomeViewModeling {
+protocol HomeViewModel {
     var selectedInstance: Instance? { get }
     var medias: [any Media] { get }
 
     func present(media: any Media)
-    func fetchMedias() async
+    func fetch() async
     func presentInstanceSelector()
 }
 
 @Observable
 @MainActor
-class HomeViewModel: HomeViewModeling {
+class DefaultHomeViewModel: HomeViewModel {
     struct Dependencies {
-        let instanceWorker: InstanceWorking
+        let instanceRepository: InstanceRepository
         let getMoviesWorker: GetMoviesbWorking
         let getSeriesWebWorker: GetSeriesWorking
         let imageCacheWorker: ImageCacheWorking
+        let globalDataRepository: GlobalDataRepository
         let router: Routing
     }
 
@@ -37,7 +38,7 @@ class HomeViewModel: HomeViewModeling {
     // MARK: State
 
     var selectedInstance: Instance? {
-        dependencies.instanceWorker.selectedInstance
+        dependencies.instanceRepository.selectedInstance
     }
 
     var medias: [any Media] = []
@@ -52,7 +53,12 @@ class HomeViewModel: HomeViewModeling {
         dependencies.router.navigate(to: Route.MediaDetails(media: media))
     }
 
-    func fetchMedias() async {
+    func fetch() async {
+        await fetchMedias()
+        await dependencies.globalDataRepository.fetch()
+    }
+
+    private func fetchMedias() async {
         guard let selectedInstance else { return }
 
         do {
@@ -66,7 +72,6 @@ class HomeViewModel: HomeViewModeling {
             medias = try await worker()
             medias.forEach { media in
                 Task {
-                    await dependencies.imageCacheWorker.cache(string: media.banner)
                     await dependencies.imageCacheWorker.cache(string: media.poster)
                 }
             }

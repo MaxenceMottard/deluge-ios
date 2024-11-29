@@ -9,8 +9,8 @@ extension Route {
 
 struct ___VARIABLE_screenName:identifier___Route: Route {
     func viewController(router: Router) -> UIViewController {
-        let viewModel = ___VARIABLE_screenName:identifier___ViewModel(
-            dependencies: ___VARIABLE_screenName:identifier___ViewModel.Dependencies(
+        let viewModel = Default___VARIABLE_screenName:identifier___ViewModel(
+            dependencies: Default___VARIABLE_screenName:identifier___ViewModel.Dependencies(
                 router: router
             )
         )

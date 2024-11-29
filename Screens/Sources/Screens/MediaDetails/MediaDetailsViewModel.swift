@@ -11,18 +11,18 @@ import Foundation
 
 @MainActor
 // sourcery: AutoMockable
-protocol MediaDetailsViewModeling {
+protocol MediaDetailsViewModel {
     var media: any Media { get }
 
-    func getSerieViewModel(serie: Serie) -> any MediaDetailsSerieViewModeling
+    func getSerieViewModel(serie: Serie) -> any MediaDetailsSerieViewModel
 }
 
 @Observable
 @MainActor
-class MediaDetailsViewModel: MediaDetailsViewModeling {
+class DefaultMediaDetailsViewModel: MediaDetailsViewModel {
     struct Dependencies {
         let router: Routing
-        let getSerieViewModel: (Serie) -> any MediaDetailsSerieViewModeling
+        let getSerieViewModel: (Serie) -> any MediaDetailsSerieViewModel
     }
 
     private let dependencies: Dependencies
@@ -33,7 +33,7 @@ class MediaDetailsViewModel: MediaDetailsViewModeling {
         self.dependencies = dependencies
     }
 
-    func getSerieViewModel(serie: Serie) -> any MediaDetailsSerieViewModeling {
+    func getSerieViewModel(serie: Serie) -> any MediaDetailsSerieViewModel {
         dependencies.getSerieViewModel(serie)
     }
 }

@@ -13,7 +13,7 @@ import Utils
 import DesignSystem
 
 struct HomeView: View {
-    @State var viewModel: any HomeViewModeling
+    @State var viewModel: any HomeViewModel
 
     private let columns = [
         GridItem(.flexible()),
@@ -56,18 +56,16 @@ struct HomeView: View {
                 }
             }
         }
-        .task {
-            await viewModel.fetchMedias()
-        }
+        .task { await viewModel.fetch() }
         .onChange(of: viewModel.selectedInstance) {
-            Task { await viewModel.fetchMedias() }
+            Task { await viewModel.fetch() }
         }
     }
 }
 
 #Preview {
-    let viewModel: any HomeViewModeling = {
-        let viewModel = HomeViewModelingMock()
+    let viewModel: any HomeViewModel = {
+        let viewModel = MockHomeViewModel()
         viewModel.medias = [Serie].preview
         viewModel.selectedInstance = Instance(
             type: .sonarr,

@@ -7,9 +7,10 @@
 
 import Foundation
 import Combine
+import Utils
 
 @Observable
-class InstanceWorker: InstanceRepository {
+class DefaultInstanceRepository: InstanceRepository {
     private enum Constants {
         static let instancesKey = "instances"
         static let selectedInstanceKey = "selected-instance"
@@ -21,6 +22,7 @@ class InstanceWorker: InstanceRepository {
     var instances = Instances() {
         didSet { update(instances: instances) }
     }
+
     var selectedInstance: Instance? {
         didSet { update(selectedInstance: selectedInstance) }
     }

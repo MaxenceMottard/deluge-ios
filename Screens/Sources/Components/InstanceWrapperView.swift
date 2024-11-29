@@ -9,11 +9,11 @@ import SwiftUI
 import Utils
 
 struct InstanceWrapperView<Content: View>: View {
-    @State private var instanceWorker: InstanceWorking = Dependency.resolve(InstanceWorking.self)!
+    @State private var instanceRepository: InstanceRepository = Dependency.resolve(InstanceRepository.self)!
     var content: () -> Content
 
     var body: some View {
         content()
-            .id(instanceWorker.selectedInstance?.id)
+            .id(instanceRepository.selectedInstance?.id)
     }
 }

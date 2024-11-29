@@ -379,6 +379,22 @@
         }
       }
     },
+    "newMedia.field.rootFolder" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Root folder"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dossier racine"
+          }
+        }
+      }
+    },
     "releaseList.item.label.seedPill %lld %lld" : {
       "localizations" : {
         "en" : {
@@ -407,6 +423,38 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@ - %lldx%lld - %@"
+          }
+        }
+      }
+    },
+    "search.label.noResults" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No results found. Please perform a search."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aucun résultat trouvé. Veuillez effectuer une recherche."
+          }
+        }
+      }
+    },
+    "search.title" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Search"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rechercher"
           }
         }
       }

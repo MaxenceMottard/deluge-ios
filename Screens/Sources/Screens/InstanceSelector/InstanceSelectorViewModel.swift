@@ -27,7 +27,7 @@ struct InstanceStatus {
 
 @MainActor
 // sourcery: AutoMockable
-protocol InstanceSelectorViewModeling {
+protocol InstanceSelectorViewModel {
     var instances: [Instance] { get }
     var selectedInstance: Instance? { get }
 
@@ -40,9 +40,9 @@ protocol InstanceSelectorViewModeling {
 
 @Observable
 @MainActor
-class InstanceSelectorViewModel: InstanceSelectorViewModeling {
+class DefaultInstanceSelectorViewModel: InstanceSelectorViewModel {
     struct Dependencies {
-        let instanceWorker: InstanceWorking
+        let instanceRepository: InstanceRepository
         let tapticEngineWorker: TapticEngineWorking
         let systemStatusWebWorker: GetSystemStatusWorking
         let router: Routing
@@ -52,13 +52,13 @@ class InstanceSelectorViewModel: InstanceSelectorViewModeling {
 
     // MARK: State
     var instances: [Instance] {
-        get { dependencies.instanceWorker.instances.map({ $0 }) }
-        set { dependencies.instanceWorker.instances = Set<Instance>(newValue) }
+        get { dependencies.instanceRepository.instances.map({ $0 }) }
+        set { dependencies.instanceRepository.instances = Set<Instance>(newValue) }
     }
 
     var selectedInstance: Instance? {
-        get { dependencies.instanceWorker.selectedInstance }
-        set { dependencies.instanceWorker.selectedInstance = newValue }
+        get { dependencies.instanceRepository.selectedInstance }
+        set { dependencies.instanceRepository.selectedInstance = newValue }
     }
 
     private var instanceStatus: [InstanceStatus] = []
@@ -74,7 +74,7 @@ class InstanceSelectorViewModel: InstanceSelectorViewModeling {
     }
 
     func remove(instance: Instance) {
-        dependencies.instanceWorker.remove(instance: instance)
+        dependencies.instanceRepository.remove(instance: instance)
     }
 
     func status(for instance: Instance) -> InstanceStatus? {

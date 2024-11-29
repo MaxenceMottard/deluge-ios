@@ -20,8 +20,8 @@ struct ReleaseListRoute: Route {
     let onDownloadReleaseSuccess: () async -> Void
 
     func viewController(router: Router) -> UIViewController {
-        let viewModel = ReleaseListViewModel(
-            dependencies: ReleaseListViewModel.Dependencies(
+        let viewModel = DefaultReleaseListViewModel(
+            dependencies: DefaultReleaseListViewModel.Dependencies(
                 getEpisodeReleasesWorker: Dependency.resolve(GetEpisodeReleasesWorking.self)!,
                 releaseEpisodeWorker: Dependency.resolve(ReleaseEpisodeWorking.self)!,
                 openURLWorker: Dependency.resolve(OpenURLWorking.self)!,

@@ -11,7 +11,7 @@ import NukeUI
 import Workers
 
 struct MediaDetailsView: View {
-    @State var viewModel: any MediaDetailsViewModeling
+    @State var viewModel: any MediaDetailsViewModel
 
     var body: some View {
         ScrollView {
@@ -29,11 +29,11 @@ struct MediaDetailsView: View {
 }
 
 #Preview("Serie") {
-    let viewModel: any MediaDetailsViewModeling = {
-        let viewModel = MediaDetailsViewModelingMock()
+    let viewModel: any MediaDetailsViewModel = {
+        let viewModel = MockMediaDetailsViewModel()
         viewModel.media = Serie.preview()
-        viewModel.getSerieViewModelSerieSerieAnyMediaDetailsSerieViewModelingReturnValue = {
-            let viewModel = MediaDetailsSerieViewModelingMock()
+        viewModel.getSerieViewModelSerieSerieAnyMediaDetailsSerieViewModelReturnValue = {
+            let viewModel = MockMediaDetailsSerieViewModel()
             viewModel.serie = .preview()
             viewModel.seasons = viewModel.serie.seasons
             viewModel.getEpisodesOfSerieSeasonSerieEpisodeReturnValue = .preview.prefix(6).map({ $0 })
@@ -50,8 +50,8 @@ struct MediaDetailsView: View {
 }
 
 #Preview("Movie") {
-    let viewModel: any MediaDetailsViewModeling = {
-        let viewModel = MediaDetailsViewModelingMock()
+    let viewModel: any MediaDetailsViewModel = {
+        let viewModel = MockMediaDetailsViewModel()
         viewModel.media = Movie.preview()
 
         return viewModel
