@@ -28,7 +28,8 @@ protocol MediaDetailsSerieViewModel {
     func getQueueItem(of: Serie.Episode) -> Serie.QueueItem?
     func getQueueItems(of season: Serie.Season) -> [Serie.QueueItem]
 
-    func automaticSearch(episode: Serie.Episode) async
+    func automaticSearch(of: Serie.Episode) async
+    func automaticSearch(of: Serie.Season) async
     func interactiveSearch(of: Serie.Episode)
     func interactiveSearch(of: Serie.Season)
 }
@@ -180,9 +181,20 @@ class DefaultMediaDetailsSerieViewModel: MediaDetailsSerieViewModel {
 
     // MARK: Actions
 
-    func automaticSearch(episode: Serie.Episode) async {
+    func automaticSearch(of episode: Serie.Episode) async {
         do {
             try await dependencies.commandWorker.run(command: .episodeSearch(ids: [episode.id]))
+        } catch {
+            print(error)
+        }
+    }
+
+    func automaticSearch(of season: Serie.Season) async {
+        do {
+            try await dependencies.commandWorker.run(command: .seasonSearch(
+                serieId: serie.id,
+                seasonNumber: season.seasonNumber
+            ))
         } catch {
             print(error)
         }

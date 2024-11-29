@@ -57,6 +57,7 @@ struct MediaDetailsSerieView: View {
                             .frame(maxWidth: .infinity, alignment: .leading)
 
                         ActionsMenu(actions: [
+                            .automaticSearch { await viewModel.automaticSearch(of: season) },
                             .interactiveSearch { viewModel.interactiveSearch(of: season) },
                         ])
                     }
@@ -69,7 +70,7 @@ struct MediaDetailsSerieView: View {
                                 queueItem: viewModel.getQueueItem(of: episode),
                                 monitor: { await viewModel.monitor(episodes: [episode]) },
                                 unmonitor: { await viewModel.unmonitor(episodes: [episode]) },
-                                automaticSearch: { await viewModel.automaticSearch(episode: episode) },
+                                automaticSearch: { await viewModel.automaticSearch(of: episode) },
                                 interactiveSearch: { viewModel.interactiveSearch(of: episode) }
                             )
                         }
