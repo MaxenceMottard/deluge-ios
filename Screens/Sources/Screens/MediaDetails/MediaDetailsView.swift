@@ -39,6 +39,8 @@ struct MediaDetailsView: View {
             viewModel.getEpisodesOfSerieSeasonSerieEpisodeReturnValue = .preview.prefix(6).map({ $0 })
             viewModel.getStatusOfSerieSeasonSeasonStatusReturnValue = .missingNonMonitored
             viewModel.getEpisodeFileOfSerieEpisodeSerieEpisodeFileReturnValue = .preview()
+            viewModel.getQueueItemOfSerieEpisodeSerieQueueItemReturnValue = nil
+            viewModel.getQueueItemsOfSeasonSerieSeasonSerieQueueItemReturnValue = []
 
             return viewModel
         }()
