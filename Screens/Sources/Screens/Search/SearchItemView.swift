@@ -46,6 +46,7 @@ struct SearchItemView: View {
                                     .font(.callout)
                             }
                         }
+                        .frame(maxWidth: .infinity, alignment: .leading)
                     }
                 }
                 .padding()

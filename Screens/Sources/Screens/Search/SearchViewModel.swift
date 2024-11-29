@@ -9,6 +9,7 @@ import Routing
 import Foundation
 import UIKit
 import Workers
+import Utils
 
 @MainActor
 // sourcery: AutoMockable
@@ -28,6 +29,7 @@ class DefaultSearchViewModel: NSObject, SearchViewModel  {
 
     struct Dependencies {
         let searchSerieWorker: SearchSerieWorking
+        let imageCacheWorker: ImageCacheWorking
         let router: Routing
     }
 
@@ -63,6 +65,11 @@ class DefaultSearchViewModel: NSObject, SearchViewModel  {
     private func performSearch(search: String) async {
         do {
             searchResults = try await dependencies.searchSerieWorker.run(search: search)
+            searchResults.forEach { item in
+                Task {
+                    await dependencies.imageCacheWorker.cache(string: item.poster)
+                }
+            }
         } catch {
             searchResults = []
         }

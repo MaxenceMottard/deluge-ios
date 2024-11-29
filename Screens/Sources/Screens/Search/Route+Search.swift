@@ -8,6 +8,7 @@
 import Routing
 import SwiftUI
 import Workers
+import Utils
 
 extension Route {
     typealias Search = SearchRoute
@@ -18,6 +19,7 @@ struct SearchRoute: Route {
         let viewModel = DefaultSearchViewModel(
             dependencies: DefaultSearchViewModel.Dependencies(
                 searchSerieWorker: Dependency.resolve(SearchSerieWorking.self)!,
+                imageCacheWorker: Dependency.resolve(ImageCacheWorking.self)!,
                 router: router
             )
         )

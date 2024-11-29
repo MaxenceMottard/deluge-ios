@@ -72,7 +72,6 @@ class DefaultHomeViewModel: HomeViewModel {
             medias = try await worker()
             medias.forEach { media in
                 Task {
-                    await dependencies.imageCacheWorker.cache(string: media.banner)
                     await dependencies.imageCacheWorker.cache(string: media.poster)
                 }
             }
