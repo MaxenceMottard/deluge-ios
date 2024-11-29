@@ -33,6 +33,6 @@ public struct ActionsStack: View {
 
 #Preview {
     ActionsStack(actions: [
-        .search(action: {}),
+        .automaticSearch(action: {}),
     ])
 }

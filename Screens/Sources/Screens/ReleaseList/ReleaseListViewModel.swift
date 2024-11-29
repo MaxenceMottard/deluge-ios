@@ -9,11 +9,12 @@ import Routing
 import Foundation
 import Workers
 import Utils
+import SwiftUI
 
 @MainActor
 // sourcery: AutoMockable
 protocol ReleaseListViewModel {
-    var title: String { get }
+    var title: LocalizedStringKey { get }
     var isLoading: Bool { get }
     var results: [Release] { get }
 
@@ -26,7 +27,6 @@ protocol ReleaseListViewModel {
 @MainActor
 class DefaultReleaseListViewModel: ReleaseListViewModel {
     struct Dependencies {
-        let getEpisodeReleasesWorker: GetEpisodeReleasesWorking
         let releaseEpisodeWorker: ReleaseEpisodeWorking
         let openURLWorker: OpenURLWorking
         let router: Routing
@@ -34,32 +34,29 @@ class DefaultReleaseListViewModel: ReleaseListViewModel {
 
     private let dependencies: Dependencies
     private let onDownloadReleaseSuccess: () async -> Void
+    private let getReleases: () async throws -> [Release]
 
-    let serie: Serie
-    let episode: Serie.Episode
     var isLoading: Bool = false
     var results: [Release] = []
 
-    var title: String {
-        String(localized: "releaseList.tile \(serie.title) \(episode.seasonNumber) \(episode.episodeNumber) \(episode.title)", bundle: .module)
-    }
+    let title: LocalizedStringKey
 
     init(
         dependencies: Dependencies,
-        serie: Serie,
-        episode: Serie.Episode,
-        onDownloadReleaseSuccess: @escaping () async -> Void
+        title: LocalizedStringKey,
+        onDownloadReleaseSuccess: @escaping () async -> Void,
+        getReleases: @escaping () async throws -> [Release]
     ) {
         self.dependencies = dependencies
-        self.episode = episode
-        self.serie = serie
+        self.title = title
         self.onDownloadReleaseSuccess = onDownloadReleaseSuccess
+        self.getReleases = getReleases
     }
 
     func release() async {
         do {
             isLoading = true
-            self.results = try await dependencies.getEpisodeReleasesWorker.run(id: episode.id)
+            self.results = try await getReleases()
         } catch {
             print(error)
         }

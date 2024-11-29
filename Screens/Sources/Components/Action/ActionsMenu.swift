@@ -48,6 +48,7 @@ public struct ActionsMenu: View {
 
 #Preview {
     ActionsMenu(actions: [
-        .search(action: {}),
+        .automaticSearch(action: {}),
+        .interactiveSearch(action: {}),
     ])
 }

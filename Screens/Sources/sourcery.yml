@@ -8,3 +8,4 @@ args:
     - Foundation
     - Workers
     - Utils
+    - SwiftUI

@@ -17,7 +17,7 @@ struct ReleaseListView: View {
     var body: some View {
         ScrollView {
             VStack {
-                Text(viewModel.title)
+                Text(viewModel.title, bundle: .module)
                     .font(.title)
                     .bold()
                     .multilineTextAlignment(.leading)

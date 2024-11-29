@@ -59,7 +59,7 @@ public struct Release: Sendable, Equatable {
     }
 }
 
-extension GetEpisodeReleasesWorkerDecodable {
+extension GetReleasesWorkerDecodable {
     func toDomain() -> Release {
         let formatter = ISO8601DateFormatter()
 
@@ -88,6 +88,6 @@ extension GetEpisodeReleasesWorkerDecodable {
     }
 }
 
-extension Array where Element == GetEpisodeReleasesWorkerDecodable {
+extension Array where Element == GetReleasesWorkerDecodable {
     func toDomain() -> [Release] { map { $0.toDomain() } }
 }

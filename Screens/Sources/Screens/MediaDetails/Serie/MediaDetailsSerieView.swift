@@ -54,17 +54,28 @@ struct MediaDetailsSerieView: View {
                         )
 
                         FileSizeView(size: season.sizeOnDisk)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+
+                        ActionsMenu(actions: [
+                            .automaticSearch { await viewModel.automaticSearch(of: season) },
+                            .interactiveSearch { viewModel.interactiveSearch(of: season) },
+                        ])
                     }
                 } content: {
-                    MediaDetailsSerieEpisodesView(
-                        episodes: episodes,
-                        getEpisodeFile: viewModel.getEpisodeFile(of:),
-                        getEpisodeQueueItem: viewModel.getQueueItem(of:),
-                        monitor: { await viewModel.monitor(episodes: [$0]) },
-                        unmonitor: { await viewModel.unmonitor(episodes: [$0]) },
-                        search: viewModel.search(episode:),
-                        release: viewModel.getReleases(of:)
-                    )
+                    VStack {
+                        ForEach(episodes, id: \.id) { episode in
+                            MediaDetailsSerieEpisodeView(
+                                episode: episode,
+                                file: viewModel.getEpisodeFile(of: episode),
+                                queueItem: viewModel.getQueueItem(of: episode),
+                                monitor: { await viewModel.monitor(episodes: [episode]) },
+                                unmonitor: { await viewModel.unmonitor(episodes: [episode]) },
+                                automaticSearch: { await viewModel.automaticSearch(of: episode) },
+                                interactiveSearch: { viewModel.interactiveSearch(of: episode) }
+                            )
+                        }
+                    }
+                    .frame(maxWidth: .infinity, alignment: .leading)
                 }
             }
         }
@@ -88,6 +99,8 @@ struct MediaDetailsSerieView: View {
         viewModel.getEpisodesOfSerieSeasonSerieEpisodeReturnValue = .preview.prefix(6).map({ $0 })
         viewModel.getStatusOfSerieSeasonSeasonStatusReturnValue = .missingNonMonitored
         viewModel.getEpisodeFileOfSerieEpisodeSerieEpisodeFileReturnValue = .preview()
+        viewModel.getQueueItemOfSerieEpisodeSerieQueueItemReturnValue = nil
+        viewModel.getQueueItemsOfSeasonSerieSeasonSerieQueueItemReturnValue = []
 
         return viewModel
     }()

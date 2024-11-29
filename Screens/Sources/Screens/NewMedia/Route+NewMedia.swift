@@ -31,7 +31,7 @@ struct NewMediaRoute: Route {
         let view = NewMediaView(viewModel: viewModel).environmentObject(router)
         let viewController = UIHostingController(rootView: view)
         viewController.title = searchResult.title
-        viewController.navigationItem.largeTitleDisplayMode = /*@START_MENU_TOKEN@*/.never/*@END_MENU_TOKEN@*/
+        viewController.navigationItem.largeTitleDisplayMode = .never
 
         return viewController
     }
