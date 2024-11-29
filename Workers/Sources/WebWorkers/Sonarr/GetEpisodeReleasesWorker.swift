@@ -20,7 +20,7 @@ struct GetEpisodeReleasesWorker: GetEpisodeReleasesWorking {
             .set(contentType: .json)
             .set(queryParameter: "episodeId", value: "\(episodeId)")
             .set(interceptor: InstanceInteceptor())
-            .set(responseType: [GetEpisodeReleasesWorkerDecodable].self)
+            .set(responseType: [GetReleasesWorkerDecodable].self)
             .run()
             .toDomain()
     }

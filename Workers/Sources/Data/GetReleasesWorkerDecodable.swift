@@ -1,5 +1,5 @@
 //
-//  GetEpisodeReleasesWorkerDecodable.swift
+//  GetReleasesWorkerDecodable.swift
 //  Workers
 //
 //  Created by Maxence Mottard on 24/11/2024.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct GetEpisodeReleasesWorkerDecodable: Decodable {
+struct GetReleasesWorkerDecodable: Decodable {
     let title: String
     let infoUrl: String
     let downloadUrl: String
