@@ -202,10 +202,10 @@ class DefaultMediaDetailsSerieViewModel: MediaDetailsSerieViewModel {
 
     func interactiveSearch(of episode: Serie.Episode) {
         let route = Route.ReleaseList(
+            title: "releaseList.title.episode \(serie.title) \(episode.seasonNumber) \(episode.episodeNumber) \(episode.title)",
             onDownloadReleaseSuccess: { [weak self] in
                 await self?.fetchData()
             },
-            title: "releaseList.title.episode \(serie.title) \(episode.seasonNumber) \(episode.episodeNumber) \(episode.title)",
             getReleases: { [dependencies] in
                 try await dependencies.getEpisodeReleasesWorker.run(id: episode.id)
             }
@@ -216,10 +216,10 @@ class DefaultMediaDetailsSerieViewModel: MediaDetailsSerieViewModel {
 
     func interactiveSearch(of season: Serie.Season) {
         let route = Route.ReleaseList(
+            title: "releaseList.title.season \(serie.title) \(season.seasonNumber)",
             onDownloadReleaseSuccess: { [weak self] in
                 await self?.fetchData()
             },
-            title: "releaseList.title.season \(serie.title) \(season.seasonNumber)",
             getReleases: { [dependencies, serie] in
                 try await dependencies.getSeasonReleasesWorker.run(
                     serieId: serie.id,

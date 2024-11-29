@@ -15,8 +15,8 @@ extension Route {
 }
 
 struct ReleaseListRoute: Route {
-    let onDownloadReleaseSuccess: () async -> Void
     let title: LocalizedStringKey
+    let onDownloadReleaseSuccess: () async -> Void
     let getReleases: () async throws -> [Release]
 
     func viewController(router: Router) -> UIViewController {
