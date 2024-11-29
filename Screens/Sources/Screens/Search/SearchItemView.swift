@@ -12,9 +12,12 @@ import NukeUI
 
 struct SearchItemView: View {
     let item: SearchSerieResult
+    let tapOnItem: () -> Void
 
     var body: some View {
-        Button(action: {  }) {
+        Button {
+            tapOnItem()
+        } label: {
             ContainerView {
                 VStack {
                     HStack(alignment: .top) {
@@ -53,5 +56,5 @@ struct SearchItemView: View {
 }
 
 #Preview {
-    SearchItemView(item: .preview())
+    SearchItemView(item: .preview(), tapOnItem: {})
 }

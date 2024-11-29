@@ -379,6 +379,22 @@
         }
       }
     },
+    "newMedia.field.rootFolder" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Root folder"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dossier racine"
+          }
+        }
+      }
+    },
     "releaseList.item.label.seedPill %lld %lld" : {
       "localizations" : {
         "en" : {

@@ -17,7 +17,7 @@ protocol HomeViewModel {
     var medias: [any Media] { get }
 
     func present(media: any Media)
-    func fetchMedias() async
+    func fetch() async
     func presentInstanceSelector()
 }
 
@@ -29,6 +29,7 @@ class DefaultHomeViewModel: HomeViewModel {
         let getMoviesWorker: GetMoviesbWorking
         let getSeriesWebWorker: GetSeriesWorking
         let imageCacheWorker: ImageCacheWorking
+        let globalDataRepository: GlobalDataRepository
         let router: Routing
     }
 
@@ -52,7 +53,12 @@ class DefaultHomeViewModel: HomeViewModel {
         dependencies.router.navigate(to: Route.MediaDetails(media: media))
     }
 
-    func fetchMedias() async {
+    func fetch() async {
+        await fetchMedias()
+        await dependencies.globalDataRepository.fetch()
+    }
+
+    private func fetchMedias() async {
         guard let selectedInstance else { return }
 
         do {

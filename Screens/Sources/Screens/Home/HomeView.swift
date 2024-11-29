@@ -56,11 +56,9 @@ struct HomeView: View {
                 }
             }
         }
-        .task {
-            await viewModel.fetchMedias()
-        }
+        .task { await viewModel.fetch() }
         .onChange(of: viewModel.selectedInstance) {
-            Task { await viewModel.fetchMedias() }
+            Task { await viewModel.fetch() }
         }
     }
 }

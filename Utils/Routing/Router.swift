@@ -24,9 +24,16 @@ public enum RoutingModalKind {
     case sheet
 }
 
+
+public enum RoutingModalSize {
+    case large
+    case medium
+}
+
 @MainActor
 public class Router: @preconcurrency Routing, ObservableObject {
     public typealias ModalKind = RoutingModalKind
+    public typealias ModalSize = RoutingModalSize
 
     public let navigationController = UINavigationController()
     private let dismissAction: (() -> Void)?
@@ -44,7 +51,7 @@ public class Router: @preconcurrency Routing, ObservableObject {
         navigationController.viewControllers = [viewController]
     }
 
-    @MainActor public func present(route: any Route, modal kind: ModalKind) {
+    @MainActor public func present(route: any Route, modal kind: RoutingModalKind) {
         let router = Router()
         let viewController = route.viewController(router: router)
         router.setRoot(viewController: viewController)
@@ -54,6 +61,10 @@ public class Router: @preconcurrency Routing, ObservableObject {
             viewController.modalPresentationStyle = .fullScreen
         case .sheet:
             viewController.modalPresentationStyle = .pageSheet
+        }
+
+        if let sheet = router.navigationController.sheetPresentationController {
+            sheet.detents = route.detents
         }
 
         navigationController.present(router.navigationController, animated: true)

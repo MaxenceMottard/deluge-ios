@@ -15,6 +15,8 @@ import Workers
 protocol SearchViewModel {
     var isLoading: Bool { get }
     var searchResults: [SearchSerieResult] { get }
+
+    func add(item: SearchSerieResult)
 }
 
 @Observable
@@ -65,6 +67,11 @@ class DefaultSearchViewModel: NSObject, SearchViewModel  {
             searchResults = []
         }
         isLoading = false
+    }
+
+    func add(item searchResult: SearchSerieResult) {
+        let route = Route.NewMedia(searchResult: searchResult)
+        dependencies.router.present(route: route, modal: .sheet)
     }
 }
 

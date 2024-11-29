@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct RootFolder: Sendable {
+public struct RootFolder: Sendable, Identifiable, Hashable {
     public let id: String
     public let path: String
     public let accessible: Bool

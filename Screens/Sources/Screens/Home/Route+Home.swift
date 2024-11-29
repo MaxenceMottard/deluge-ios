@@ -23,6 +23,7 @@ struct HomeRoute: Route {
                 getMoviesWorker: Dependency.resolve(GetMoviesbWorking.self)!,
                 getSeriesWebWorker: Dependency.resolve(GetSeriesWorking.self)!,
                 imageCacheWorker: Dependency.resolve(ImageCacheWorking.self)!,
+                globalDataRepository: Dependency.resolve(GlobalDataRepository.self)!,
                 router: router
             )
         )

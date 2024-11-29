@@ -18,13 +18,16 @@ struct SearchView: View {
                 .progressViewStyle(.circular)
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
         } else if viewModel.searchResults.isEmpty {
-            Text("search.label.noResults")
+            Text("search.label.noResults", bundle: .module)
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
         } else {
             ScrollView {
                 VStack {
                     ForEach(viewModel.searchResults, id: \.self) { item in
-                        SearchItemView(item: item)
+                        SearchItemView(
+                            item: item,
+                            tapOnItem: { viewModel.add(item: item) }
+                        )
                     }
                 }
                 .padding()
