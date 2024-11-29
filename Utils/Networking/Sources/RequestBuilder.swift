@@ -63,6 +63,11 @@ public class RequestBuilder<Response> {
         return self
     }
 
+    public func set(body: Data) -> Self {
+        self.body = body
+        return self
+    }
+
     public func set<I: Interceptor>(interceptor: I) throws -> RequestBuilder<Response> {
         return try interceptor.intercept(request: self)
     }

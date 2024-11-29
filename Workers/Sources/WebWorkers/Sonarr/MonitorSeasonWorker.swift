@@ -5,6 +5,7 @@
 //  Created by Maxence Mottard on 22/11/2024.
 //
 
+import Foundation
 import Networking
 
 // sourcery: AutoMockable
@@ -14,27 +15,34 @@ public protocol MonitorSeasonWorking: Sendable {
 
 struct MonitorSeasonWorker: MonitorSeasonWorking {
     func run(serieId: Int, seasonNumber: Int, monitored: Bool) async throws {
-        var serie = try await Request()
+        let resultData = try await Request()
             .set(method: .GET)
             .set(path: "/api/v3/series/\(serieId)")
             .set(contentType: .json)
             .set(interceptor: InstanceInteceptor())
-            .set(responseType: MonitorSeasonWorkerCodable.self)
+            .set(responseType: Data.self)
             .run()
 
-        serie.seasons = serie.seasons.map { season in
-            guard season.seasonNumber == seasonNumber else { return season }
-            var season = season
-            season.monitored = monitored
-            return season
+        guard var serie = try JSONSerialization.jsonObject(with: resultData, options: []) as? [String: Any],
+            let seasons = serie["seasons"] as? [[String: Any]] else {
+            throw RequestError.invalidData
         }
+
+        serie["seasons"] = seasons.map { season in
+            guard let seasonNum = season["seasonNumber"] as? Int, seasonNum == seasonNumber else { return season }
+            var updatedSeason = season
+            updatedSeason["monitored"] = monitored
+            return updatedSeason
+        }
+
+        let data = try JSONSerialization.data(withJSONObject: serie)
 
         return try await Request()
             .set(method: .PUT)
             .set(path: "/api/v3/series/\(serieId)")
             .set(contentType: .json)
             .set(interceptor: InstanceInteceptor())
-            .set(body: serie)
+            .set(body: data)
             .run()
     }
 }

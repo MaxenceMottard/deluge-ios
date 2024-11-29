@@ -795,18 +795,34 @@
         }
       }
     },
-    "search.label.noResults" : {
+    "search.label.noResults.1" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "No results found. Please perform a search."
+            "value" : "No results found."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Aucun résultat trouvé. Veuillez effectuer une recherche."
+            "value" : "Aucun résultat trouvé."
+          }
+        }
+      }
+    },
+    "search.label.noResults.2" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Please perform a search."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Veuillez effectuer une recherche."
           }
         }
       }
