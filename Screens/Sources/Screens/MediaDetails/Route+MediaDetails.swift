@@ -34,6 +34,8 @@ struct MediaDetailsRoute: Route {
                             tapticEngineWorker: Dependency.resolve(TapticEngineWorking.self)!,
                             commandWorker: Dependency.resolve(SonarrCommandWorking.self)!,
                             getSerieQueueWorker: Dependency.resolve(GetSerieQueueWorking.self)!,
+                            getSeasonReleasesWorker: Dependency.resolve(GetSeasonReleasesWorking.self)!,
+                            getEpisodeReleasesWorker: Dependency.resolve(GetEpisodeReleasesWorking.self)!,
                             router: router
                         )
                     )

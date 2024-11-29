@@ -785,7 +785,7 @@
         }
       }
     },
-    "releaseList.tile %@ %lld %lld %@" : {
+    "releaseList.title.episode %@ %lld %lld %@" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -797,6 +797,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@ - %lldx%lld - %@"
+          }
+        }
+      }
+    },
+    "releaseList.title.season %@ %lld" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ - Season %2$lld"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ - Saison %2$lld"
           }
         }
       }

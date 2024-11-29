@@ -28,8 +28,9 @@ protocol MediaDetailsSerieViewModel {
     func getQueueItem(of: Serie.Episode) -> Serie.QueueItem?
     func getQueueItems(of season: Serie.Season) -> [Serie.QueueItem]
 
-    func search(episode: Serie.Episode) async
-    func getReleases(of: Serie.Episode) async
+    func automaticSearch(episode: Serie.Episode) async
+    func interactiveSearch(of: Serie.Episode)
+    func interactiveSearch(of: Serie.Season)
 }
 
 @Observable
@@ -44,6 +45,8 @@ class DefaultMediaDetailsSerieViewModel: MediaDetailsSerieViewModel {
         let tapticEngineWorker: TapticEngineWorking
         let commandWorker: SonarrCommandWorking
         let getSerieQueueWorker: GetSerieQueueWorking
+        let getSeasonReleasesWorker: GetSeasonReleasesWorking
+        let getEpisodeReleasesWorker: GetEpisodeReleasesWorking
         let router: Routing
     }
 
@@ -177,7 +180,7 @@ class DefaultMediaDetailsSerieViewModel: MediaDetailsSerieViewModel {
 
     // MARK: Actions
 
-    func search(episode: Serie.Episode) async {
+    func automaticSearch(episode: Serie.Episode) async {
         do {
             try await dependencies.commandWorker.run(command: .episodeSearch(ids: [episode.id]))
         } catch {
@@ -185,12 +188,31 @@ class DefaultMediaDetailsSerieViewModel: MediaDetailsSerieViewModel {
         }
     }
 
-    func getReleases(of episode: Serie.Episode) async {
+    func interactiveSearch(of episode: Serie.Episode) {
         let route = Route.ReleaseList(
-            serie: serie,
-            episode: episode,
             onDownloadReleaseSuccess: { [weak self] in
                 await self?.fetchData()
+            },
+            title: "releaseList.title.episode \(serie.title) \(episode.seasonNumber) \(episode.episodeNumber) \(episode.title)",
+            getReleases: { [dependencies] in
+                try await dependencies.getEpisodeReleasesWorker.run(id: episode.id)
+            }
+
+        )
+        dependencies.router.present(route: route, modal: .sheet)
+    }
+
+    func interactiveSearch(of season: Serie.Season) {
+        let route = Route.ReleaseList(
+            onDownloadReleaseSuccess: { [weak self] in
+                await self?.fetchData()
+            },
+            title: "releaseList.title.season \(serie.title) \(season.seasonNumber)",
+            getReleases: { [dependencies, serie] in
+                try await dependencies.getSeasonReleasesWorker.run(
+                    serieId: serie.id,
+                    seasonNumber: season.seasonNumber
+                )
             }
         )
         dependencies.router.present(route: route, modal: .sheet)
