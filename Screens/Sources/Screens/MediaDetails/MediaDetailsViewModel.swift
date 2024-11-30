@@ -76,6 +76,7 @@ class DefaultMediaDetailsViewModel: MediaDetailsViewModel {
             if let media = media as? Serie {
                 try await dependencies.sonarrCommandWorker.run(command: .searchSerie(id: media.id))
             } else if let media = media as? Movie {
+                try await dependencies.radarrCommandWorker.run(command: .serachMovie(id: media.id))
             }
         } catch {
             print(error)

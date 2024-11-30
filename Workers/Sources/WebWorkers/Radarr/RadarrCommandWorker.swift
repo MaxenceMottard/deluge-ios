@@ -9,6 +9,7 @@ import Foundation
 import Networking
 
 public enum RadarrCommand: Sendable {
+    case serachMovie(id: Int)
     case refreshMovie(id: Int)
 }
 
@@ -37,7 +38,12 @@ extension RadarrCommand {
         case let .refreshMovie(id):
             [
                 "name": "RefreshMovie",
-                "episodeIds": [id],
+                "movieIds": [id],
+            ]
+        case let .serachMovie(id):
+            [
+                "name": "MoviesSearch",
+                "movieIds": [id],
             ]
         }
     }
