@@ -26,7 +26,8 @@ protocol MediaDetailsViewModel {
 @MainActor
 class DefaultMediaDetailsViewModel: MediaDetailsViewModel {
     struct Dependencies {
-        let commandWorker: SonarrCommandWorking
+        let sonarrCommandWorker: SonarrCommandWorking
+        let radarrCommandWorker: RadarrCommandWorking
         let getMovieReleasesWorker: GetMovieReleasesWorking
         let router: Routing
     }
@@ -51,7 +52,9 @@ class DefaultMediaDetailsViewModel: MediaDetailsViewModel {
     func refreshAction() async {
         do {
             if let media = media as? Serie {
-                try await dependencies.commandWorker.run(command: .refreshSerie(id: media.id))
+                try await dependencies.sonarrCommandWorker.run(command: .refreshSerie(id: media.id))
+            } else if let media = media as? Movie {
+                try await dependencies.radarrCommandWorker.run(command: .refreshMovie(id: media.id))
             }
         } catch {
             print(error)
@@ -71,7 +74,8 @@ class DefaultMediaDetailsViewModel: MediaDetailsViewModel {
     func automaticSearchAction() async {
         do {
             if let media = media as? Serie {
-                try await dependencies.commandWorker.run(command: .serieSearch(id: media.id))
+                try await dependencies.sonarrCommandWorker.run(command: .serieSearch(id: media.id))
+            } else if let media = media as? Movie {
             }
         } catch {
             print(error)

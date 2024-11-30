@@ -47,7 +47,8 @@ struct MediaDetailsRoute: Route {
                 )
             },
             dependencies: DefaultMediaDetailsViewModel.Dependencies(
-                commandWorker: Dependency.resolve(SonarrCommandWorking.self)!,
+                sonarrCommandWorker: Dependency.resolve(SonarrCommandWorking.self)!,
+                radarrCommandWorker: Dependency.resolve(RadarrCommandWorking.self)!,
                 getMovieReleasesWorker: Dependency.resolve(GetMovieReleasesWorking.self)!,
                 router: router
             )
