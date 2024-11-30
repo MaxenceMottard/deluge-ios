@@ -37,5 +37,6 @@ public struct WebWorkersAssembly: Assembly {
         container.register(GetMovieReleasesWorking.self) { _ in GetMovieReleasesWorker() }
         container.register(DeleteMovieWorking.self) { _ in DeleteMovieWorker() }
         container.register(RadarrCommandWorking.self) { _ in RadarrCommandWorker() }
+        container.register(SearchMovieWorking.self) { _ in SearchMovieWorker() }
     }
 }

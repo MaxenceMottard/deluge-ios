@@ -14,7 +14,7 @@ extension Route {
 }
 
 struct NewMediaRoute: Route {
-    let searchResult: SearchSerieResult
+    let searchResult: SearchResult
 
     let detents: [UISheetPresentationController.Detent] = [.medium()]
 

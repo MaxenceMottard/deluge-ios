@@ -62,14 +62,12 @@ class DefaultHomeViewModel: HomeViewModel {
         guard let selectedInstance else { return }
 
         do {
-            let worker: () async throws -> [any Media] = switch selectedInstance.type {
+            medias = switch selectedInstance.type {
             case .sonarr:
-                dependencies.getSeriesWebWorker.run
+                try await dependencies.getSeriesWebWorker.run()
             case .radarr:
-                dependencies.getMoviesWorker.run
+                try await dependencies.getMoviesWorker.run()
             }
-
-            medias = try await worker()
             medias.forEach { media in
                 Task {
                     await dependencies.imageCacheWorker.cache(string: media.poster)

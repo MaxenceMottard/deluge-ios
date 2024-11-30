@@ -19,7 +19,9 @@ struct SearchRoute: Route {
         let viewModel = DefaultSearchViewModel(
             dependencies: DefaultSearchViewModel.Dependencies(
                 searchSerieWorker: Dependency.resolve(SearchSerieWorking.self)!,
+                searchMovieWorker: Dependency.resolve(SearchMovieWorking.self)!,
                 imageCacheWorker: Dependency.resolve(ImageCacheWorking.self)!,
+                instanceRepository: Dependency.resolve(InstanceRepository.self)!,
                 router: router
             )
         )
