@@ -23,6 +23,7 @@ struct DeleteMediaRoute: Route {
         let viewModel = DefaultDeleteMediaViewModel(
             dependencies: DefaultDeleteMediaViewModel.Dependencies(
                 deleteSerieWorker: Dependency.resolve(DeleteSerieWorking.self)!,
+                deleteMovieWorker: Dependency.resolve(DeleteMovieWorking.self)!,
                 router: router
             ),
             media: media,

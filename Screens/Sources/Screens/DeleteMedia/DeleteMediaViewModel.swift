@@ -23,6 +23,7 @@ protocol DeleteMediaViewModel {
 class DefaultDeleteMediaViewModel: DeleteMediaViewModel {
     struct Dependencies {
         let deleteSerieWorker: DeleteSerieWorking
+        let deleteMovieWorker: DeleteMovieWorking
         let router: Routing
     }
 
@@ -44,6 +45,12 @@ class DefaultDeleteMediaViewModel: DeleteMediaViewModel {
             if let serie = media as? Serie {
                 try await dependencies.deleteSerieWorker.run(
                     id: serie.id,
+                    deleteFiles: deleteFiles,
+                    addImportListExclusion: addImportListExclusion
+                )
+            } else if let movie = media as? Movie {
+                try await dependencies.deleteMovieWorker.run(
+                    id: movie.id,
                     deleteFiles: deleteFiles,
                     addImportListExclusion: addImportListExclusion
                 )

@@ -183,7 +183,7 @@ class DefaultMediaDetailsSerieViewModel: MediaDetailsSerieViewModel {
 
     func automaticSearch(of episode: Serie.Episode) async {
         do {
-            try await dependencies.commandWorker.run(command: .episodeSearch(ids: [episode.id]))
+            try await dependencies.commandWorker.run(command: .searchEpisode(ids: [episode.id]))
         } catch {
             print(error)
         }
@@ -191,7 +191,7 @@ class DefaultMediaDetailsSerieViewModel: MediaDetailsSerieViewModel {
 
     func automaticSearch(of season: Serie.Season) async {
         do {
-            try await dependencies.commandWorker.run(command: .seasonSearch(
+            try await dependencies.commandWorker.run(command: .searchSeason(
                 serieId: serie.id,
                 seasonNumber: season.seasonNumber
             ))

@@ -897,6 +897,22 @@
         }
       }
     },
+    "releaseList.title.movie %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@"
+          }
+        }
+      }
+    },
     "releaseList.title.season %@ %lld" : {
       "localizations" : {
         "en" : {
