@@ -12,7 +12,7 @@ struct MediaDetailsMovieView: View {
     @State var viewModel: any MediaDetailsMovieViewModel
 
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        EmptyView()
     }
 }
 

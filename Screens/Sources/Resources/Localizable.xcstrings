@@ -145,9 +145,6 @@
         }
       }
     },
-    "Hello, World!" : {
-
-    },
     "home.label.currentInstance" : {
       "localizations" : {
         "en" : {
