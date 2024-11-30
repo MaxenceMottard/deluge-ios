@@ -9,9 +9,9 @@ import Foundation
 import Networking
 
 public enum SonarrCommand: Sendable {
-    case episodeSearch(ids: [Int])
-    case seasonSearch(serieId: Int, seasonNumber: Int)
-    case serieSearch(id: Int)
+    case searchEpisode(ids: [Int])
+    case searchSeason(serieId: Int, seasonNumber: Int)
+    case searchSerie(id: Int)
     case refreshSerie(id: Int)
 }
 
@@ -37,18 +37,18 @@ struct SonarrCommandWorker: SonarrCommandWorking {
 extension SonarrCommand {
     var body: [String: Any] {
         switch self {
-        case let .episodeSearch(ids):
+        case let .searchEpisode(ids):
             [
                 "name": "EpisodeSearch",
                 "episodeIds": ids,
             ]
-        case let .seasonSearch(serieId, seasonNumber):
+        case let .searchSeason(serieId, seasonNumber):
             [
                 "name": "SeasonSearch",
                 "seriesId": serieId,
                 "seasonNumber": seasonNumber,
             ]
-        case let .serieSearch(id):
+        case let .searchSerie(id):
             [
                 "name": "SeriesSearch",
                 "seriesId": id,

@@ -74,7 +74,7 @@ class DefaultMediaDetailsViewModel: MediaDetailsViewModel {
     func automaticSearchAction() async {
         do {
             if let media = media as? Serie {
-                try await dependencies.sonarrCommandWorker.run(command: .serieSearch(id: media.id))
+                try await dependencies.sonarrCommandWorker.run(command: .searchSerie(id: media.id))
             } else if let media = media as? Movie {
             }
         } catch {
