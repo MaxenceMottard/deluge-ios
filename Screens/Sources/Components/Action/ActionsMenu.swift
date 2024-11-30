@@ -12,10 +12,8 @@ public struct ActionsMenu: View {
 
     private let actions: [AnyAction]
 
-    public init(actions: [(any Action)?]) {
-        self.actions = actions
-            .compactMap({ $0 })
-            .map({ AnyAction(action: $0) })
+    public init(actions: [(any Action)]) {
+        self.actions = actions.map({ AnyAction(action: $0) })
     }
 
     private let icon: Image = Image(systemName: "ellipsis")
@@ -28,11 +26,13 @@ public struct ActionsMenu: View {
             .overlay {
                 Menu {
                     ForEach(actions) { action in
-                        Button {
-                            Task { await action.action() }
-                        } label: {
-                            action.icon
-                            Text(action.label, bundle: .module)
+                        if !action.isHidden {
+                            Button {
+                                Task { await action.action() }
+                            } label: {
+                                action.icon
+                                Text(action.label, bundle: .module)
+                            }
                         }
                     }
                 } label: {

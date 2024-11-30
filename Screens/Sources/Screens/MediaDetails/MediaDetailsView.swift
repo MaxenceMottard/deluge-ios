@@ -30,7 +30,9 @@ struct MediaDetailsView: View {
                     ActionsMenu(actions: [
                         .refresh { await viewModel.refreshAction() },
                         .automaticSearch { await viewModel.automaticSearchAction() },
-                        viewModel.media is Movie ? .interactiveSearch { viewModel.interactiveSearchAction() } : nil,
+                        .interactiveSearch(isHidden: viewModel.media is Serie) {
+                            viewModel.interactiveSearchAction()
+                        },
                         .remove { viewModel.deleteAction() },
                     ])
                     .padding(.vertical, 5)

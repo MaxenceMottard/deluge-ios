@@ -10,19 +10,19 @@ import SwiftUI
 public struct ActionsStack: View {
     private var actions: [AnyAction]
 
-    public init(actions: [(any Action)?]) {
-        self.actions = actions
-            .compactMap({ $0 })
-            .map({ AnyAction(action: $0) })
+    public init(actions: [(any Action)]) {
+        self.actions = actions.map({ AnyAction(action: $0) })
     }
 
     public var body: some View {
         HStack {
             ForEach(actions) { action in
-                Button {
-                    Task { await action.action() }
-                } label: {
-                    action.icon
+                if !action.isHidden {
+                    Button {
+                        Task { await action.action() }
+                    } label: {
+                        action.icon
+                    }
                 }
             }
         }
