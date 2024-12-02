@@ -1,5 +1,5 @@
 //
-//  SearchSerieWorker.swift
+//  SearchMovieWorker.swift
 //  Workers
 //
 //  Created by Maxence Mottard on 26/11/2024.
@@ -9,15 +9,15 @@ import Foundation
 import Networking
 
 // sourcery: AutoMockable
-public protocol SearchSerieWorking: Sendable {
+public protocol SearchMovieWorking: Sendable {
     func run(search: String) async throws -> [SearchResult]
 }
 
-struct SearchSerieWorker: SearchSerieWorking {
+struct SearchMovieWorker: SearchMovieWorking {
     func run(search: String) async throws -> [SearchResult] {
         let data = try await Request()
             .set(method: .GET)
-            .set(path: "/api/v3/series/lookup")
+            .set(path: "/api/v3/movie/lookup")
             .set(queryParameter: "term", value: search)
             .set(contentType: .json)
             .set(interceptor: InstanceInteceptor())

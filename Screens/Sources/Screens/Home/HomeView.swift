@@ -24,22 +24,27 @@ struct HomeView: View {
     var body: some View {
         InstanceWrapperView {
             ScrollView {
-                if let selectedInstance = viewModel.selectedInstance {
-                    VStack {
-                        Button(action: { viewModel.presentInstanceSelector() }) {
-                            ContainerView {
-                                HStack {
+                VStack {
+                    Button(action: { viewModel.presentInstanceSelector() }) {
+                        ContainerView {
+                            HStack {
+                                if let selectedInstance = viewModel.selectedInstance {
                                     LabeledContent(
                                         String(localized: "home.label.currentInstance", bundle: .module),
                                         value: selectedInstance.name
                                     )
-                                    Image(systemName: "arrow.2.squarepath")
+                                } else {
+                                    Text("home.label.noInstance", bundle: .module)
                                 }
-                                .padding()
+                                
+                                Image(systemName: "arrow.2.squarepath")
                             }
+                            .padding()
                         }
-                        .tint(.white)
+                    }
+                    .tint(.white)
 
+                    if let selectedInstance = viewModel.selectedInstance {
                         LazyVGrid(columns: columns) {
                             ForEach(viewModel.medias, id: \.id) { media in
                                 HomeViewItem(
@@ -49,11 +54,8 @@ struct HomeView: View {
                             }
                         }
                     }
-                    .padding(.horizontal)
-
-                } else {
-                    Text("home.label.noInstance", bundle: .module)
                 }
+                .padding(.horizontal)
             }
         }
         .task { await viewModel.fetch() }

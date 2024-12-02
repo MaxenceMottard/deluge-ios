@@ -12,7 +12,7 @@ import Workers
 @MainActor
 // sourcery: AutoMockable
 protocol NewMediaViewModel {
-    var searchResult: SearchSerieResult { get }
+    var searchResult: SearchResult { get }
     var rootFolders: [RootFolder] { get }
     var qualityProfiles: [QualityProfile] { get }
     var selectedRootFolder: RootFolder? { get set }
@@ -37,7 +37,7 @@ class DefaultNewMediaViewModel: NewMediaViewModel {
     }
 
     private let dependencies: Dependencies
-    let searchResult: SearchSerieResult
+    let searchResult: SearchResult
 
     var rootFolders: [RootFolder] {
         dependencies.globalDataRepository.rootFolders
@@ -56,7 +56,7 @@ class DefaultNewMediaViewModel: NewMediaViewModel {
     var searchForMissingEpisodes: Bool = true
     var searchForCutoffUnmetEpisodes: Bool = false
 
-    init(dependencies: Dependencies, searchResult: SearchSerieResult) {
+    init(dependencies: Dependencies, searchResult: SearchResult) {
         self.dependencies = dependencies
         self.searchResult = searchResult
     }

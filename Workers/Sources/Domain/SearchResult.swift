@@ -1,5 +1,5 @@
 //
-//  SearchSerieResult.swift
+//  SearchResult.swift
 //  Workers
 //
 //  Created by Maxence Mottard on 09/11/2024.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct SearchSerieResult: Sendable, Hashable {
+public struct SearchResult: Sendable, Hashable {
     public let title: String
     public let description: String?
     public let year: Int
@@ -31,7 +31,7 @@ public struct SearchSerieResult: Sendable, Hashable {
         self.data = data
     }
 
-    public static func == (lhs: SearchSerieResult, rhs: SearchSerieResult) -> Bool {
+    public static func == (lhs: SearchResult, rhs: SearchResult) -> Bool {
         lhs.title == rhs.title &&
         lhs.description == rhs.description &&
         lhs.year == rhs.year &&
@@ -48,9 +48,9 @@ public struct SearchSerieResult: Sendable, Hashable {
     }
 }
 
-extension SearchSerieWorkerDecodable {
-    func toDomain(data: [String: any Sendable]?) -> SearchSerieResult {
-        SearchSerieResult(
+extension SearchWorkerDecodable {
+    func toDomain(data: [String: any Sendable]?) -> SearchResult {
+        SearchResult(
             title: title,
             description: overview,
             year: year,

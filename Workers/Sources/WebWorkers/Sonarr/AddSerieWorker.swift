@@ -11,7 +11,7 @@ import Networking
 // sourcery: AutoMockable
 public protocol AddSerieWorking: Sendable {
     func run(
-        serie: SearchSerieResult,
+        serie: SearchResult,
         root: String,
         qualityProfileId: Int,
         monitor: SerieMonitor,
@@ -24,7 +24,7 @@ public protocol AddSerieWorking: Sendable {
 
 struct AddSerieWorker: AddSerieWorking {
     func run(
-        serie: SearchSerieResult,
+        serie: SearchResult,
         root: String,
         qualityProfileId: Int,
         monitor: SerieMonitor,

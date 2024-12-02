@@ -15,9 +15,9 @@ import Utils
 // sourcery: AutoMockable
 protocol SearchViewModel {
     var isLoading: Bool { get }
-    var searchResults: [SearchSerieResult] { get }
+    var searchResults: [SearchResult] { get }
 
-    func add(item: SearchSerieResult)
+    func add(item: SearchResult)
 }
 
 @Observable
@@ -29,7 +29,9 @@ class DefaultSearchViewModel: NSObject, SearchViewModel  {
 
     struct Dependencies {
         let searchSerieWorker: SearchSerieWorking
+        let searchMovieWorker: SearchMovieWorking
         let imageCacheWorker: ImageCacheWorking
+        let instanceRepository: InstanceRepository
         let router: Routing
     }
 
@@ -43,7 +45,7 @@ class DefaultSearchViewModel: NSObject, SearchViewModel  {
     }
 
     var isLoading: Bool = false
-    var searchResults: [SearchSerieResult] = []
+    var searchResults: [SearchResult] = []
 
     init(dependencies: Dependencies) {
         self.dependencies = dependencies
@@ -63,8 +65,15 @@ class DefaultSearchViewModel: NSObject, SearchViewModel  {
     }
 
     private func performSearch(search: String) async {
+        guard let selectedInstance = dependencies.instanceRepository.selectedInstance else { return }
+
         do {
-            searchResults = try await dependencies.searchSerieWorker.run(search: search)
+            searchResults = switch selectedInstance.type {
+            case .sonarr:
+                try await dependencies.searchSerieWorker.run(search: search)
+            case .radarr:
+                try await dependencies.searchMovieWorker.run(search: search)
+            }
             searchResults.forEach { item in
                 Task {
                     await dependencies.imageCacheWorker.cache(string: item.poster)
@@ -76,7 +85,7 @@ class DefaultSearchViewModel: NSObject, SearchViewModel  {
         isLoading = false
     }
 
-    func add(item searchResult: SearchSerieResult) {
+    func add(item searchResult: SearchResult) {
         let route = Route.NewMedia(searchResult: searchResult)
         dependencies.router.present(route: route, modal: .sheet)
     }

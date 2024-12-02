@@ -11,7 +11,7 @@ import DesignSystem
 import NukeUI
 
 struct SearchItemView: View {
-    let item: SearchSerieResult
+    let item: SearchResult
     let tapOnItem: () -> Void
 
     var body: some View {
