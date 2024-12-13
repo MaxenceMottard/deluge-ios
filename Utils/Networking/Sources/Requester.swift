@@ -9,7 +9,15 @@ import Foundation
 
 // sourcery: AutoMockable
 protocol Requester {
-    func data(for request: URLRequest) async throws -> (Data, URLResponse)
+    func data(for request: URLRequest) async throws(RequestError) -> (Data, URLResponse)
 }
 
-extension URLSession: Requester {}
+extension URLSession: Requester {
+    func data(for request: URLRequest) async throws(RequestError) -> (Data, URLResponse) {
+        do {
+            return try await data(for: request)
+        } catch {
+            throw RequestError.unknow(error)
+        }
+    }
+}

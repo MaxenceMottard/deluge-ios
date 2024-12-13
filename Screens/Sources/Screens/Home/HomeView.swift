@@ -35,6 +35,7 @@ struct HomeView: View {
                                     )
                                 } else {
                                     Text("home.label.noInstance", bundle: .module)
+                                        .frame(maxWidth: .infinity, alignment: .leading)
                                 }
                                 
                                 Image(systemName: "arrow.2.squarepath")
@@ -44,14 +45,12 @@ struct HomeView: View {
                     }
                     .tint(.white)
 
-                    if let selectedInstance = viewModel.selectedInstance {
-                        LazyVGrid(columns: columns) {
-                            ForEach(viewModel.medias, id: \.id) { media in
-                                HomeViewItem(
-                                    media: media,
-                                    onTap: { viewModel.present(media: media) }
-                                )
-                            }
+                    LazyVGrid(columns: columns) {
+                        ForEach(viewModel.medias, id: \.id) { media in
+                            HomeViewItem(
+                                media: media,
+                                onTap: { viewModel.present(media: media) }
+                            )
                         }
                     }
                 }

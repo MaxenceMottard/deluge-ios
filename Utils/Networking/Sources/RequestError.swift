@@ -17,6 +17,8 @@ public enum RequestError: Error, Equatable {
     case invalidURL
     case invalidData
 
+    case unknow(Error)
+
     public static func == (lhs: RequestError, rhs: RequestError) -> Bool {
         switch (lhs, rhs) {
         case let (.http(lhsStatusCode, lhsString), .http(rhsStatusCode, rhsString)):

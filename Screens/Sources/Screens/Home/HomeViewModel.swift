@@ -75,6 +75,7 @@ class DefaultHomeViewModel: HomeViewModel {
             }
         } catch {
             medias = []
+            print(error)
         }
     }
 

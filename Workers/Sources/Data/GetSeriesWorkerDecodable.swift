@@ -15,7 +15,7 @@ struct GetSeriesWorkerDecodable: Decodable {
     let status: Status
     let ended: Bool
     let overview: String
-    let network: String
+    let network: String?
     let airTime: String?
     let images: [Image]
     let year: Int
